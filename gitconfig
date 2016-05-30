@@ -1,0 +1,64 @@
+[user]
+	name = Zdenek Kostal
+	email = zdenek.kostal@gooddata.com
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    br = branch
+
+    l = log --pretty=format:'%Cred%h%Creset %Cgreen%s%Creset [%ar by %an]'
+    lg = log --graph --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)(%cr) %C(blue)<%an>%C(reset)' --abbrev-commit --date=relative
+
+    fixup = !sh -c 'git commit --fixup=$1' -
+    squash = !sh -c 'git commit --squash=$1' -
+    ri = rebase --interactive --autosquash
+    amend = !sh -c 'git commit --amend --no-edit' -
+
+    d = diff --color
+    dc = diff --cached --color
+    wdiff = diff --color-words
+    s = show --color
+    pr = pull --rebase
+
+[colors]
+    diff = auto
+    grep = auto
+    status = auto
+    ui = auto
+
+[core]
+   editor = nvim
+	excludesfile = /Users/z/.gitignore_global
+
+[push]
+    default = upstream
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[rebase]
+	autostash = true
+[stash]
+	showPatch = true
+[color]
+	ui = always
+[color "diff"]
+	meta = yellow
+	commit = green
+	frag = magenta
+	old = red
+	new = green
+	whitespace = red reverse
+[color "diff-highlight"]
+	oldNormal = red
+	oldHighlight = red 52
+	newNormal = green
+	newHighlight = green 22
+[pager]
+	diff = diff-so-fancy | less --tabs=4 -RFX
+	show = diff-so-fancy | less --tabs=4 -RFX
