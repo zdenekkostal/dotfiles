@@ -19,13 +19,8 @@ set t_Co=256
 set clipboard=unnamed
 set ruler                 " Always show info along bottom.
 set autoindent            " auto-indent
-set tabstop=4             " tab spacing
-set softtabstop=4         " unify
-set shiftwidth=4          " indent/outdent by 4 columns
+
 set shiftround            " always indent/outdent to the nearest tabstop
-set expandtab             " use spaces instead of tabs
-set smarttab              " use tabs at the start of a line, spaces elsewhere
-" set nowrap                " don't wrap text
 set hls                   " highlight search
 set noswapfile            " no backups, we have git
 set autoread              " reload files
@@ -90,6 +85,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
+Plug 'editorconfig/editorconfig-vim'
 " Plug 'SirVer/ultisnips'
 
 call plug#end()
