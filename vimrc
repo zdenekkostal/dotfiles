@@ -53,7 +53,8 @@ set mouse=a
 " visualize leading tab and trailing whitespace
 set list lcs=tab\:\'\ ,trail:·
 
-" Split :Gdiff windows verticaly rather than horizontaly
+" Split windows verticaly rather than horizontaly
+set splitright
 set diffopt+=vertical
 
 " remove trailing whitespace before save
