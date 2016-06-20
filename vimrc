@@ -87,7 +87,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
 " Plug 'SirVer/ultisnips'
 
 call plug#end()
