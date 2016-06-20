@@ -34,6 +34,9 @@
 [push]
     default = upstream
 
+[diff]
+    compactionHeuristic = true
+
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
@@ -41,12 +44,16 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+
 [rebase]
 	autostash = true
+
 [stash]
 	showPatch = true
+
 [color]
 	ui = always
+
 [color "diff"]
 	meta = yellow
 	commit = green
@@ -54,11 +61,17 @@
 	old = red
 	new = green
 	whitespace = red reverse
+
 [color "diff-highlight"]
 	oldNormal = red
 	oldHighlight = red 52
 	newNormal = green
 	newHighlight = green 22
+
 [pager]
 	diff = diff-so-fancy | less --tabs=4 -RFX
 	show = diff-so-fancy | less --tabs=4 -RFX
+
+[interactive]
+    diffFilter = diff-so-fancy | less --tabs=4 -RFX
+
