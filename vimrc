@@ -126,6 +126,8 @@ autocmd filetype make setlocal noexpandtab
 autocmd Filetype gitcommit setlocal colorcolumn=50
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
+let mapleader = "\<Space>"
+
 " Linting errors
 nnoremap <leader>e :Errors<CR>
 
