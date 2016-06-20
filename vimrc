@@ -163,23 +163,21 @@ nmap <leader>nw :set nowrap!<CR>
 " Clear search highlight
 nnoremap <silent> _ :nohl<CR>
 
-" Commenting
-" nmap <leader>i :TCommentInline<CR>
-" nmap <leader>b :TCommentBlock<CR>
-
 " Setup Airline
+" let g:airline_theme='powerlineish'
 let g:airline_powerline_fonts = 1
-let g:airline_detect_modified = 1
+let g:airline_section_b = ''
+
+let g:airline_section_x = ''
+let g:airline_section_y = ''
 
 "" Setup syntastic
-" Better :sign interface symbols
 let g:syntastic_javascript_checkers = ['eslint']
 
+" Better :sign interface symbols
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
