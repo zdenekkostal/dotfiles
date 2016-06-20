@@ -133,6 +133,7 @@ nnoremap <leader>e :Errors<CR>
 
 " fzf
 nnoremap <leader>t :GitFiles<CR>
+nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>m :Marks<CR>
 
