@@ -12,7 +12,10 @@
 
     fixup = !sh -c 'git commit --fixup=$1' -
     squash = !sh -c 'git commit --squash=$1' -
-    ri = rebase --interactive --autosquash
+
+    # Github is sorting the commits by their date -> reset it on rebase
+    # http://stackoverflow.com/questions/1579643/change-timestamps-while-rebasing-git-branch
+    ri = rebase --interactive --autosquash --ignore-date
     amend = !sh -c 'git commit --amend --no-edit' -
 
     d = diff --color
