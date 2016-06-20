@@ -1,0 +1,8 @@
+# Always split horizontally
+set vertical-split = no
+
+# Fixup selected commit
+bind main I !git fixup %(commit)
+
+# Interactive rebase to selected commit
+bind main R !git ri %(commit)
