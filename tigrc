@@ -5,4 +5,4 @@ set vertical-split = no
 bind main I !git fixup %(commit)
 
 # Interactive rebase to selected commit
-bind main R !git ri %(commit)
+bind main B !git ri %(commit)
