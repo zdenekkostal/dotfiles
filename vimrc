@@ -84,10 +84,10 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
-Plug 'tomtom/tcomment_vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-commentary'
 " Plug 'SirVer/ultisnips'
 
 call plug#end()
