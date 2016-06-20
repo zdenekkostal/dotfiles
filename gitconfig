@@ -32,7 +32,7 @@
 	excludesfile = /Users/z/.gitignore_global
 
 [push]
-    default = upstream
+    default = simple
 
 [diff]
     compactionHeuristic = true
