@@ -1,5 +1,0 @@
-selectp -t 0              # Select pane 0
-splitw -v -p 25           # Split pane 0 horizontally
-selectp -t 0              # Select pane 1
-splitw -h -p 50           # Split pane 1 vertically
-selectp -t 2              # Select pane
