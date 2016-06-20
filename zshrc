@@ -47,8 +47,6 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git grunt)
 
-source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
 export PATH="$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/z/.rvm/bin:$HOME/bin"
