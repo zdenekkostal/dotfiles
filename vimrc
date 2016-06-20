@@ -122,6 +122,7 @@ au BufRead,BufNewFile *.md,*.mdown set filetype=markdown
 autocmd filetype make setlocal noexpandtab
 
 " Commit msgs
+autocmd Filetype gitcommit setlocal colorcolumn=50
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " Linting errors
