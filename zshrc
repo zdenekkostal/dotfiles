@@ -82,10 +82,10 @@ export PATH="$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/z/.rvm/bi
 # Customize to your needs...
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
-export MAVEN_OPTS="-Xms256m -Xmx512m"
-export M2_HOME=/usr/local/apache-maven/apache-maven-3.2.3
-export M2=$M2_HOME/bin
-export JAVA_HOME=`/usr/libexec/java_home`
+# export MAVEN_OPTS="-Xms256m -Xmx512m"
+# export M2_HOME=/usr/local/apache-maven/apache-maven-3.2.3
+# export M2=$M2_HOME/bin
+# export JAVA_HOME=`/usr/libexec/java_home`
 # export WORKON_HOME=$HOME/.virtualenvs
 # source /usr/local/share/python/virtualenvwrapper.sh
 # export PYTHONPATH=$PYTHONPATH:$HOME/src/splunk-splunk-sdk-python-b33b546/
