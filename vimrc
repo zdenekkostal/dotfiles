@@ -86,6 +86,7 @@ Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'christoomey/vim-tmux-navigator'
 " Plug 'SirVer/ultisnips'
 
 call plug#end()
@@ -136,6 +137,9 @@ imap <c-x><c-p> <plug>(fzf-complete-path)
 imap <c-x><c-f> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
+" fix nvim
+" https://github.com/christoomey/vim-tmux-navigator#it-doesnt-work-in-neovim-specifically-c-h
+nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 " Nerdtree
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -146,9 +150,6 @@ nmap <leader>q :q<CR>
 
 nmap <leader>nt :NERDTreeToggle<CR>
 nmap <leader>nw :set nowrap!<CR>
-
-nmap <leader>h :tabprevious<CR>
-nmap <leader>l :tabnext<CR>
 
 " Clear search highlight
 nnoremap <silent> _ :nohl<CR>
