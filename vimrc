@@ -86,6 +86,7 @@ Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
 " Plug 'SirVer/ultisnips'
 
@@ -141,6 +142,9 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " fix nvim
 " https://github.com/christoomey/vim-tmux-navigator#it-doesnt-work-in-neovim-specifically-c-h
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
+
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 " Nerdtree
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
