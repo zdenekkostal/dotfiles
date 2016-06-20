@@ -145,6 +145,10 @@ nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+
+" Select pasted text
+noremap gV `[v`]
+
 " Nerdtree
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
