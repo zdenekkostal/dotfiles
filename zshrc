@@ -98,5 +98,7 @@ function last-branches() {
 # npm binaries path
 # export PATH="$PATH:`brew --prefix`/share/npm/bin"
 export PATH="$HOME/.node/bin:$PATH"
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
