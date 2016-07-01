@@ -63,6 +63,7 @@ Plug 'nono/vim-handlebars'
 Plug 'mxw/vim-jsx'
 Plug 'wavded/vim-stylus'
 Plug 'pangloss/vim-javascript'
+Plug 'slim-template/vim-slim'
 
 " Themes
 Plug 'altercation/vim-colors-solarized'
