@@ -162,9 +162,19 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " some leader shortcuts for common commands
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
+nmap <leader>e :e<CR>
 
 nmap <leader>nt :NERDTreeToggle<CR>
 nmap <leader>nw :set nowrap!<CR>
+
+" Add sane mapping for resolving conflicts
+" get from REMOTE
+nmap <leader>dr :diffg RE<CR>
+" get from BASE
+nmap <leader>db :diffg BA<CR>
+" get from LOCAL
+nmap <leader>dl :diffg LO<CR>
+nmap <leader>dq :wqa<CR>
 
 " Clear search highlight
 nnoremap <silent> _ :nohl<CR>
