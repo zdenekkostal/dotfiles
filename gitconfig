@@ -1,6 +1,6 @@
 [user]
-	name = Zdenek Kostal
-	email = zdenek@toptal.com
+    name = Zdenek Kostal
+    email = zdenek@toptal.com
 [alias]
     st = status
     ci = commit
@@ -32,49 +32,60 @@
 
 [core]
    editor = nvim
-	excludesfile = /Users/z/.gitignore_global
+   excludesfile = /Users/z/.gitignore_global
 
 [push]
     default = simple
 
 [diff]
     compactionHeuristic = true
+    tool = vimdiff
 
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+[difftool]
+    prompt = false
 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+[difftool "vimdiff"]
+    cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+
+[merge]
+    tool = vimdiff
+    conflictstyle = diff3
+
+[mergetool]
+    prompt = false
+
+[mergetool "vimdiff"]
+    cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
 [rebase]
-	autostash = true
+    autostash = true
 
 [stash]
-	showPatch = true
+    showPatch = true
 
 [color]
-	ui = always
+    ui = always
 
 [color "diff"]
-	meta = yellow
-	commit = green
-	frag = magenta
-	old = red
-	new = green
-	whitespace = red reverse
+    meta = yellow
+    commit = green
+    frag = magenta
+    old = red
+    new = green
+    whitespace = red reverse
 
 [color "diff-highlight"]
-	oldNormal = red
-	oldHighlight = red 52
-	newNormal = green
-	newHighlight = green 22
+    oldNormal = red
+    oldHighlight = red 52
+    newNormal = green
+    newHighlight = green 22
 
 [pager]
-	diff = diff-so-fancy | less --tabs=4 -RFX
-	show = diff-so-fancy | less --tabs=4 -RFX
+    diff = diff-so-fancy | less --tabs=4 -RFX
+    show = diff-so-fancy | less --tabs=4 -RFX
 
 [interactive]
     diffFilter = diff-so-fancy | less --tabs=4 -RFX
 
+[branch]
+    autosetuprebase = always
