@@ -64,6 +64,7 @@ Plug 'mxw/vim-jsx'
 Plug 'wavded/vim-stylus'
 Plug 'pangloss/vim-javascript'
 Plug 'slim-template/vim-slim'
+Plug 'kchmck/vim-coffee-script'
 
 " Themes
 Plug 'altercation/vim-colors-solarized'
@@ -121,6 +122,9 @@ au BufRead,BufNewFile *.hbs set filetype=handlebars
 
 " Markdown syntax
 au BufRead,BufNewFile *.md,*.mdown set filetype=markdown
+
+" Add jbuilder syntax highlighting
+au BufNewFile,BufRead *.json.jbuilder set ft=ruby
 
 " Make
 autocmd filetype make setlocal noexpandtab
