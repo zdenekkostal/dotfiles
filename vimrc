@@ -10,8 +10,7 @@ set number
 
 set nowrap
 
-set guifont=Monaco\ for\ Powerline:h12
-set t_Co=256
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " use system clipboard on Mac
 " doesn't work with system vim
@@ -67,7 +66,8 @@ Plug 'slim-template/vim-slim'
 Plug 'kchmck/vim-coffee-script'
 
 " Themes
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
@@ -101,7 +101,7 @@ syntax enable
 
 " theme and background
 set background=dark
-colorscheme solarized
+colorscheme gruvbox
 
 " Copy path to clipboard
 " Convert slashes to backslashes for Windows.
@@ -185,12 +185,15 @@ nmap <leader>dq :wqa<CR>
 nnoremap <silent> _ :nohl<CR>
 
 " Setup Airline
-" let g:airline_theme='powerlineish'
+let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
 let g:airline_section_b = ''
 
 let g:airline_section_x = ''
 let g:airline_section_y = ''
+
+
+" let g:gruvbox_invert_selection = 0
 
 "" Setup syntastic
 let g:syntastic_javascript_checkers = ['eslint']
