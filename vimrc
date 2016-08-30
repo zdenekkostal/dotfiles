@@ -170,6 +170,7 @@ nmap <leader>q :q<CR>
 nmap <leader>e :e<CR>
 
 nmap <leader>nt :NERDTreeToggle<CR>
+nmap <leader>nf :NERDTreeFind<CR>
 nmap <leader>nw :set nowrap!<CR>
 
 " Add sane mapping for resolving conflicts
