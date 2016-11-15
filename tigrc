@@ -6,3 +6,5 @@ bind main I !git fixup %(commit)
 
 # Interactive rebase to selected commit
 bind main B !git ri %(commit)
+
+bind generic Y @sh -c "printf '%s' %(commit) | pbcopy"
