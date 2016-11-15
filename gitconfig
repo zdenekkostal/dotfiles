@@ -1,6 +1,5 @@
-[user]
-    name = Zdenek Kostal
-    email = zdenek@toptal.com
+[include]
+  path = ~/.private/gitconfig
 [alias]
     st = status
     ci = commit
