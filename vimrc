@@ -8,9 +8,10 @@ set number
 " set showbreak=+
 " set linebreak
 
-set nowrap
+set ff=unix
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set nowrap
+set termguicolors
 
 " use system clipboard on Mac
 " doesn't work with system vim
@@ -18,37 +19,32 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set clipboard=unnamed
 set ruler                 " Always show info along bottom.
 set autoindent            " auto-indent
-
+set scrolloff=10          " Keep at least 10 lines visible when scrolling
 set shiftround            " always indent/outdent to the nearest tabstop
 set hls                   " highlight search
 set noswapfile            " no backups, we have git
-set autoread              " reload files
+set autowrite             " Automatically :write before running commands
+set autoread              " Automatically reload changed files
 set nofoldenable          " no folding at all
+set shiftwidth=2
+set ruler
+set laststatus=2
+set cursorline
+set showcmd
+set mouse=a
+set lazyredraw
+set ttyfast
 
 " search
 set ignorecase
 set smartcase
-
-" highlight current line
-set cul
-
-" status line (github.com/voy/dotfiles)
-set ruler
-set laststatus=2
-
-" set statusline=%(%m\ %)%f%(\ %y%)%(\ [%{&fileencoding}]%)\ %{fugitive#statusline()}%=[%3b,%4(0x%B%)]\ %3c\ %4l\ /%5L\ %4P
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-set showcmd
-set mouse=a
 
 " visualize leading tab and trailing whitespace
 set list lcs=tab\:\'\ ,trail:·
 
 " Split windows verticaly rather than horizontaly
 set splitright
+set splitbelow
 set diffopt+=vertical
 
 " remove trailing whitespace before save
@@ -57,28 +53,31 @@ autocmd BufWritePre * :%s/\s\+$//e
 call plug#begin('~/.vim/plugged')
 
 " Syntax highlighting
-Plug 'plasticboy/vim-markdown'
-Plug 'nono/vim-handlebars'
-Plug 'mxw/vim-jsx'
-Plug 'wavded/vim-stylus'
-Plug 'pangloss/vim-javascript'
-Plug 'slim-template/vim-slim'
-Plug 'kchmck/vim-coffee-script'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'nono/vim-handlebars', { 'for': 'handlebars' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'wavded/vim-stylus', { 'for': 'stylus' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 
 " Themes
-" Plug 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'edkolev/tmuxline.vim'
+" Plug 'edkolev/tmuxline.vim'
 
 " Additionals
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+
 Plug 'Syntastic'
-Plug 'pmsorhaindo/syntastic-local-eslint.vim'
+Plug 'pmsorhaindo/syntastic-local-eslint.vim', { 'for': 'javascript' }
 Plug 'kshenoy/vim-signature'
 Plug 'Lokaltog/vim-easymotion'
 
@@ -103,6 +102,45 @@ syntax enable
 set background=dark
 colorscheme gruvbox
 
+let g:gruvbox_contrast_dark = 'medium'
+let g:gruvbox_contrast_light = 'medium'
+let g:gruvbox_invert_selection = 0
+
+" https://github.com/morhetz/gruvbox/pull/93
+if has('nvim')
+  " dark0 + gray
+  let g:terminal_color_0 = "#282828"
+  let g:terminal_color_8 = "#928374"
+
+  " neurtral_red + bright_red
+  let g:terminal_color_1 = "#cc241d"
+  let g:terminal_color_9 = "#fb4934"
+
+  " neutral_green + bright_green
+  let g:terminal_color_2 = "#98971a"
+  let g:terminal_color_10 = "#b8bb26"
+
+  " neutral_yellow + bright_yellow
+  let g:terminal_color_3 = "#d79921"
+  let g:terminal_color_11 = "#fabd2f"
+
+  " neutral_blue + bright_blue
+  let g:terminal_color_4 = "#458588"
+  let g:terminal_color_12 = "#83a598"
+
+  " neutral_purple + bright_purple
+  let g:terminal_color_5 = "#b16286"
+  let g:terminal_color_13 = "#d3869b"
+
+  " neutral_aqua + faded_aqua
+  let g:terminal_color_6 = "#689d6a"
+  let g:terminal_color_14 = "#8ec07c"
+
+  " light4 + light1
+  let g:terminal_color_7 = "#a89984"
+  let g:terminal_color_15 = "#ebdbb2"
+endif
+
 " Copy path to clipboard
 " Convert slashes to backslashes for Windows.
 if has('win32')
@@ -124,7 +162,9 @@ au BufRead,BufNewFile *.hbs set filetype=handlebars
 au BufRead,BufNewFile *.md,*.mdown set filetype=markdown
 
 " Add jbuilder syntax highlighting
-au BufNewFile,BufRead *.json.jbuilder set ft=ruby
+au BufNewFile,BufRead *.json.jbuilder set filetype=ruby
+
+au BufNewFile,BufRead *.ejs set filetype=html
 
 " Make
 autocmd filetype make setlocal noexpandtab
@@ -136,9 +176,6 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 let mapleader = "\<Space>"
 inoremap jj <esc>
 
-" Linting errors
-nnoremap <leader>e :Errors<CR>
-
 " fzf
 nnoremap <leader>t :GitFiles<CR>
 nnoremap <leader>f :Files<CR>
@@ -149,6 +186,10 @@ imap <c-x><c-w> <plug>(fzf-complete-word)
 imap <c-x><c-p> <plug>(fzf-complete-path)
 imap <c-x><c-f> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Redefine :Ag command
+autocmd VimEnter * command! -nargs=* Ag
+      \ call fzf#vim#ag(<q-args>, '--color-path "33;1"', fzf#vim#default_layout)
 
 " fix nvim
 " https://github.com/christoomey/vim-tmux-navigator#it-doesnt-work-in-neovim-specifically-c-h
@@ -186,6 +227,7 @@ nmap <leader>dq :wqa<CR>
 nnoremap <silent> _ :nohl<CR>
 
 " Setup Airline
+let g:airline#extensions#tmuxline#enabled = 0
 let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
 let g:airline_section_b = ''
@@ -193,11 +235,10 @@ let g:airline_section_b = ''
 let g:airline_section_x = ''
 let g:airline_section_y = ''
 
-
-" let g:gruvbox_invert_selection = 0
-
 "" Setup syntastic
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_coffee_checkers = ['coffeelint']
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 
 " Better :sign interface symbols
 let g:syntastic_error_symbol = '✗'
@@ -217,17 +258,6 @@ let g:vim_markdown_folding_disabled = 1
 " If you want :UltiSnipsEdit to split your window.
 " let g:UltiSnipsEditSplit="vertical"
 
-let g:rbpt_colorpairs = [
-  \ [ '13', '#6c71c4'],
-  \ [ '5',  '#d33682'],
-  \ [ '1',  '#dc322f'],
-  \ [ '9',  '#cb4b16'],
-  \ [ '3',  '#b58900'],
-  \ [ '2',  '#859900'],
-  \ [ '6',  '#2aa198'],
-  \ [ '4',  '#268bd2'],
-  \ ]
-
 " vp doesn't replace paste buffer
 function! RestoreRegister()
   let @" = s:restore_reg
@@ -238,3 +268,11 @@ function! s:Repl()
   return "p@=RestoreRegister()\<cr>"
 endfunction
 vmap <silent> <expr> p <sid>Repl()
+
+" auto reload vimrc once changed
+if has("autocmd")
+  autocmd! BufWritePost .vimrc source $MYVIMRC
+
+  " This fixes the color changes and things not working :D
+  autocmd! BufWritePost .vimrc filetype plugin indent on
+endif
