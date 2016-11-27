@@ -25,6 +25,8 @@ set noswapfile            " no backups, we have git
 set autowrite             " Automatically :write before running commands
 set autoread              " Automatically reload changed files
 set nofoldenable          " no folding at all
+set expandtab
+set tabstop=2
 set shiftwidth=2
 set ruler
 set laststatus=2
@@ -128,6 +130,7 @@ au BufRead,BufNewFile *.hbs set filetype=handlebars
 
 " Markdown syntax
 au BufRead,BufNewFile *.md,*.mdown set filetype=markdown
+au BufRead,BufNewFile *.md,*.mdown set wrap
 
 " Add jbuilder syntax highlighting
 au BufNewFile,BufRead *.json.jbuilder set filetype=ruby
