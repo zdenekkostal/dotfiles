@@ -131,7 +131,7 @@ au BufRead,BufNewFile *.hbs set filetype=handlebars
 
 " Markdown syntax
 au BufRead,BufNewFile *.md,*.mdown set filetype=markdown
-au BufRead,BufNewFile *.md,*.mdown set wrap
+au BufRead,BufNewFile *.md,*.mdown setlocal wrap
 
 " Add jbuilder syntax highlighting
 au BufNewFile,BufRead *.json.jbuilder set filetype=ruby
