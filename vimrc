@@ -48,7 +48,7 @@ set splitright
 set splitbelow
 set diffopt+=vertical
 
-if has("nvim")
+if has("termguicolors")
   set termguicolors
 endif
 
@@ -72,6 +72,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'mhartington/oceanic-next'
 " Plug 'edkolev/tmuxline.vim'
 
 " Additionals
@@ -105,7 +106,7 @@ syntax enable
 
 " theme and background
 set background=dark
-colorscheme gruvbox
+colorscheme gruvbox " OceanicNext
 
 let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_contrast_light = 'medium'
@@ -199,7 +200,7 @@ nnoremap <silent> _ :nohl<CR>
 
 " Setup Airline
 let g:airline#extensions#tmuxline#enabled = 0
-let g:airline_theme='gruvbox'
+let g:airline_theme='gruvbox' " oceanicnext
 let g:airline_powerline_fonts = 1
 let g:airline_section_b = ''
 
