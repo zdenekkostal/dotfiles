@@ -86,6 +86,7 @@ Plug 'Syntastic'
 Plug 'pmsorhaindo/syntastic-local-eslint.vim', { 'for': 'javascript' }
 Plug 'kshenoy/vim-signature'
 Plug 'Lokaltog/vim-easymotion'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Editing
 Plug 'tpope/vim-surround'
@@ -158,6 +159,9 @@ imap <c-x><c-w> <plug>(fzf-complete-word)
 imap <c-x><c-p> <plug>(fzf-complete-path)
 imap <c-x><c-f> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
 " Redefine :Ag command
 autocmd VimEnter * command! -nargs=* Ag
