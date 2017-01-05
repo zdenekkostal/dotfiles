@@ -60,7 +60,7 @@ call plug#begin('~/.vim/plugged')
 " Syntax highlighting
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'nono/vim-handlebars', { 'for': 'handlebars' }
-Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
 Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
@@ -82,7 +82,7 @@ Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 
 Plug 'Syntastic'
-Plug 'pmsorhaindo/syntastic-local-eslint.vim', { 'for': 'javascript' }
+Plug 'pmsorhaindo/syntastic-local-eslint.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'kshenoy/vim-signature'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
