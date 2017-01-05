@@ -66,6 +66,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'jparise/vim-graphql', { 'for': ['javascript', 'javascript.jsx'] }
 
 " Themes
 Plug 'morhetz/gruvbox'
