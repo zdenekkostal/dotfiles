@@ -87,6 +87,7 @@ Plug 'pmsorhaindo/syntastic-local-eslint.vim', { 'for': ['javascript', 'javascri
 Plug 'kshenoy/vim-signature'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
 
 " Editing
@@ -250,6 +251,8 @@ let g:airline_section_y = ''
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:syntastic_elixir_checkers = ['elixir']
+let g:syntastic_enable_elixir_checker = 1
 
 " Better :sign interface symbols
 let g:syntastic_error_symbol = '✗'
