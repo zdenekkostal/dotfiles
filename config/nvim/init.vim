@@ -251,8 +251,8 @@ let g:airline_section_y = ''
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-let g:syntastic_elixir_checkers = ['elixir']
-let g:syntastic_enable_elixir_checker = 1
+" let g:syntastic_elixir_checkers = ['elixir']
+" let g:syntastic_enable_elixir_checker = 1
 
 " Better :sign interface symbols
 let g:syntastic_error_symbol = '✗'
