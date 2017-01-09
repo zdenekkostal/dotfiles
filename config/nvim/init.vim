@@ -35,6 +35,7 @@ set showcmd
 set mouse=a
 set lazyredraw
 set ttyfast
+set inccommand=split " Live substitute for neovim
 
 " search
 set ignorecase
