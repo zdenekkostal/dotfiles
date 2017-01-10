@@ -9,7 +9,7 @@
 
 DOTFILES=~/dotfiles                    # dotfiles directory
 OLD_DOTFILES=~/dotfiles_old             # old dotfiles backup directory
-files="zshrc fzf.zsh gitconfig tmux.conf tmux.layout tmux.style tigrc"    # list of files/folders to symlink in homedir
+files="alacritty zshrc fzf.zsh gitconfig tmux.conf tmux.layout tmux.style tigrc"    # list of files/folders to symlink in homedir
 
 ##########
 
