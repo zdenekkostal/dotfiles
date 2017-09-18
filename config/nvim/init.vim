@@ -36,6 +36,8 @@ set mouse=a
 set lazyredraw
 set ttyfast
 set inccommand=split " Live substitute for neovim
+set foldlevelstart=50 " Files open expanded
+set foldmethod=indent " Use decent folding
 
 " search
 set ignorecase
@@ -152,6 +154,9 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 let mapleader = "\<Space>"
 inoremap jj <esc>
 
+" https://github.com/wincent/wincent
+" Toggle fold at current position.
+nnoremap <Tab> za
 " fzf
 nnoremap <leader>t :GitFiles<CR>
 nnoremap <leader>f :Files<CR>
