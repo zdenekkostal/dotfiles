@@ -23,6 +23,8 @@
     wdiff = diff --color-words
     s = show --color
     pr = pull --rebase
+    patch = !git --no-pager diff --no-color
+    pushf = push --force-with-lease
 
 [colors]
     diff = auto
