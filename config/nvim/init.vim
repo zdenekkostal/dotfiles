@@ -21,6 +21,7 @@ set autoindent            " auto-indent
 set scrolloff=10          " Keep at least 10 lines visible when scrolling
 set shiftround            " always indent/outdent to the nearest tabstop
 set hls                   " highlight search
+set nobackup
 set noswapfile            " no backups, we have git
 set autowrite             " Automatically :write before running commands
 set autoread              " Automatically reload changed files
@@ -35,9 +36,13 @@ set showcmd
 set mouse=a
 set lazyredraw
 set ttyfast
-set inccommand=split " Live substitute for neovim
 set foldlevelstart=50 " Files open expanded
 set foldmethod=indent " Use decent folding
+set hidden                " Hide buffers instead of closing them
+
+if has("nvim")
+  set inccommand=split " Live substitute for neovim
+endif
 
 " search
 set ignorecase
@@ -107,11 +112,14 @@ Plug 'tpope/vim-endwise'
 
 call plug#end()
 
+let g:python2_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
 filetype plugin indent on " required!
 syntax enable
 
 " theme and background
-set background=dark
+set background=light
 colorscheme gruvbox " OceanicNext
 
 let g:gruvbox_contrast_dark = 'medium'
@@ -128,7 +136,6 @@ if has('win32')
   nmap ,c8 :let @*=substitute(expand("%:p:8"), "/", "\\", "g")<CR>
 else
   nmap ,cs :let @*=expand("%")<CR>
-  "nmap ,cl :let @*=expand("%:p")<CR>
   nmap ,cl :let @*=substitute(expand("%:p"), getcwd()."/", "", "g")<CR>
 endif
 
@@ -157,6 +164,10 @@ inoremap jj <esc>
 " https://github.com/wincent/wincent
 " Toggle fold at current position.
 nnoremap <Tab> za
+
+" Avoid unintentional switches to Ex mode.
+nnoremap Q <nop>
+
 " fzf
 nnoremap <leader>t :GitFiles<CR>
 nnoremap <leader>f :Files<CR>
@@ -195,6 +206,10 @@ noremap gV `[v`]
 " Nerdtree
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let NERDTreeChDirMode=2
+let g:NERDTreeDirArrowExpandable = '├'
+let g:NERDTreeDirArrowCollapsible = '└'
+let g:NERDTreeMapActivateNode = '<tab>'
 
 " some leader shortcuts for common commands
 nmap <leader>w :w<CR>
@@ -293,8 +308,8 @@ vmap <silent> <expr> p <sid>Repl()
 
 " auto reload vimrc once changed
 if has("autocmd")
-  autocmd! BufWritePost .vimrc source $MYVIMRC
-
-  " This fixes the color changes and things not working :D
-  autocmd! BufWritePost .vimrc filetype plugin indent on
+  augroup reload_vimrc
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+  augroup END
 endif
