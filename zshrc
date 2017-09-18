@@ -3,7 +3,7 @@ export ZSH=$HOME/.dotfiles/oh-my-zsh
 
 ZSH_THEME="robbyrussell"
 
-plugins=(git tmux)
+plugins=(git tmux ssh-agent)
 
 export PATH="/Users/z/.node/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/z/bin:/Users/z/go/bin:/Users/z/.fzf/bin"
 
