@@ -26,3 +26,16 @@ export EVENT_NOKQUEUE=1
 
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+function fr {
+  if [[ -n "$2" ]]; then
+    rg --colors match:none --colors match:bg:yellow --colors match:fg:black --colors path:fg:green --colors path:style:bold -l $1 | xargs sed -i .bak -e "s#$1#$2#g"
+    rm **/*.bak
+  else
+    # rg --column --line-number --no-heading --fixed-strings --ignore-case $1 | fzf-tmux -d 15
+    rg --colors match:none --colors match:bg:yellow --colors match:fg:black --colors path:fg:green --colors path:style:bold $1
+  fi
+}
+
