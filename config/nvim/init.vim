@@ -91,6 +91,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
+Plug 'sbdchd/neoformat'
 
 " Editing
 Plug 'tpope/vim-surround'
@@ -170,6 +171,13 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 
+" Run neoformat on save
+" autocmd BufWritePre *.js Neoformat
+
+" augroup fmt
+"   autocmd!
+"   autocmd BufWritePre * Neoformat
+" augroup END
 " Redefine :Ag command
 autocmd VimEnter * command! -nargs=* Ag
       \ call fzf#vim#ag(<q-args>, '--color-path "33;1"', fzf#vim#default_layout)
