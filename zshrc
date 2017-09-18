@@ -5,7 +5,14 @@ ZSH_THEME="robbyrussell"
 
 plugins=(git tmux ssh-agent)
 
-export PATH="/Users/z/.node/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/z/bin:/Users/z/go/bin:/Users/z/.fzf/bin"
+export PATH="/Users/z/.node/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/z/bin"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.fzf/bin:$PATH"
+export PATH="$HOME/.rbenv/shims:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$PATH:node_modules/.bin"
+
 
 export EDITOR='nvim'
 export LANG=en_US.UTF-8
