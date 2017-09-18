@@ -192,6 +192,8 @@ let g:deoplete#enable_at_startup = 1
 " Redefine :Ag command
 autocmd VimEnter * command! -nargs=* Ag
       \ call fzf#vim#ag(<q-args>, '--color-path "33;1"', fzf#vim#default_layout)
+let g:rg_command = 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow "always"'
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
 " fix nvim
 " https://github.com/christoomey/vim-tmux-navigator#it-doesnt-work-in-neovim-specifically-c-h
