@@ -84,9 +84,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'w0rp/ale'
 
-Plug 'Syntastic'
-Plug 'pmsorhaindo/syntastic-local-eslint.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'kshenoy/vim-signature'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -192,7 +191,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " some leader shortcuts for common commands
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
-nmap <leader>e :e<CR>
+" nmap <leader>e :e<CR>
 
 nmap <leader>nt :NERDTreeToggle<CR>
 nmap <leader>nf :NERDTreeFind<CR>
@@ -253,19 +252,14 @@ let g:airline_section_b = ''
 let g:airline_section_x = ''
 let g:airline_section_y = ''
 
-"" Setup syntastic
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_coffee_checkers = ['coffeelint']
-let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-" let g:syntastic_elixir_checkers = ['elixir']
-" let g:syntastic_enable_elixir_checker = 1
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '!'
+let g:ale_fixers = {'javascript': ['prettier_standard']}
+let g:ale_linters = {'javascript': ['standard']}
+let g:ale_fix_on_save = 1
 
-" Better :sign interface symbols
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '!'
-
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+nmap <Leader>E <Plug>(ale_previous_wrap)
+nmap <Leader>e <Plug>(ale_next_wrap)
 
 " do not fold markdown sections
 let g:vim_markdown_folding_disabled = 1
