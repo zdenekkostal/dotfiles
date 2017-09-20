@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.dotfiles/oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"
 
@@ -28,8 +28,6 @@ source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-source $HOME/.profile
 
 function fr {
   if [[ -n "$2" ]]; then
