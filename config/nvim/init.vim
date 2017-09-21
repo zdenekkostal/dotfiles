@@ -118,6 +118,7 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 filetype plugin indent on " required!
 syntax enable
 
+
 " theme and background
 set background=light
 colorscheme gruvbox " OceanicNext
@@ -191,11 +192,18 @@ let g:deoplete#enable_at_startup = 1
 "   autocmd!
 "   autocmd BufWritePre * Neoformat
 " augroup END
-" Redefine :Ag command
-autocmd VimEnter * command! -nargs=* Ag
-      \ call fzf#vim#ag(<q-args>, '--color-path "33;1"', fzf#vim#default_layout)
-let g:rg_command = 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow "always"'
-command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* F call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 
 " fix nvim
 " https://github.com/christoomey/vim-tmux-navigator#it-doesnt-work-in-neovim-specifically-c-h
