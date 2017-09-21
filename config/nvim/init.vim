@@ -139,6 +139,8 @@ else
   nmap ,cl :let @*=substitute(expand("%:p"), getcwd()."/", "", "g")<CR>
 endif
 
+let g:jsx_ext_required = 0
+
 " Handlebars
 au BufRead,BufNewFile *.hbs set filetype=handlebars
 
