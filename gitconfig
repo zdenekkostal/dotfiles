@@ -67,9 +67,6 @@
 [stash]
     showPatch = true
 
-[color]
-    ui = always
-
 [color "diff"]
     meta = yellow
     commit = green
