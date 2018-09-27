@@ -32,6 +32,7 @@ export EVENT_NOKQUEUE=1
 
 # Private stuff
 [ -f ~/.private/env ] && source ~/.private/env
+[ -f ~/.profile ] && source ~/.profile
 
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
