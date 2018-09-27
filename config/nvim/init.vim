@@ -75,6 +75,8 @@ Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 " Themes
 Plug 'morhetz/gruvbox'
@@ -94,8 +96,11 @@ Plug 'w0rp/ale'
 Plug 'kshenoy/vim-signature'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'sbdchd/neoformat'
 
 " Editing
@@ -108,7 +113,9 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+" Plug 'ervandew/supertab'
 
 call plug#end()
 
@@ -120,7 +127,7 @@ syntax enable
 
 
 " theme and background
-set background=light
+set background=dark
 colorscheme gruvbox " OceanicNext
 
 let g:gruvbox_contrast_dark = 'medium'
@@ -150,7 +157,7 @@ au BufRead,BufNewFile *.md,*.mdown set filetype=markdown
 au BufRead,BufNewFile *.md,*.mdown setlocal wrap
 
 " Add jbuilder syntax highlighting
-au BufNewFile,BufRead *.json.jbuilder set filetype=ruby
+au BufNewFile,BufRead *.json.jbuilder,*.rabl set filetype=ruby
 
 au BufNewFile,BufRead *.ejs set filetype=html
 
@@ -181,9 +188,40 @@ imap <c-x><c-w> <plug>(fzf-complete-word)
 imap <c-x><c-p> <plug>(fzf-complete-path)
 imap <c-x><c-f> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+" imap <expr> <c-x><c-f> fzf#vim#complete#path('git ls-files $(git rev-parse --show-toplevel)')
+
+" CTRL-A CTRL-Q to select all and build quickfix list
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
+
+if executable('racer')
+  let g:deoplete#sources#rust#racer_binary = systemlist('which racer')[0]
+endif
+
+if executable('rustc')
+  " if src installed via rustup, we can get it by running
+  " rustc --print sysroot then appending the rest of the path
+  let rustc_root = systemlist('rustc --print sysroot')[0]
+  let rustc_src_dir = rustc_root . '/lib/rustlib/src/rust/src'
+  if isdirectory(rustc_src_dir)
+    let g:deoplete#sources#rust#rust_source_path = rustc_src_dir
+  endif
+endif
 
 " Run neoformat on save
 " autocmd BufWritePre *.js Neoformat
@@ -287,10 +325,10 @@ let g:airline_section_b = ''
 let g:airline_section_x = ''
 let g:airline_section_y = ''
 
-let g:ale_sign_error = '✗'
+let g:ale_sign_error = 'x'
 let g:ale_sign_warning = '!'
-let g:ale_fixers = {'javascript': ['prettier_standard']}
-let g:ale_linters = {'javascript': ['standard']}
+let g:ale_fixers = {'javascript': ['prettier'], 'elixir': ['mix_format']}
+let g:ale_linters = {'javascript': ['eslint']}
 let g:ale_fix_on_save = 1
 
 nmap <Leader>E <Plug>(ale_previous_wrap)
@@ -299,13 +337,12 @@ nmap <Leader>e <Plug>(ale_next_wrap)
 " do not fold markdown sections
 let g:vim_markdown_folding_disabled = 1
 
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
-" let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="vertical"
 
 " vp doesn't replace paste buffer
 function! RestoreRegister()
