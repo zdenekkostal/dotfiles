@@ -36,7 +36,6 @@
 [core]
    editor = nvim
    excludesfile = /Users/z/.gitignore_global
-   hooksPath = ~/.githooks
 
 [push]
     default = simple
