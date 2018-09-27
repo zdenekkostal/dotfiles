@@ -39,6 +39,8 @@ source $ZSH/oh-my-zsh.sh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+eval "$(direnv hook zsh)"
+
 function fr {
   if [[ -n "$2" ]]; then
     rg --colors match:none --colors match:bg:yellow --colors match:fg:black --colors path:fg:green --colors path:style:bold -l $1 | xargs sed -i .bak -e "s#$1#$2#g"
