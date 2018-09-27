@@ -43,8 +43,7 @@ eval "$(direnv hook zsh)"
 
 function fr {
   if [[ -n "$2" ]]; then
-    rg --colors match:none --colors match:bg:yellow --colors match:fg:black --colors path:fg:green --colors path:style:bold -l $1 | xargs sed -i .bak -e "s#$1#$2#g"
-    rm **/*.bak
+    rg --colors match:none --colors match:bg:yellow --colors match:fg:black --colors path:fg:green --colors path:style:bold -l $1 | xargs sed -i '' -e "s#$1#$2#g"
   else
     # rg --column --line-number --no-heading --fixed-strings --ignore-case $1 | fzf-tmux -d 15
     rg --colors match:none --colors match:bg:yellow --colors match:fg:black --colors path:fg:green --colors path:style:bold $1
