@@ -129,6 +129,7 @@ syntax enable
 " theme and background
 set background=dark
 colorscheme gruvbox " OceanicNext
+nnoremap tt :so $MYVIMRC<CR>
 
 let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_contrast_light = 'medium'
@@ -357,8 +358,15 @@ vmap <silent> <expr> p <sid>Repl()
 
 " auto reload vimrc once changed
 if has("autocmd")
-  augroup reload_vimrc
-  autocmd!
-  autocmd BufWritePost $MYVIMRC source $MYVIMRC
-  augroup END
+  function! RefreshUI()
+    if exists(':AirlineRefresh')
+      AirlineRefresh
+    else
+      " Clear & redraw the screen, then redraw all statuslines.
+      redraw!
+      redrawstatus!
+    endif
+  endfunction
+
+  au BufWritePost .vimrc source $MYVIMRC | :call RefreshUI()
 endif

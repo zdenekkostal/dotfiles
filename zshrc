@@ -58,3 +58,12 @@ function kill-everything-after-cucumber {
   kill-cucumber
   kill -9 $(ps aux | grep "test-type=webdriver" | awk '{print $2}')
 }
+
+function terminal-scheme {
+  sed -i '' -e "s#^colors:.*#colors: \*$1#g" ~/.config/alacritty/alacritty.yml
+  sed -i '' -e "s#^set background=.*#set background=$1#g" ~/dotfiles/config/nvim/init.vim
+}
+
+alias light="terminal-scheme light"
+alias dark="terminal-scheme dark"
+
