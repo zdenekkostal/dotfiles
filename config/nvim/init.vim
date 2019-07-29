@@ -92,10 +92,19 @@ Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'w0rp/ale'
+" Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+" Plug 'Quramy/tsuquyomi' " TypeScript
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 Plug 'kshenoy/vim-signature'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
@@ -185,6 +194,7 @@ nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>m :Marks<CR>
 
+
 imap <c-x><c-w> <plug>(fzf-complete-word)
 imap <c-x><c-p> <plug>(fzf-complete-path)
 imap <c-x><c-f> <plug>(fzf-complete-file-ag)
@@ -206,13 +216,6 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
-
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-
-if executable('racer')
-  let g:deoplete#sources#rust#racer_binary = systemlist('which racer')[0]
-endif
 
 if executable('rustc')
   " if src installed via rustup, we can get it by running
@@ -286,10 +289,15 @@ nnoremap <silent> _ :nohl<CR>
 " Setup autocompletion
 " https://www.gregjs.com/vim/2016/configuring-the-deoplete-asynchronous-keyword-completion-plugin-with-tern-for-vim/
 
+" set runtimepath+=~/dotfiles/config/nvim/plugged/deoplete.nvim/rplugin/python3/deoplete
 let g:deoplete#enable_at_startup = 1
 
 if !exists('g:deoplete#omni#input_patterns')
   let g:deoplete#omni#input_patterns = {}
+endif
+
+if executable('racer')
+  let g:deoplete#sources#rust#racer_binary = systemlist('which racer')[0]
 endif
 
 " let g:deoplete#disable_auto_complete = 1
@@ -328,9 +336,18 @@ let g:airline_section_y = ''
 
 let g:ale_sign_error = 'x'
 let g:ale_sign_warning = '!'
-let g:ale_fixers = {'javascript': ['prettier'], 'elixir': ['mix_format']}
-let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_fixers = {
+\      'javascript': ['prettier'],
+\      'typescript': ['prettier'],
+\      'elixir': ['mix_format']
+\}
+let g:ale_linters = {
+\      'javascript': ['eslint'],
+\      'typescript': ['eslint', 'tsserver']
+\}
 let g:ale_fix_on_save = 1
+let g:ale_set_balloons = 1
+nnoremap <leader>h :ALEHover<CR>
 
 nmap <Leader>E <Plug>(ale_previous_wrap)
 nmap <Leader>e <Plug>(ale_next_wrap)
