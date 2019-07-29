@@ -94,3 +94,5 @@ function terminal-scheme {
 alias light="terminal-scheme light"
 alias dark="terminal-scheme dark"
 
+alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias release-changes="git fetch && hub compare \`git tag|tail -1\`..master"
