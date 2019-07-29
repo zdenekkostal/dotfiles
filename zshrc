@@ -3,7 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"
 
-plugins=(gitfast tmux ssh-agent docker httpie)
+plugins=(gitfast mix tmux ssh-agent docker httpie)
 
 export PATH="/Users/z/.node/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/z/bin"
 export PATH="$HOME/go/bin:$PATH"
@@ -29,6 +29,9 @@ export RI="--format ansi --width 70"
 
 # https://github.com/tmux/tmux/issues/475
 export EVENT_NOKQUEUE=1
+
+# Enable shell history in iex
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Private stuff
 [ -f ~/.private/env ] && source ~/.private/env
