@@ -6,12 +6,10 @@ ZSH_THEME="robbyrussell"
 plugins=(gitfast mix tmux ssh-agent docker httpie)
 
 export PATH="/Users/z/.node/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/z/bin"
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.fzf/bin:$PATH"
-export PATH="$HOME/.rbenv/shims:$PATH"
-export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 export PATH="/usr/local/opt/elasticsearch@5.6/bin:$PATH"
 export PATH="$PATH:node_modules/.bin"
 
@@ -22,6 +20,10 @@ export PATH=$PATH:$GOROOT/bin
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export PATH="$PATH:$HOME/.rbenv/shims"
+export PATH="$PATH:$HOME/.rbenv/bin"
+eval "$(rbenv init -)"
 
 export EDITOR='nvim'
 export LANG=en_US.UTF-8
