@@ -66,17 +66,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 call plug#begin('~/.vim/plugged')
 
 " Syntax highlighting
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'nono/vim-handlebars', { 'for': 'handlebars' }
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx']}
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx']}
-Plug 'jparise/vim-graphql', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'wavded/vim-stylus', { 'for': 'stylus' }
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'sheerun/vim-polyglot'
 
 " Themes
 Plug 'morhetz/gruvbox'
