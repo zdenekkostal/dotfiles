@@ -1,138 +1,445 @@
-set nocompatible               " be iMproved
-filetype off                   " required!
+scriptencoding utf-8
+source ~/.config/nvim/plugins.vim
 
-set number
+" Enable true color support
+set termguicolors
 
-" wrap text at nearest space and show + at the beginning of the next line
-" set wrap
-" set showbreak=+
-" set linebreak
+" ============================================================================ "
+"               Heavily inspired and copy pasted from excellent                "
+"                     https://github.com/ctaylo21/jarvis                       "
+" ============================================================================ "
+" ===                           EDITING OPTIONS                            === "
+" ============================================================================ "
 
-set ff=unix
+" Remap leader key to ,
+let g:mapleader = "\<Space>"
 
+" Don't show last command
+set noshowcmd
+
+" Yank and paste with the system clipboard
+set clipboard=unnamed
+
+set hidden
+
+" === TAB/Space settings === "
+" Insert spaces when TAB is pressed.
+set expandtab
+
+" Change number of spaces that a <Tab> counts for during editing ops
+set softtabstop=2
+
+" Indentation amount for < and > commands.
+set shiftwidth=2
+
+" do not wrap long lines by default
 set nowrap
 
-" use system clipboard on Mac
-" doesn't work with system vim
-" (brew macvim)
-set clipboard=unnamed
-set ruler                 " Always show info along bottom.
-set autoindent            " auto-indent
-set scrolloff=10          " Keep at least 10 lines visible when scrolling
-set shiftround            " always indent/outdent to the nearest tabstop
-set hls                   " highlight search
-set nobackup
-set noswapfile            " no backups, we have git
-set autowrite             " Automatically :write before running commands
-set autoread              " Automatically reload changed files
-set nofoldenable          " no folding at all
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set ruler
-set laststatus=2
-set cursorline
-set showcmd
+" Don't highlight current cursor line
+set nocursorline
+
+" Disable line/column number in status line
+" Shows up in preview window when airline is disabled if not
+set noruler
+
+" Only one line for command line
+set cmdheight=1
+
+" === Completion Settings === "
+
+" Don't give completion messages like 'match 1 of 2'
+" or 'The only match'
+set shortmess+=c
+
+" ============================================================================ "
+" ===                               CUSTOM                                 === "
+
+" Let me use the mouse
 set mouse=a
+
+" Try to make rendering faster
 set lazyredraw
 set ttyfast
+
+" Keep at least 10 lines visible when scrolling
+set scrolloff=10
+
+" Add a background to current line
+set cursorline
+
+set nofoldenable          " no folding at all
 set foldlevelstart=50 " Files open expanded
 set foldmethod=indent " Use decent folding
-set hidden                " Hide buffers instead of closing them
 
-if has("nvim")
-  set inccommand=split " Live substitute for neovim
+" ============================================================================ "
+" ===                           PLUGIN SETUP                               === "
+" ============================================================================ "
+
+" Wrap in try/catch to avoid errors on initial install before plugin is available
+try
+" === Denite setup ==="
+" Use ripgrep for searching current directory for files
+" By default, ripgrep will respect rules in .gitignore
+"   --files: Print each file that would be searched (but don't search)
+"   --glob:  Include or exclues files for searching that match the given glob
+"            (aka ignore .git files)
+"
+call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!.git'])
+
+" Recommended defaults for ripgrep via Denite docs
+call denite#custom#var('grep', 'command', ['rg'])
+call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep', '--no-heading'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+
+let s:denite_options = {
+      \ 'prompt': '▸',
+      \ 'split': 'floating',
+      \ 'start_filter': 1,
+      \ 'auto_resize': 1,
+      \ 'source_names': 'short',
+      \ 'direction': 'botright',
+      \ 'highlight_filter_background': 'CursorLine',
+      \ 'highlight_matched_char': 'Type',
+      \ }
+
+call denite#custom#option('default', s:denite_options)
+
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+    nnoremap <silent><buffer><expr> <CR>
+                \ denite#do_map('do_action')
+    nnoremap <silent><buffer><expr> d
+                \ denite#do_map('do_action', 'delete')
+    nnoremap <silent><buffer><expr> <c-t>
+                \ denite#do_map('do_action', 'tabopen')
+    nnoremap <silent><buffer><expr> <c-v>
+                \ denite#do_map('do_action', 'vsplit')
+    nnoremap <silent><buffer><expr> <c-x>
+                \ denite#do_map('do_action', 'split')
+    nnoremap <silent><buffer><expr> p
+                \ denite#do_map('do_action', 'preview')
+    nnoremap <silent><buffer><expr> q
+                \ denite#do_map('quit')
+    nnoremap <silent><buffer><expr> i
+                \ denite#do_map('open_filter_buffer')
+    nnoremap <silent><buffer><expr> V
+                \ denite#do_map('toggle_select').'j'
+endfunction
+
+autocmd FileType denite-filter call s:denite_filter_my_settings()
+function! s:denite_filter_my_settings() abort
+    imap <silent><buffer> <tab> <Plug>(denite_filter_quit)
+    inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+    inoremap <silent><buffer><expr> <c-t>
+                \ denite#do_map('do_action', 'tabopen')
+    inoremap <silent><buffer><expr> <c-v>
+                \ denite#do_map('do_action', 'vsplit')
+    inoremap <silent><buffer><expr> <c-x>
+                \ denite#do_map('do_action', 'split')
+    inoremap <silent><buffer><expr> <esc>
+                \ denite#do_map('quit')
+    inoremap <silent><buffer> <C-j>
+                \ <Esc><C-w>p:call cursor(line('.')+1,0)<CR><C-w>pA
+    inoremap <silent><buffer> <C-k>
+                \ <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
+endfunction
+catch
+  echo 'Denite not installed. It should work after running :PlugInstall'
+endtry
+
+" === Coc.nvim === "
+" use <tab> for trigger completion and navigate to next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+"Close preview window when completion is done.
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" === NeoSnippet === "
+" Map <C-k> as shortcut to activate snippet if available
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+" Load custom snippets from snippets folder
+let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
+
+" Hide conceal markers
+let g:neosnippet#enable_conceal_markers = 0
+
+" === NERDTree === "
+" Show hidden files/directories
+let g:NERDTreeShowHidden = 1
+
+" Remove bookmarks and help text from NERDTree
+let g:NERDTreeMinimalUI = 1
+
+" Custom icons for expandable/expanded directories
+let g:NERDTreeDirArrowExpandable = '⬏'
+let g:NERDTreeDirArrowCollapsible = '⬎'
+
+" Hide certain files and directories from NERDTree
+let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]', '\.idea$[[dir]]', '\.sass-cache$']
+
+" Wrap in try/catch to avoid errors on initial install before plugin is available
+try
+
+" === Vim airline ==== "
+" Enable extensions
+let g:airline_theme='gruvbox'
+
+let g:airline#extensions#coc#enabled = 1
+
+let airline#extensions#coc#error_symbol = 'Errors:'
+
+" let g:airline#extensions#default#section_truncate_width = {
+"     \ 'b': 79,
+"     \ 'x': 60,
+"     \ 'y': 88,
+"     \ 'z': 45,
+"     \ 'warning': 80,
+"     \ 'error': 10,
+"     \ }
+
+let g:airline_extensions = ['coc']
+
+" Update section z to just have line number
+let g:airline_section_z = airline#section#create(['linenr'])
+
+" Do not draw separators for empty sections (only for the active window) >
+let g:airline_skip_empty_sections = 1
+
+" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" Custom setup that removes filetype/whitespace from default vim airline bar
+let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'z', 'warning', 'error']]
+
+let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
+
+let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
+
+" Configure error/warning section to use coc.nvim
+let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+
+" Hide the Nerdtree status line to avoid clutter
+let g:NERDTreeStatusline = ''
+
+" Disable vim-airline in preview mode
+let g:airline_exclude_preview = 1
+
+" Enable powerline fonts
+let g:airline_powerline_fonts = 1
+
+" Enable caching of syntax highlighting groups
+let g:airline_highlighting_cache = 1
+
+" Define custom airline symbols
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
 endif
 
-" search
-set ignorecase
-set smartcase
+" unicode symbols
+" let g:airline_left_sep = '❮'
+" let g:airline_right_sep = '❯'
 
-" visualize leading tab and trailing whitespace
-set list lcs=tab\:\'\ ,trail:·
+" Don't show git changes to current file in airline
+let g:airline#extensions#hunks#enabled=0
 
-" Split windows verticaly rather than horizontaly
-set splitright
-set splitbelow
-set diffopt+=vertical
+catch
+  echo 'Airline not installed. It should work after running :PlugInstall'
+endtry
 
-if has("termguicolors")
-  set termguicolors
-endif
+" === echodoc === "
+" Enable echodoc on startup
+let g:echodoc#enable_at_startup = 1
 
-" remove trailing whitespace before save
-autocmd BufWritePre * :%s/\s\+$//e
+" let g:echodoc#type = 'floating'
 
-call plug#begin('~/.vim/plugged')
+" To use a custom highlight for the float window,
+" change Pmenu to your highlight group
+highlight link EchoDocFloat Pmenu
 
-" Syntax highlighting
-Plug 'sheerun/vim-polyglot'
+" === vim-javascript === "
+" Enable syntax highlighting for JSDoc
+let g:javascript_plugin_jsdoc = 1
 
-" Themes
-Plug 'morhetz/gruvbox'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'mhartington/oceanic-next'
-" Plug 'edkolev/tmuxline.vim'
+" === vim-jsx === "
+" Highlight jsx syntax even in non .jsx files
+let g:jsx_ext_required = 0
 
-" Additionals
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-Plug 'w0rp/ale'
-" Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-" Plug 'Quramy/tsuquyomi' " TypeScript
+" === javascript-libraries-syntax === "
+" let g:used_javascript_libs = 'underscore,requirejs,chai,jquery'
 
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+" === Signify === "
+let g:signify_sign_delete = '-'
 
-Plug 'kshenoy/vim-signature'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
-Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'sbdchd/neoformat'
+" ============================================================================ "
+" ===                                UI                                    === "
+" ============================================================================ "
 
-" Editing
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'jiangmiao/auto-pairs'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'terryma/vim-expand-region'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-" Plug 'ervandew/supertab'
-
-call plug#end()
-
-let g:python2_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
-
-filetype plugin indent on " required!
-syntax enable
-
-
-" theme and background
+" Editor theme
 set background=dark
 colorscheme gruvbox " OceanicNext
-nnoremap tt :so $MYVIMRC<CR>
 
 let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_contrast_light = 'medium'
 let g:gruvbox_invert_selection = 0
+
+" Reload vim config after 'tt' in normal mode
+nnoremap tt :so $MYVIMRC<CR>
+
+" Add custom highlights in method that is executed every time a
+" colorscheme is sourced
+" See https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f for
+" details
+function! MyHighlights() abort
+  " Hightlight trailing whitespace
+  highlight Trail ctermbg=red guibg=red
+  call matchadd('Trail', '\s\+$', 100)
+endfunction
+
+augroup MyColors
+  autocmd!
+  autocmd ColorScheme * call MyHighlights()
+augroup END
+
+" Change vertical split character to be a space (essentially hide it)
+set fillchars+=vert:.
+
+" Set preview window to appear at bottom or right
+set splitbelow
+set splitright
+
+" Don't dispay mode in command line (airilne already shows it)
+set noshowmode
+
+" coc.nvim color changes
+hi! link CocErrorSign WarningMsg
+hi! link CocWarningSign Number
+hi! link CocInfoSign Type
+
+" Make background transparent for many things
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
+hi! LineNr ctermfg=NONE guibg=NONE
+hi! SignColumn ctermfg=NONE guibg=NONE
+
+" Try to hide vertical spit and end of buffer symbol
+hi! VertSplit gui=NONE guifg=#17252c guibg=NONE
+hi! EndOfBuffer ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+
+" Customize NERDTree directory
+hi! NERDTreeCWD guifg=#99c794
+
+" Make background color transparent for git changes
+hi! SignifySignAdd guibg=NONE
+hi! SignifySignDelete guibg=NONE
+hi! SignifySignChange guibg=NONE
+
+" Highlight git change signs
+hi! SignifySignAdd guifg=#99c794
+hi! SignifySignDelete guifg=#ec5f67
+hi! SignifySignChange guifg=#c594c5
+
+" Call method on window enter
+augroup WindowManagement
+  autocmd!
+  autocmd WinEnter * call Handle_Win_Enter()
+augroup END
+
+" Change highlight group of preview window when open
+function! Handle_Win_Enter()
+  if &previewwindow
+    setlocal winhighlight=Normal:MarkdownError
+  endif
+endfunction
+
+" ============================================================================ "
+" ===                             KEY MAPPINGS                             === "
+" ============================================================================ "
+
+" === Denite shorcuts === "
+"   ;         - Browser currently open buffers
+"   <leader>t - Browse list of files in current directory
+"   <leader>g - Search current directory for occurences of given term and
+"   close window if no results
+"   <leader>j - Search current directory for occurences of word under cursor
+nmap ; :Denite buffer -split=floating -winrow=1<CR>
+nmap <leader>t :Denite file/rec -split=floating -winrow=1<CR>
+nnoremap <leader>g :<C-u>Denite grep:. -no-empty<CR>
+nnoremap <leader>j :<C-u>DeniteCursorWord grep:.<CR>
+
+"   <Space> - PageDown
+"   -       - PageUp
+noremap <Space> <PageDown>
+noremap - <PageUp>
+
+" === coc.nvim === "
+" nmap <silent> <leader>dd <Plug>(coc-definition)
+" nmap <silent> <leader>dr <Plug>(coc-references)
+" nmap <silent> <leader>dj <Plug>(coc-implementation)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+nmap <leader>E <Plug>(coc-diagnostic-prev)
+nmap <leader>e <Plug>(coc-diagnostic-next)
+
+" === vim-better-whitespace === "
+"   <leader>y - Automatically remove trailing whitespace
+nmap <leader>y :StripWhitespace<CR>
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+
+" === Search shorcuts === "
+"   <leader>h - Find and replace
+map <leader>h :%s/
+
+" === Easy-motion shortcuts ==="
+"   <leader>w - Easy-motion highlights first word letters bi-directionally
+map <leader>w <Plug>(easymotion-bd-w)
+
+" Allows you to save files you opened without write permissions via sudo
+cmap w!! w !sudo tee %
+
+" === vim-jsdoc shortcuts ==="
+" Generate jsdoc for function under cursor
+" nmap <leader>z :JsDoc<CR>
+
+" Delete current visual selection and dump in black hole buffer before pasting
+" Used when you want to paste over something without it getting copied to
+" Vim's default buffer
+vnoremap <leader>p "_dP
+
+" ============================================================================ "
+" ===                               CUSTOM                                 === "
 
 " Copy path to clipboard
 " Convert slashes to backslashes for Windows.
@@ -147,30 +454,6 @@ else
   nmap ,cl :let @*=substitute(expand("%:p"), getcwd()."/", "", "g")<CR>
 endif
 
-let g:jsx_ext_required = 0
-
-" Handlebars
-au BufRead,BufNewFile *.hbs set filetype=handlebars
-
-" Markdown syntax
-au BufRead,BufNewFile *.md,*.mdown set filetype=markdown
-au BufRead,BufNewFile *.md,*.mdown setlocal wrap
-
-" Add jbuilder syntax highlighting
-au BufNewFile,BufRead *.json.jbuilder,*.rabl set filetype=ruby
-
-au BufNewFile,BufRead *.ejs set filetype=html
-
-" Make
-autocmd filetype make setlocal noexpandtab
-
-" Commit msgs
-autocmd Filetype gitcommit setlocal colorcolumn=50
-autocmd Filetype gitcommit setlocal spell textwidth=72
-
-let mapleader = "\<Space>"
-inoremap jj <esc>
-
 " https://github.com/wincent/wincent
 " Toggle fold at current position.
 nnoremap <Tab> za
@@ -178,202 +461,104 @@ nnoremap <Tab> za
 " Avoid unintentional switches to Ex mode.
 nnoremap Q <nop>
 
-" fzf
-nnoremap <leader>t :GitFiles<CR>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>m :Marks<CR>
-
-
-imap <c-x><c-w> <plug>(fzf-complete-word)
-imap <c-x><c-p> <plug>(fzf-complete-path)
-imap <c-x><c-f> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-" imap <expr> <c-x><c-f> fzf#vim#complete#path('git ls-files $(git rev-parse --show-toplevel)')
-
-" CTRL-A CTRL-Q to select all and build quickfix list
-
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
-
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
-
-if executable('rustc')
-  " if src installed via rustup, we can get it by running
-  " rustc --print sysroot then appending the rest of the path
-  let rustc_root = systemlist('rustc --print sysroot')[0]
-  let rustc_src_dir = rustc_root . '/lib/rustlib/src/rust/src'
-  if isdirectory(rustc_src_dir)
-    let g:deoplete#sources#rust#rust_source_path = rustc_src_dir
-  endif
-endif
-
-" Run neoformat on save
-" autocmd BufWritePre *.js Neoformat
-
-" augroup fmt
-"   autocmd!
-"   autocmd BufWritePre * Neoformat
-" augroup END
-
-" --column: Show column number
-" --line-number: Show line number
-" --no-heading: Do not show file headings in results
-" --fixed-strings: Search term as a literal string
-" --ignore-case: Case insensitive search
-" --no-ignore: Do not respect .gitignore, etc...
-" --hidden: Search hidden files and folders
-" --follow: Follow symlinks
-" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-" --color: Search color options
-command! -bang -nargs=* F call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" --colors "path:fg:blue" --colors "match:fg:white" --colors "match:bg:yellow" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-
-" fix nvim
-" https://github.com/christoomey/vim-tmux-navigator#it-doesnt-work-in-neovim-specifically-c-h
-nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
-
+" Expand visual selection by pressing 'v' multiple times
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " Select pasted text
 noremap gV `[v`]
 
-" Nerdtree
-" close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let NERDTreeChDirMode=2
-let g:NERDTreeDirArrowExpandable = '├'
-let g:NERDTreeDirArrowCollapsible = '└'
-let g:NERDTreeMapActivateNode = '<tab>'
-
-" some leader shortcuts for common commands
+" Make writing and quitting easier
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
-" nmap <leader>e :e<CR>
 
+" Add common Nerdtree commands for location a current file or just toggling it
 nmap <leader>nt :NERDTreeToggle<CR>
 nmap <leader>nf :NERDTreeFind<CR>
-nmap <leader>nw :set nowrap!<CR>
 
-" Add sane mapping for resolving conflicts
+" === Add sane mapping for resolving conflicts === "
+
 " get from REMOTE
 nmap <leader>dr :diffg RE<CR>
+
 " get from BASE
 nmap <leader>db :diffg BA<CR>
+
 " get from LOCAL
 nmap <leader>dl :diffg LO<CR>
+
+" write everything and quit, marking the conlict as resolved
 nmap <leader>dq :wqa<CR>
 
 " Clear search highlight
 nnoremap <silent> _ :nohl<CR>
 
-" Setup autocompletion
-" https://www.gregjs.com/vim/2016/configuring-the-deoplete-asynchronous-keyword-completion-plugin-with-tern-for-vim/
+" https://github.com/wincent/wincent
+" Toggle fold at current position.
+nnoremap <Tab> za
 
-" set runtimepath+=~/dotfiles/config/nvim/plugged/deoplete.nvim/rplugin/python3/deoplete
-let g:deoplete#enable_at_startup = 1
+" ============================================================================ "
+" ===                                 MISC.                                === "
+" ============================================================================ "
 
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" === Search === "
+" ignore case when searching
+set ignorecase
+
+" if the search string has an upper case letter in it, the search will be case sensitive
+set smartcase
+
+" Automatically re-read file if a change was detected outside of vim
+set autoread
+
+" Enable line numbers
+set number
+
+" Set backups
+if has('persistent_undo')
+  set undofile
+  set undolevels=3000
+  set undoreload=10000
+endif
+set backupdir=~/.local/share/nvim/backup " Don't put backups in current dir
+set backup
+set noswapfile
+
+" Reload icons after init source
+if exists('g:loaded_webdevicons')
+  call webdevicons#refresh()
 endif
 
-if executable('racer')
-  let g:deoplete#sources#rust#racer_binary = systemlist('which racer')[0]
+" Live substitute for neovim
+if has("nvim")
+  set inccommand=split
 endif
 
-" let g:deoplete#disable_auto_complete = 1
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" ============================================================================ "
+" ===                                 TEST.                                === "
+" ============================================================================ "
 
-"  tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" omnifuncs
-augroup omnifuncs
-  autocmd!
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript,javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup end
-
-" tern
-if exists('g:plugs["tern_for_vim"]')
-  let g:tern_show_argument_hints = 'on_hold'
-  let g:tern_show_signature_in_pum = 1
-
-  autocmd FileType javascript,javascript.jsx setlocal omnifunc=tern#Complete
-  autocmd FileType javascript,javascript.jsx nnoremap <silent> <buffer> gb :TernDef<CR>
+" neovim 0.4.0+: transparent popup-menu
+if exists('&pumblend')
+    set pumblend=10
 endif
 
-" Setup Airline
-let g:airline#extensions#tmuxline#enabled = 0
-let g:airline_theme='gruvbox' " oceanicnext
-let g:airline_powerline_fonts = 1
-let g:airline_section_b = ''
+" neovim 0.4.0+: transparent floating windows
+if exists('&winblend')
+    set winblend=10
+endif
 
-let g:airline_section_x = ''
-let g:airline_section_y = ''
+if has("nvim-0.4.0")
+    call denite#custom#option('default', {'split': 'floating'})
+endif
 
-let g:ale_sign_error = 'x'
-let g:ale_sign_warning = '!'
-let g:ale_fixers = {
-\      'javascript': ['prettier'],
-\      'typescript': ['prettier'],
-\      'elixir': ['mix_format']
-\}
-let g:ale_linters = {
-\      'javascript': ['eslint'],
-\      'typescript': ['eslint', 'tsserver']
-\}
-let g:ale_fix_on_save = 1
-let g:ale_set_balloons = 1
-nnoremap <leader>h :ALEHover<CR>
+let g:echodoc_enable_at_startup=1
 
-nmap <Leader>E <Plug>(ale_previous_wrap)
-nmap <Leader>e <Plug>(ale_next_wrap)
-
-" do not fold markdown sections
-let g:vim_markdown_folding_disabled = 1
-
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-" vp doesn't replace paste buffer
-function! RestoreRegister()
-  let @" = s:restore_reg
-  return ''
-endfunction
-function! s:Repl()
-  let s:restore_reg = @"
-  return "p@=RestoreRegister()\<cr>"
-endfunction
-vmap <silent> <expr> p <sid>Repl()
-
-" auto reload vimrc once changed
-if has("autocmd")
-  function! RefreshUI()
-    if exists(':AirlineRefresh')
-      AirlineRefresh
-    else
-      " Clear & redraw the screen, then redraw all statuslines.
-      redraw!
-      redrawstatus!
-    endif
-  endfunction
-
-  au BufWritePost .vimrc source $MYVIMRC | :call RefreshUI()
+if has("nvim-0.4.0")
+    let g:echodoc#type="floating"
+else
+    let g:echodoc#type="echo"
 endif
