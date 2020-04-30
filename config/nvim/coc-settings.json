@@ -3,9 +3,19 @@
   "suggest.floatEnable": true,
   "suggest.echodocSupport": true,
   "suggest.maxCompleteItemCount": 20,
-  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact"],
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact", "elixir"],
   "eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
-  "diagnostic.errorSign": "•",
+  "codeLens.enable": true,
+  "diagnostic.errorSign": "!",
   "diagnostic.warningSign": "•",
-  "diagnostic.infoSign": "•"
+  "diagnostic.infoSign": "•",
+  "git.removedSign.text": "-",
+  "typescript.suggest.autoImports": true,
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    }
+  }
 }
