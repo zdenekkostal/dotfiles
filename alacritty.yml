@@ -13,9 +13,9 @@ env:
   # `infocmp xterm-256color`.
   TERM: xterm-256color
 
-# Window dimensions in character columns and lines
-# (changes require restart)
 window:
+  # Window dimensions in character columns and lines
+  # (changes require restart)
   dimensions:
     columns: 80
     lines: 24
@@ -27,9 +27,6 @@ window:
     x: 2
     y: 2
 
-# Display tabs using this many cells (changes require restart)
-tabspaces: 8
-
 # When true, bold text is drawn using the bright variant of colors.
 draw_bold_text_with_bright_colors: false
 
@@ -37,19 +34,19 @@ draw_bold_text_with_bright_colors: false
 font:
   # The normal (roman) font face to use.
   normal:
-    family: "Fira Mono for Powerline"
+    family: "Fira Code"
     # Style can be specified to pick a specific face.
     style: Regular
 
   # The bold font face
   bold:
-    family: "Fira Mono for Powerline"
+    family: "Fira Code"
     # Style can be specified to pick a specific face.
     # style: Bold
 
   # The italic font face
   italic:
-    family: "Fira Mono for Powerline"
+    family: "Fira Code"
     # Style can be specified to pick a specific face.
     # style: Italic
 
@@ -194,7 +191,6 @@ mouse_bindings:
 mouse:
   double_click: { threshold: 300 }
   triple_click: { threshold: 300 }
-  hide_cursor_when_typing: false
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
