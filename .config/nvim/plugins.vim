@@ -91,7 +91,6 @@ Plug 'scrooloose/nerdtree'
 
 " Colorscheme
 Plug 'gruvbox-community/gruvbox'
-" Plug 'lifepillar/vim-gruvbox8'
 Plug 'mhartington/oceanic-next'
 
 " Customized vim status line

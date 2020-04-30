@@ -36,14 +36,6 @@ eval "$(direnv hook zsh)"
 ####################################################
 # Functions
 
-function fr {
-  if [[ -n "$2" ]]; then
-    rg --colors match:none --colors match:bg:yellow --colors match:fg:black --colors path:fg:green --colors path:style:bold -l $1 | xargs sed -i '' -e "s#$1#$2#g"
-  else
-    rg --colors match:none --colors match:bg:yellow --colors match:fg:black --colors path:fg:green --colors path:style:bold $1
-  fi
-}
-
 function tmux-colors {
   for i in {0..255}; do
       printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"
@@ -81,11 +73,12 @@ alias light="terminal-scheme light"
 alias dark="terminal-scheme dark"
 
 alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
-alias release-changes="git fetch && hub compare \`git tag|tail -1\`..master"
 alias apply-patch="pbpaste | sed -e '$a' | git apply"
-alias ctags="`brew --prefix`/bin/ctags"
+
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+

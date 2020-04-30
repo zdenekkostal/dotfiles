@@ -271,7 +271,7 @@ try
 
 " === Vim airline ==== "
 " Enable extensions
-let g:airline_theme='gruvbox8'
+let g:airline_theme='gruvbox'
 
 let g:airline#extensions#coc#enabled = 1
 

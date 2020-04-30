@@ -1,13 +1,13 @@
 [include]
-  path = ~/.private/gitconfig
+    path = ~/.private/gitconfig
 
 # Include different identitites in the private gitconfig
 # [user "identity"]
-#   name = name
-#   email = email
+#     name = name
+#     email = email
 
 [user]
-  useConfigOnly = true
+    useConfigOnly = true
 
 [alias]
     st = status
@@ -45,8 +45,8 @@
     ui = auto
 
 [core]
-   editor = nvim
-   excludesfile = /Users/z/.gitignore_global
+    editor = nvim
+    excludesfile = /Users/z/.gitignore_global
 
 [push]
     default = simple
