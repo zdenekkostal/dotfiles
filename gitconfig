@@ -1,6 +1,14 @@
 [include]
   path = ~/.private/gitconfig
 
+# Include different identitites in the private gitconfig
+# [user "identity"]
+#   name = name
+#   email = email
+
+[user]
+  useConfigOnly = true
+
 [alias]
     st = status
     ci = commit
@@ -26,6 +34,9 @@
     pr = pull --rebase
     patch = !git --no-pager diff --no-color
     pushf = push --force-with-lease
+
+    # https://www.micah.soy/posts/setting-up-git-identities/
+    identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\"; :" #  git config user.signingkey \"$(git config user.$1.signingkey)\";
 
 [colors]
     diff = auto
@@ -92,4 +103,4 @@
     autosetuprebase = always
 
 [diff "exif"]
-	textconv = exiftool
+    textconv = exiftool
