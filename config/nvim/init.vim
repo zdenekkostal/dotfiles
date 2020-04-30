@@ -87,7 +87,7 @@ try
 call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!.git'])
 
 " Recommended defaults for ripgrep via Denite docs
-call denite#custom#var('grep', 'command', ['rg'])
+call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
 call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep', '--no-heading'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
@@ -150,6 +150,73 @@ catch
   echo 'Denite not installed. It should work after running :PlugInstall'
 endtry
 
+" === FZF === "
+nnoremap <leader>t :GitFiles<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>m :Marks<CR>
+
+imap <c-x><c-w> <plug>(fzf-complete-word)
+imap <c-x><c-p> <plug>(fzf-complete-path)
+imap <c-x><c-f> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* F call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" --colors "path:fg:blue" --colors "match:fg:white" --colors "match:bg:yellow" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+
+" command! -bang -nargs=* F
+"   \ call fzf#vim#grep(
+"   \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+"   \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+"   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+"   \   <bang>0)
+
+" https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294
+" let $FZF_DEFAULT_OPTS='--layout=reverse'
+" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+" function! FloatingFZF()
+"   let buf = nvim_create_buf(v:false, v:true)
+"   call setbufvar(buf, '&signcolumn', 'no')
+
+"   let height = 20
+"   let width = float2nr(&columns - (&columns * 2 / 10))
+"   let col = float2nr((&columns - width) / 2)
+
+"   let opts = {
+"         \ 'relative': 'editor',
+"         \ 'row': 1,
+"         \ 'col': col,
+"         \ 'width': width,
+"         \ 'height': height
+"         \ }
+
+"   call nvim_open_win(buf, v:true, opts)
+" endfunction
+
 " === Coc.nvim === "
 " use <tab> for trigger completion and navigate to next complete item
 function! s:check_back_space() abort
@@ -167,15 +234,15 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " === NeoSnippet === "
 " Map <C-k> as shortcut to activate snippet if available
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
+" imap <C-k> <Plug>(neosnippet_expand_or_jump)
+" smap <C-k> <Plug>(neosnippet_expand_or_jump)
+" xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " Load custom snippets from snippets folder
-let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
+" let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
 
 " Hide conceal markers
-let g:neosnippet#enable_conceal_markers = 0
+" let g:neosnippet#enable_conceal_markers = 0
 
 " === NERDTree === "
 " Show hidden files/directories
@@ -191,12 +258,20 @@ let g:NERDTreeDirArrowCollapsible = '⬎'
 " Hide certain files and directories from NERDTree
 let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]', '\.idea$[[dir]]', '\.sass-cache$']
 
+" === JSDoc === "
+let g:jsdoc_enable_es6 = 1
+let g:jsdoc_allow_input_prompt = 0
+let g:jsdoc_input_description = 1
+let g:jsdoc_param_description_separator = ': '
+let g:jsdoc_additional_descriptions = 1
+let g:jsdoc_enable_es6 = 1
+
 " Wrap in try/catch to avoid errors on initial install before plugin is available
 try
 
 " === Vim airline ==== "
 " Enable extensions
-let g:airline_theme='gruvbox'
+let g:airline_theme='gruvbox8'
 
 let g:airline#extensions#coc#enabled = 1
 
@@ -279,11 +354,82 @@ let g:javascript_plugin_jsdoc = 1
 " Highlight jsx syntax even in non .jsx files
 let g:jsx_ext_required = 0
 
+" === vim-polyglot === "
+let g:polyglot_disabled = ['typescript']
+
+" TypeScript with React
+au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+
 " === javascript-libraries-syntax === "
 " let g:used_javascript_libs = 'underscore,requirejs,chai,jquery'
 
 " === Signify === "
 let g:signify_sign_delete = '-'
+
+" Rainbow Parentheses
+let g:rainbow_active = 1
+
+let s:rainbow_conf = {
+\	'guifgs': ['Green', 'darkorange3', 'seagreen3', 'firebrick'],
+\	'ctermfgs': ['Green', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\	'guis': [''],
+\	'cterms': [''],
+\	'operators': '_,_',
+\	'contains_prefix': 'TOP',
+\       'after': ['syn clear typescriptObjectLiteral'],
+\	'parentheses_options': 'containedin=typescriptMember,typescriptBlock',
+\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\	'separately': {
+\		'*': {},
+\		'markdown': {
+\			'parentheses_options': 'containedin=markdownCode contained',
+\		},
+\		'lisp': {
+\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+\		},
+\		'haskell': {
+\			'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/\v\{\ze[^-]/ end=/}/ fold'],
+\		},
+\		'tex': {
+\			'parentheses_options': 'containedin=texDocZone',
+\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+\		},
+\		'vim': {
+\			'parentheses_options': 'containedin=vimFuncBody,vimExecute',
+\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold'],
+\		},
+\		'xml': {
+\			'syn_name_prefix': 'xmlRainbow',
+\			'parentheses': ['start=/\v\<\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'))?)*\>/ end=#</\z1># fold'],
+\		},
+\		'xhtml': {
+\			'parentheses': ['start=/\v\<\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'))?)*\>/ end=#</\z1># fold'],
+\		},
+\		'html': {
+\			'parentheses': ['start=/\v\<((script|style|area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+\		},
+\		'perl': {
+\			'syn_name_prefix': 'perlBlockFoldRainbow',
+\		},
+\		'php': {
+\			'syn_name_prefix': 'phpBlockRainbow',
+\			'contains_prefix': '',
+\			'parentheses': ['start=/(/ end=/)/ containedin=@htmlPreproc contains=@phpClTop', 'start=/\[/ end=/\]/ containedin=@htmlPreproc contains=@phpClTop', 'start=/{/ end=/}/ containedin=@htmlPreproc contains=@phpClTop', 'start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold contains_prefix=TOP'],
+\		},
+\		'stylus': {
+\			'parentheses': ['start=/{/ end=/}/ fold contains=@colorableGroup'],
+\		},
+\		'css': 0,
+\		'sh': 0,
+\	}
+\}
+
+nnoremap <f1> :echo synIDattr(synID(line('.'), col('.'), 0), 'name')<cr>
+nnoremap <f2> :echo ("hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">")<cr>
+nnoremap <f3> :echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<cr>
+nnoremap <f4> :exec 'syn list '.synIDattr(synID(line('.'), col('.'), 0), 'name')<cr>
 
 " ============================================================================ "
 " ===                                UI                                    === "
@@ -298,7 +444,8 @@ let g:gruvbox_contrast_light = 'medium'
 let g:gruvbox_invert_selection = 0
 
 " Reload vim config after 'tt' in normal mode
-nnoremap tt :so $MYVIMRC<CR>
+nnoremap <leader>tt :so $MYVIMRC<CR>
+nnoremap <leader>rr :CocRestart<CR>
 
 " Add custom highlights in method that is executed every time a
 " colorscheme is sourced
@@ -376,10 +523,10 @@ endfunction
 "   <leader>g - Search current directory for occurences of given term and
 "   close window if no results
 "   <leader>j - Search current directory for occurences of word under cursor
-nmap ; :Denite buffer -split=floating -winrow=1<CR>
-nmap <leader>t :Denite file/rec -split=floating -winrow=1<CR>
-nnoremap <leader>g :<C-u>Denite grep:. -no-empty<CR>
-nnoremap <leader>j :<C-u>DeniteCursorWord grep:.<CR>
+" nmap ; :Denite buffer -split=floating -winrow=1<CR>
+" nmap <leader>t :Denite file/rec -split=floating -winrow=1<CR>
+" nnoremap <leader>g :<C-u>Denite grep:. -no-empty<CR>
+" nnoremap <leader>j :<C-u>DeniteCursorWord grep:.<CR>
 
 "   <Space> - PageDown
 "   -       - PageUp
@@ -411,6 +558,34 @@ nmap <leader>rn <Plug>(coc-rename)
 
 nmap <leader>E <Plug>(coc-diagnostic-prev)
 nmap <leader>e <Plug>(coc-diagnostic-next)
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 
 " === vim-better-whitespace === "
 "   <leader>y - Automatically remove trailing whitespace
@@ -454,10 +629,6 @@ else
   nmap ,cl :let @*=substitute(expand("%:p"), getcwd()."/", "", "g")<CR>
 endif
 
-" https://github.com/wincent/wincent
-" Toggle fold at current position.
-nnoremap <Tab> za
-
 " Avoid unintentional switches to Ex mode.
 nnoremap Q <nop>
 
@@ -495,7 +666,9 @@ nnoremap <silent> _ :nohl<CR>
 
 " https://github.com/wincent/wincent
 " Toggle fold at current position.
-nnoremap <Tab> za
+nnoremap <leader><Tab> za
+
+nnoremap <leader>g :Gblame<CR>
 
 " ============================================================================ "
 " ===                                 MISC.                                === "
@@ -561,4 +734,9 @@ if has("nvim-0.4.0")
     let g:echodoc#type="floating"
 else
     let g:echodoc#type="echo"
+endif
+
+" https://www.reddit.com/r/vim/comments/cn20tv/tip_histogrambased_diffs_using_modern_vim
+if has('nvim-0.3.2') || has("patch-8.1.0360")
+    set diffopt=filler,internal,algorithm:histogram,indent-heuristic
 endif

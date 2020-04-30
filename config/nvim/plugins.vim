@@ -30,7 +30,11 @@ Plug 'ntpeters/vim-better-whitespace'
 " For better brackets closing
 Plug 'tpope/vim-surround'
 
+" For expanding and shrinking visual selection by pressing 'v' multiple times
 Plug 'terryma/vim-expand-region'
+
+" Let's make parents great again
+Plug 'luochen1990/rainbow'
 
 " auto-close plugin
 Plug 'rstacruz/vim-closer'
@@ -41,6 +45,15 @@ Plug 'tpope/vim-commentary'
 " Improved motion in Vim
 Plug 'easymotion/vim-easymotion'
 
+" Display marks
+Plug 'kshenoy/vim-signature'
+
+" For tmux-resurrect to be able to save sessions
+Plug 'tpope/vim-obsession'
+
+" Let's visualize the undolist "
+Plug 'mbbill/undotree'
+
 " Intellisense Engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -50,9 +63,9 @@ Plug 'christoomey/vim-tmux-navigator'
 " Denite - Fuzzy finding, buffer management
 Plug 'Shougo/denite.nvim'
 
-" Snippet support
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
+" Because denite is slow
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Print function signatures in echo area
 Plug 'Shougo/echodoc.vim'
@@ -62,13 +75,6 @@ Plug 'Shougo/echodoc.vim'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 
-" === Javascript Plugins === "
-" Typescript syntax highlighting
-Plug 'HerringtonDarkholme/yats.vim'
-
-" ReactJS JSX syntax highlighting
-Plug 'mxw/vim-jsx'
-
 " Generate JSDoc commands based on function signature
 Plug 'heavenshell/vim-jsdoc'
 
@@ -76,12 +82,8 @@ Plug 'heavenshell/vim-jsdoc'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'jparise/vim-graphql', { 'for': ['javascript', 'javascript.jsx'] }
-
-" Syntax highlighting for javascript libraries
-" Plug 'othree/javascript-libraries-syntax.vim'
-
-" Improved syntax highlighting and indentation
-" Plug 'othree/yajs.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'leafgarland/typescript-vim'
 
 " === UI === "
 " File explorer
@@ -89,6 +91,7 @@ Plug 'scrooloose/nerdtree'
 
 " Colorscheme
 Plug 'gruvbox-community/gruvbox'
+" Plug 'lifepillar/vim-gruvbox8'
 Plug 'mhartington/oceanic-next'
 
 " Customized vim status line
