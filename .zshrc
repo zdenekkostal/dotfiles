@@ -6,7 +6,6 @@ plugins=(
   asdf
   docker
   fzf
-  gcloud
   gitfast
   mix
   ssh-agent
