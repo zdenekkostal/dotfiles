@@ -29,37 +29,9 @@ eval "$(direnv hook zsh)"
 ####################################################
 # Functions
 
-function tmux-colors {
-  for i in {0..255}; do
-      printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"
-  done
-}
-
-function test-colors {
-  awk 'BEGIN{
-      s="/\\/\\/\\/\\/\\"; s=s s s s s s s s s s s s s s s s s s s s s s s;
-      for (colnum = 0; colnum<256; colnum++) {
-          r = 255-(colnum*255/255);
-          g = (colnum*510/255);
-          b = (colnum*255/255);
-          if (g>255) g = 510-g;
-          printf "\033[48;2;%d;%d;%dm", r,g,b;
-          printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
-          printf "%s\033[0m", substr(s,colnum+1,1);
-      }
-      printf "\n";
-  }'
-}
-
 function terminal-scheme {
   sed -i '' -e "s#^colors:.*#colors: \*$1#g" ~/.config/alacritty/alacritty.yml
   sed -i '' -e "s#^set background=.*#set background=$1#g" ~/dotfiles/config/nvim/init.vim
-}
-
-function to-gif {
-  file_name="${1##*/}"
-  output_file_name="${file_name%%.*}.gif"
-  ffmpeg -i $1 -pix_fmt rgb8 -r 10 $output_file_name && gifsicle -O3 $output_file_name -o $output_file_name
 }
 
 alias light="terminal-scheme light"
