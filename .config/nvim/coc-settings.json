@@ -10,12 +10,5 @@
   "diagnostic.warningSign": "•",
   "diagnostic.infoSign": "•",
   "git.removedSign.text": "-",
-  "typescript.suggest.autoImports": true,
-  "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
-    }
-  }
+  "typescript.suggest.autoImports": true
 }
