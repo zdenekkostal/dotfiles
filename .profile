@@ -1,6 +1,11 @@
 # Add support for current project Node binaries
 export PATH="$PATH:node_modules/.bin"
 
+# and for global yarn modules
+if command -v yarn >/dev/null 2>&1; then
+  export PATH="$(yarn global bin):$PATH"
+fi
+
 # ... every other language will be prepended via asdf
 
 ####################################################
