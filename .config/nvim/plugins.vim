@@ -101,5 +101,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
+" Snippets
+Plug 'honza/vim-snippets'
+
 " Initialize plugin system
 call plug#end()
