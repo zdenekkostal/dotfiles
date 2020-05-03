@@ -46,7 +46,7 @@ List of applications I use:
 - CleanShot X
 - ProtonVPN
 - Spotify
-- LayAuto
+- Moom
 - TripMode
 - Dictionaries (dictionaries.io)
 - BeardedSpice
