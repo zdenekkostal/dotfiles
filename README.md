@@ -51,3 +51,4 @@ List of applications I use:
 - Dictionaries (dictionaries.io)
 - BeardedSpice
 - Trailer app
+- IINA
