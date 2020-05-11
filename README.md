@@ -15,6 +15,7 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~
 brew install asdf git tig tmux fzf direnv diff-so-fancy docker ripgrep gnupg svgo
 brew cask install alacritty 
 brew install --HEAD neovim # when 0.5.0 is oficially released this can be moved to the first line
+brew install TankerHQ/homebrew-repo/ruplacer
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
