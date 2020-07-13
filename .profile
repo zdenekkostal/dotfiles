@@ -6,6 +6,10 @@ if command -v yarn >/dev/null 2>&1; then
   export PATH="$(yarn global bin):$PATH"
 fi
 
+if command -v go >/dev/null 2>&1; then
+  export PATH="$($(which go) env GOPATH)/bin:$PATH"
+fi
+
 # ... every other language will be prepended via asdf
 
 ####################################################
