@@ -46,6 +46,7 @@
 
 [core]
     editor = nvim
+    pager = delta
     excludesfile = /Users/z/.gitignore_global
 
 [push]
@@ -92,12 +93,13 @@
     newNormal = green
     newHighlight = green 22
 
-[pager]
-    diff = diff-so-fancy | less --tabs=4 -RFX
-    show = diff-so-fancy | less --tabs=4 -RFX
+[delta]
+    syntax-theme = "Nord"
+    diff-so-fancy = true
+    side-by-side = true
 
 [interactive]
-    diffFilter = diff-so-fancy | less --tabs=4 -RFX
+    diffFilter = delta --color-only
 
 [branch]
     autosetuprebase = always
