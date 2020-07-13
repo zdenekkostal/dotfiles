@@ -82,7 +82,6 @@ Plug 'heavenshell/vim-jsdoc'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'jparise/vim-graphql', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'leafgarland/typescript-vim'
 
 " === UI === "
