@@ -9,7 +9,7 @@ To install everything from scratch just open the `Terminal` app and run the foll
 # Install Oh my ZSH
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-brew install asdf git tig tmux fzf direnv diff-so-fancy docker ripgrep gnupg svgo tldr starship git-delta
+brew install asdf git tig tmux fzf direnv docker ripgrep gnupg svgo tldr starship git-delta
 brew cask install alacritty 
 brew install --HEAD neovim # when 0.5.0 is oficially released this can be moved to the first line
 brew install TankerHQ/homebrew-repo/ruplacer
