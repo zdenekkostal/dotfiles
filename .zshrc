@@ -1,6 +1,5 @@
 # Oh my ZSH stuff
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
   asdf
@@ -25,6 +24,9 @@ eval "$(direnv hook zsh)"
 # Reload .profile stuff which would be loaded otherwise just after logging in
 [ -f ~/.profile ] && source ~/.profile
 
+# Enable starship - excellent shell prompt
+eval "$(starship init zsh)"
+
 ####################################################
 # Functions
 
@@ -40,6 +42,3 @@ alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '(
 alias apply-patch="pbpaste | sed -e '$a' | git apply"
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

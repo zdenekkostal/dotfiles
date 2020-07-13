@@ -9,10 +9,7 @@ To install everything from scratch just open the `Terminal` app and run the foll
 # Install Oh my ZSH
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Oh my ZSH's Powerlevel 10k theme has a separate repository
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
-
-brew install asdf git tig tmux fzf direnv diff-so-fancy docker ripgrep gnupg svgo tldr
+brew install asdf git tig tmux fzf direnv diff-so-fancy docker ripgrep gnupg svgo tldr starship
 brew cask install alacritty 
 brew install --HEAD neovim # when 0.5.0 is oficially released this can be moved to the first line
 brew install TankerHQ/homebrew-repo/ruplacer
