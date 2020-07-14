@@ -94,8 +94,7 @@
     newHighlight = green 22
 
 [delta]
-    syntax-theme = "Nord"
-    diff-so-fancy = true
+    syntax-theme = "gruvbox"
     side-by-side = true
 
 [interactive]
