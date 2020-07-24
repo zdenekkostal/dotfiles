@@ -25,7 +25,7 @@
     # http://stackoverflow.com/questions/1579643/change-timestamps-while-rebasing-git-branch
     ri = rebase --interactive --autosquash
     amend = !sh -c 'git commit --amend --no-edit' -
-    changedate = !sh -c 'git commit --amend --no-edit --date \"`date -R`\"'
+    changedate = !sh -c 'git commit --amend --no-verify --no-edit --date \"`date -R`\"'
 
     d = diff --color
     dc = diff --cached --color
