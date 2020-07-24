@@ -32,7 +32,7 @@ eval "$(starship init zsh)"
 
 function terminal-scheme {
   sed -i '' -e "s#^colors:.*#colors: \*$1#g" ~/.config/alacritty/alacritty.yml
-  sed -i '' -e "s#^set background=.*#set background=$1#g" ~/dotfiles/config/nvim/init.vim
+  sed -i '' -e "s#^set background=.*#set background=$1#g" ~/.config/nvim/init.vim
 }
 
 alias light="terminal-scheme light"
