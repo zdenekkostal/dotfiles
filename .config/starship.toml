@@ -35,6 +35,14 @@ discharging_symbol = "💀"
 threshold = 30
 style = "bold red"
 
+[[battery.display]]
+threshold = 50
+style = "bold yellow"
+
+[[battery.display]]
+threshold = 70
+style = "bold blue"
+
 [line_break]
 disabled = false
 
