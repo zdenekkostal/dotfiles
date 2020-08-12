@@ -83,7 +83,7 @@ Plug 'leafgarland/typescript-vim'
 
 " === UI === "
 " File explorer
-Plug 'scrooloose/nerdtree'
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 
 " Colorscheme
 Plug 'gruvbox-community/gruvbox'
@@ -92,10 +92,6 @@ Plug 'mhartington/oceanic-next'
 " Customized vim status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
-" Icons
-Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Snippets
 Plug 'honza/vim-snippets'

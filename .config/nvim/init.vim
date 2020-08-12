@@ -169,20 +169,6 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Hide conceal markers
 " let g:neosnippet#enable_conceal_markers = 0
 
-" === NERDTree === "
-" Show hidden files/directories
-let g:NERDTreeShowHidden = 1
-
-" Remove bookmarks and help text from NERDTree
-let g:NERDTreeMinimalUI = 1
-
-" Custom icons for expandable/expanded directories
-let g:NERDTreeDirArrowExpandable = '⬏'
-let g:NERDTreeDirArrowCollapsible = '⬎'
-
-" Hide certain files and directories from NERDTree
-let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]', '\.idea$[[dir]]', '\.sass-cache$']
-
 " === JSDoc === "
 let g:jsdoc_enable_es6 = 1
 let g:jsdoc_allow_input_prompt = 0
@@ -232,9 +218,6 @@ let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 " Configure error/warning section to use coc.nvim
 let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
-
-" Hide the Nerdtree status line to avoid clutter
-let g:NERDTreeStatusline = ''
 
 " Disable vim-airline in preview mode
 let g:airline_exclude_preview = 1
@@ -412,9 +395,6 @@ hi! SignColumn ctermfg=NONE guibg=NONE
 hi! VertSplit gui=NONE guifg=#17252c guibg=NONE
 hi! EndOfBuffer ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
-" Customize NERDTree directory
-hi! NERDTreeCWD guifg=#99c794
-
 " Make background color transparent for git changes
 hi! SignifySignAdd guibg=NONE
 hi! SignifySignDelete guibg=NONE
@@ -557,9 +537,8 @@ noremap gV `[v`]
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 
-" Add common Nerdtree commands for location a current file or just toggling it
-nmap <leader>nt :NERDTreeToggle<CR>
-nmap <leader>nf :NERDTreeFind<CR>
+" Add common CHADTree commands for location a current file or just toggling it
+nmap <leader>nt :CHADopen<CR>
 
 " === Add sane mapping for resolving conflicts === "
 
@@ -587,9 +566,6 @@ nnoremap <leader>g :Gblame<CR>
 " ============================================================================ "
 " ===                                 MISC.                                === "
 " ============================================================================ "
-
-" Automaticaly close nvim if NERDTree is only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " === Search === "
 " ignore case when searching
