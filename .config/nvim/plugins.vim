@@ -60,10 +60,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Tmux/Neovim movement integration
 Plug 'christoomey/vim-tmux-navigator'
 
-" Denite - Fuzzy finding, buffer management
-Plug 'Shougo/denite.nvim'
-
-" Because denite is slow
+" Fuzzy finding
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
