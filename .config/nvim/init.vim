@@ -595,6 +595,14 @@ if has("nvim")
   set inccommand=split
 endif
 
+" Automatically load a session if there is one
+if has('autocmd')
+  autocmd VimEnter * nested
+        \ if !argc() && empty(v:this_session) && filereadable('Session.vim') && !&modified |
+        \   source Session.vim |
+        \ endif
+endif
+
 " ============================================================================ "
 " ===                                 TEST.                                === "
 " ============================================================================ "
