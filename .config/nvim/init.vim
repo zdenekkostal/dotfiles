@@ -590,11 +590,6 @@ set backupdir=~/.local/share/nvim/backup " Don't put backups in current dir
 set backup
 set noswapfile
 
-" Reload icons after init source
-if exists('g:loaded_webdevicons')
-  call webdevicons#refresh()
-endif
-
 " Live substitute for neovim
 if has("nvim")
   set inccommand=split
