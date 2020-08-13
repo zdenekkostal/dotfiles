@@ -76,10 +76,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'heavenshell/vim-jsdoc'
 
 " === Syntax Highlighting === "
-
 Plug 'sheerun/vim-polyglot'
-Plug 'jparise/vim-graphql', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'leafgarland/typescript-vim'
 
 " === UI === "
 " File explorer

@@ -262,15 +262,6 @@ let g:javascript_plugin_jsdoc = 1
 " Highlight jsx syntax even in non .jsx files
 let g:jsx_ext_required = 0
 
-" === vim-polyglot === "
-let g:polyglot_disabled = ['typescript']
-
-" TypeScript with React
-au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
-
-" === javascript-libraries-syntax === "
-" let g:used_javascript_libs = 'underscore,requirejs,chai,jquery'
-
 " === Signify === "
 let g:signify_sign_delete = '-'
 
