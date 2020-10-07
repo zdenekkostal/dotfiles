@@ -55,6 +55,7 @@
 [diff]
     compactionHeuristic = true
     tool = vimdiff
+    colorMoved = default
 
 [difftool]
     prompt = false
