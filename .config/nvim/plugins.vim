@@ -24,11 +24,14 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " === Editing Plugins === "
+" Let's be a good colleague
+Plug 'editorconfig/editorconfig-vim'
+
 " Trailing whitespace highlighting & automatic fixing
 Plug 'ntpeters/vim-better-whitespace'
 
 " For better brackets closing
-Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
 
 " For expanding and shrinking visual selection by pressing 'v' multiple times
 Plug 'terryma/vim-expand-region'
@@ -37,7 +40,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'luochen1990/rainbow'
 
 " auto-close plugin
-Plug 'rstacruz/vim-closer'
+Plug 'jiangmiao/auto-pairs'
 
 " Make commenting great again
 Plug 'tpope/vim-commentary'
