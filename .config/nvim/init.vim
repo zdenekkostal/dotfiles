@@ -51,6 +51,14 @@ set cmdheight=1
 " or 'The only match'
 set shortmess+=c
 
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
 " ============================================================================ "
 " ===                               CUSTOM                                 === "
 
@@ -143,31 +151,35 @@ command! -bang -nargs=* F call fzf#vim#grep('rg --column --line-number --no-head
 " endfunction
 
 " === Coc.nvim === "
-" use <tab> for trigger completion and navigate to next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-"Close preview window when completion is done.
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-" === NeoSnippet === "
-" Map <C-k> as shortcut to activate snippet if available
-" imap <C-k> <Plug>(neosnippet_expand_or_jump)
-" smap <C-k> <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k> <Plug>(neosnippet_expand_target)
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
 
-" Load custom snippets from snippets folder
-" let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
-
-" Hide conceal markers
-" let g:neosnippet#enable_conceal_markers = 0
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
 
 " === JSDoc === "
 let g:jsdoc_enable_es6 = 1
@@ -187,15 +199,6 @@ let g:airline_theme='gruvbox'
 let g:airline#extensions#coc#enabled = 1
 
 let airline#extensions#coc#error_symbol = 'Errors:'
-
-" let g:airline#extensions#default#section_truncate_width = {
-"     \ 'b': 79,
-"     \ 'x': 60,
-"     \ 'y': 88,
-"     \ 'z': 45,
-"     \ 'warning': 80,
-"     \ 'error': 10,
-"     \ }
 
 let g:airline_extensions = ['coc']
 
@@ -233,10 +236,6 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-" unicode symbols
-" let g:airline_left_sep = '❮'
-" let g:airline_right_sep = '❯'
-
 " Don't show git changes to current file in airline
 let g:airline#extensions#hunks#enabled=0
 
@@ -247,8 +246,6 @@ endtry
 " === echodoc === "
 " Enable echodoc on startup
 let g:echodoc#enable_at_startup = 1
-
-" let g:echodoc#type = 'floating'
 
 " To use a custom highlight for the float window,
 " change Pmenu to your highlight group
@@ -412,16 +409,6 @@ endfunction
 " ============================================================================ "
 " ===                             KEY MAPPINGS                             === "
 " ============================================================================ "
-
-"   <Space> - PageDown
-"   -       - PageUp
-noremap <Space> <PageDown>
-noremap - <PageUp>
-
-" === coc.nvim === "
-" nmap <silent> <leader>dd <Plug>(coc-definition)
-" nmap <silent> <leader>dr <Plug>(coc-references)
-" nmap <silent> <leader>dj <Plug>(coc-implementation)
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
