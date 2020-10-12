@@ -84,7 +84,6 @@ Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 
 " Colorscheme
 Plug 'gruvbox-community/gruvbox'
-Plug 'mhartington/oceanic-next'
 
 " Customized vim status line
 Plug 'vim-airline/vim-airline'
@@ -92,6 +91,10 @@ Plug 'vim-airline/vim-airline-themes'
 
 " Snippets
 Plug 'honza/vim-snippets'
+
+" Let's set up Neovim LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 
 " Initialize plugin system
 call plug#end()
