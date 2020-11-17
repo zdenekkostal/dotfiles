@@ -30,8 +30,8 @@ Plug 'editorconfig/editorconfig-vim'
 " Trailing whitespace highlighting & automatic fixing
 Plug 'ntpeters/vim-better-whitespace'
 
-" For better brackets closing
-Plug 'machakann/vim-sandwich'
+" For better brackets operations
+Plug 'tpope/vim-surround'
 
 " For expanding and shrinking visual selection by pressing 'v' multiple times
 Plug 'terryma/vim-expand-region'
