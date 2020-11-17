@@ -18,6 +18,7 @@ disabled = true
 style = "bold yellow"
 
 [git_status]
+disabled = true
 conflicted = "💥"
 ahead = "⬆️"
 behind = "⬇️"
