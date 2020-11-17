@@ -52,6 +52,9 @@
 [push]
     default = simple
 
+[commit]
+    verbose = true
+
 [diff]
     compactionHeuristic = true
     tool = vimdiff
