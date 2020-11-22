@@ -309,7 +309,7 @@ hi! LineNr ctermfg=NONE guibg=NONE
 hi! SignColumn ctermfg=NONE guibg=NONE
 
 " Try to hide vertical spit and end of buffer symbol
-hi! VertSplit gui=NONE guifg=#17252c guibg=NONE
+hi! VertSplit gui=NONE guifg=#282828 guibg=NONE
 hi! EndOfBuffer ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
 " Make background color transparent for git changes
