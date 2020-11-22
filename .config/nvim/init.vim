@@ -120,36 +120,6 @@ let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 " --color: Search color options
 command! -bang -nargs=* F call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" --colors "path:fg:blue" --colors "match:fg:white" --colors "match:bg:yellow" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 
-" command! -bang -nargs=* F
-"   \ call fzf#vim#grep(
-"   \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-"   \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-"   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-"   \   <bang>0)
-
-" https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294
-" let $FZF_DEFAULT_OPTS='--layout=reverse'
-" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-" function! FloatingFZF()
-"   let buf = nvim_create_buf(v:false, v:true)
-"   call setbufvar(buf, '&signcolumn', 'no')
-
-"   let height = 20
-"   let width = float2nr(&columns - (&columns * 2 / 10))
-"   let col = float2nr((&columns - width) / 2)
-
-"   let opts = {
-"         \ 'relative': 'editor',
-"         \ 'row': 1,
-"         \ 'col': col,
-"         \ 'width': width,
-"         \ 'height': height
-"         \ }
-
-"   call nvim_open_win(buf, v:true, opts)
-" endfunction
-
 " Wrap in try/catch to avoid errors on initial install before plugin is available
 try
 
@@ -199,68 +169,6 @@ let g:signify_sign_delete = '-'
 
 " Rainbow Parentheses
 let g:rainbow_active = 1
-
-let s:rainbow_conf = {
-\	'guifgs': ['Green', 'darkorange3', 'seagreen3', 'firebrick'],
-\	'ctermfgs': ['Green', 'lightyellow', 'lightcyan', 'lightmagenta'],
-\	'guis': [''],
-\	'cterms': [''],
-\	'operators': '_,_',
-\	'contains_prefix': 'TOP',
-\       'after': ['syn clear typescriptObjectLiteral'],
-\	'parentheses_options': 'containedin=typescriptMember,typescriptBlock',
-\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-\	'separately': {
-\		'*': {},
-\		'markdown': {
-\			'parentheses_options': 'containedin=markdownCode contained',
-\		},
-\		'lisp': {
-\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-\		},
-\		'haskell': {
-\			'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/\v\{\ze[^-]/ end=/}/ fold'],
-\		},
-\		'tex': {
-\			'parentheses_options': 'containedin=texDocZone',
-\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-\		},
-\		'vim': {
-\			'parentheses_options': 'containedin=vimFuncBody,vimExecute',
-\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold'],
-\		},
-\		'xml': {
-\			'syn_name_prefix': 'xmlRainbow',
-\			'parentheses': ['start=/\v\<\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'))?)*\>/ end=#</\z1># fold'],
-\		},
-\		'xhtml': {
-\			'parentheses': ['start=/\v\<\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'))?)*\>/ end=#</\z1># fold'],
-\		},
-\		'html': {
-\			'parentheses': ['start=/\v\<((script|style|area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-\		},
-\		'perl': {
-\			'syn_name_prefix': 'perlBlockFoldRainbow',
-\		},
-\		'php': {
-\			'syn_name_prefix': 'phpBlockRainbow',
-\			'contains_prefix': '',
-\			'parentheses': ['start=/(/ end=/)/ containedin=@htmlPreproc contains=@phpClTop', 'start=/\[/ end=/\]/ containedin=@htmlPreproc contains=@phpClTop', 'start=/{/ end=/}/ containedin=@htmlPreproc contains=@phpClTop', 'start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold contains_prefix=TOP'],
-\		},
-\		'stylus': {
-\			'parentheses': ['start=/{/ end=/}/ fold contains=@colorableGroup'],
-\		},
-\		'css': 0,
-\		'sh': 0,
-\	}
-\}
-
-nnoremap <f1> :echo synIDattr(synID(line('.'), col('.'), 0), 'name')<cr>
-nnoremap <f2> :echo ("hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">")<cr>
-nnoremap <f3> :echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')<cr>
-nnoremap <f4> :exec 'syn list '.synIDattr(synID(line('.'), col('.'), 0), 'name')<cr>
 
 " ============================================================================ "
 " ===                                UI                                    === "
