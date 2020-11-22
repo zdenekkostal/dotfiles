@@ -57,9 +57,6 @@ Plug 'tpope/vim-obsession'
 " Let's visualize the undolist "
 Plug 'mbbill/undotree'
 
-" Intellisense Engine
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 " Tmux/Neovim movement integration
 Plug 'christoomey/vim-tmux-navigator'
 
