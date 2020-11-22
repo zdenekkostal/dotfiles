@@ -36,9 +36,6 @@ Plug 'tpope/vim-surround'
 " For expanding and shrinking visual selection by pressing 'v' multiple times
 Plug 'terryma/vim-expand-region'
 
-" Let's make parents great again
-Plug 'luochen1990/rainbow'
-
 " auto-close plugin
 Plug 'jiangmiao/auto-pairs'
 
@@ -77,6 +74,9 @@ Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 " Colorscheme
 Plug 'gruvbox-community/gruvbox'
 
+" Let's make parents great again
+Plug 'luochen1990/rainbow'
+
 " Customized vim status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -84,7 +84,10 @@ Plug 'vim-airline/vim-airline-themes'
 " Snippets
 Plug 'honza/vim-snippets'
 
-" Let's set up Neovim LSP
+" Distraction free writing
+Plug 'junegunn/goyo.vim'
+
+" Set up Neovim's LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 
