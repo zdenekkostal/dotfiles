@@ -190,14 +190,6 @@ catch
   echo 'Airline not installed. It should work after running :PlugInstall'
 endtry
 
-" === echodoc === "
-" Enable echodoc on startup
-let g:echodoc#enable_at_startup = 1
-
-" To use a custom highlight for the float window,
-" change Pmenu to your highlight group
-highlight link EchoDocFloat Pmenu
-
 " === vim-jsx === "
 " Highlight jsx syntax even in non .jsx files
 let g:jsx_ext_required = 0
@@ -569,14 +561,6 @@ endif
 " neovim 0.4.0+: transparent floating windows
 if exists('&winblend')
     set winblend=10
-endif
-
-let g:echodoc_enable_at_startup=1
-
-if has("nvim-0.4.0")
-    let g:echodoc#type="floating"
-else
-    let g:echodoc#type="echo"
 endif
 
 " https://www.reddit.com/r/vim/comments/cn20tv/tip_histogrambased_diffs_using_modern_vim
