@@ -537,6 +537,13 @@ lspconfig.html.setup{ on_attach = on_attach }
 lspconfig.gopls.setup{ on_attach = on_attach }
 lspconfig.cssls.setup{ on_attach = on_attach }
 
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+    use_languagetree = false,
+  },
+}
 
 vim.lsp.handlers["textDocument/formatting"] = function(err, _, result, _, bufnr)
   if err ~= nil or result == nil then

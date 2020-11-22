@@ -75,9 +75,6 @@ Plug 'tpope/vim-fugitive'
 " Generate JSDoc commands based on function signature
 Plug 'heavenshell/vim-jsdoc'
 
-" === Syntax Highlighting === "
-Plug 'sheerun/vim-polyglot'
-
 " === UI === "
 " File explorer
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
@@ -95,6 +92,9 @@ Plug 'honza/vim-snippets'
 " Let's set up Neovim LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/completion-treesitter'
 
 " Initialize plugin system
 call plug#end()
