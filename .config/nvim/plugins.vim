@@ -57,6 +57,10 @@ Plug 'mbbill/undotree'
 " Tmux/Neovim movement integration
 Plug 'christoomey/vim-tmux-navigator'
 
+" FocusGained/FocusLost events for terminal vim,
+" simulated by tmux
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
 " Fuzzy finding
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
