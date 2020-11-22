@@ -45,9 +45,6 @@ Plug 'jiangmiao/auto-pairs'
 " Make commenting great again
 Plug 'tpope/vim-commentary'
 
-" Improved motion in Vim
-Plug 'easymotion/vim-easymotion'
-
 " Display marks
 Plug 'kshenoy/vim-signature'
 

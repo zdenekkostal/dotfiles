@@ -349,10 +349,6 @@ let g:strip_whitespace_on_save=1
 "   <leader>h - Find and replace
 map <leader>h :%s/
 
-" === Easy-motion shortcuts ==="
-"   <leader>w - Easy-motion highlights first word letters bi-directionally
-map <leader>w <Plug>(easymotion-bd-w)
-
 " Allows you to save files you opened without write permissions via sudo
 cmap w!! w !sudo tee %
 
