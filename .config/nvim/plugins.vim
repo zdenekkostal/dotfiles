@@ -72,9 +72,6 @@ Plug 'Shougo/echodoc.vim'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 
-" Generate JSDoc commands based on function signature
-Plug 'heavenshell/vim-jsdoc'
-
 " === UI === "
 " File explorer
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}

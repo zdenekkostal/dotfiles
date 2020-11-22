@@ -150,14 +150,6 @@ command! -bang -nargs=* F call fzf#vim#grep('rg --column --line-number --no-head
 "   call nvim_open_win(buf, v:true, opts)
 " endfunction
 
-" === JSDoc === "
-let g:jsdoc_enable_es6 = 1
-let g:jsdoc_allow_input_prompt = 0
-let g:jsdoc_input_description = 1
-let g:jsdoc_param_description_separator = ': '
-let g:jsdoc_additional_descriptions = 1
-let g:jsdoc_enable_es6 = 1
-
 " Wrap in try/catch to avoid errors on initial install before plugin is available
 try
 
@@ -205,10 +197,6 @@ let g:echodoc#enable_at_startup = 1
 " To use a custom highlight for the float window,
 " change Pmenu to your highlight group
 highlight link EchoDocFloat Pmenu
-
-" === vim-javascript === "
-" Enable syntax highlighting for JSDoc
-let g:javascript_plugin_jsdoc = 1
 
 " === vim-jsx === "
 " Highlight jsx syntax even in non .jsx files
@@ -375,10 +363,6 @@ map <leader>w <Plug>(easymotion-bd-w)
 
 " Allows you to save files you opened without write permissions via sudo
 cmap w!! w !sudo tee %
-
-" === vim-jsdoc shortcuts ==="
-" Generate jsdoc for function under cursor
-" nmap <leader>z :JsDoc<CR>
 
 " Delete current visual selection and dump in black hole buffer before pasting
 " Used when you want to paste over something without it getting copied to
