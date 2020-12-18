@@ -9,7 +9,8 @@ To install everything from scratch just open the `Terminal` app and run the foll
 # Install Oh my ZSH
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-brew install asdf git tig tmux fzf direnv docker ripgrep gnupg svgo tldr starship git-delta neovim
+brew install asdf git tig tmux fzf direnv docker ripgrep gnupg svgo tldr starship git-delta
+brew install --HEAD neovim
 brew cask install alacritty 
 brew tap homebrew/cask-fonts
 brew cask install font-hack-nerd-font
@@ -20,8 +21,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 This is a bare repository, which has no work tree:
 
 ```bash
-git clone --separate-git-dir=$HOME/.dotfiles git@github.com:zdenekkostal/dotfiles.git $HOME/.dotfiles-tmp
-rm -r $HOME/.dotfiles-tmp
+git clone --bare git@github.com:zdenekkostal/dotfiles.git $HOME/.dotfiles
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 dotfiles config status.showUntrackedFiles no
 
@@ -45,7 +45,7 @@ List of applications I use:
 - CleanShot X
 - ProtonVPN
 - Spotify
-- Moom
+- Magnet
 - TripMode
 - Dictionaries (dictionaries.io)
 - BeardedSpice
