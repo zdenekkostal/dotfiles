@@ -1,10 +1,10 @@
+# Private profile vars
+[ -f ~/.private/profile ] && source ~/.private/profile
+
 # Add asdf to the path so it can find all languages
 if command -v asdf >/dev/null 2>&1; then
-  export PATH="~/.asdf/shims:$PATH"
+  export PATH="$HOME/.asdf/shims:$PATH"
 fi
-
-# Add support for current project Node binaries
-export PATH="$PATH:node_modules/.bin"
 
 # and for global yarn modules
 if command -v yarn >/dev/null 2>&1; then
@@ -14,6 +14,9 @@ fi
 if command -v go >/dev/null 2>&1; then
   export PATH="$(go env GOPATH)/bin:$PATH"
 fi
+
+# Add support for current project Node binaries
+export PATH="$PATH:node_modules/.bin"
 
 # ... every other language will be prepended via asdf
 
