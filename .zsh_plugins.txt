@@ -1,0 +1,3 @@
+# Run this after changing plugins
+# antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+ohmyzsh/ohmyzsh folder:plugins/gitfast

@@ -1,26 +1,16 @@
 # Enable direnv - sets shell variables per directory
+# also, silence it to avoid text output when opening a new shell
+export DIRENV_LOG_FORMAT=
 eval "$(direnv hook zsh)"
 
 # Private stuff
 [ -f ~/.private/env ] && source ~/.private/env
 
-# Reload .profile stuff which would be loaded otherwise just after logging in
-[ -f ~/.profile ] && source ~/.profile
-
 # Enable starship - excellent shell prompt
 eval "$(starship init zsh)"
 
-if command -v antibody >/dev/null 2>&1; then
-  source <(antibody init)
-
-  antibody bundle "
-    ohmyzsh/ohmyzsh folder:plugins/asdf
-    ohmyzsh/ohmyzsh folder:plugins/docker
-    ohmyzsh/ohmyzsh folder:plugins/gitfast
-    ohmyzsh/ohmyzsh folder:plugins/ssh-agent
-    bigH/git-fuzzy path:bin kind:path
-  "
-fi
+# Source ZSH plugins via antibody
+[ -f ~/.zsh_plugins.sh ] && source ~/.zsh_plugins.sh
 
 ####################################################
 # Functions

@@ -1,3 +1,8 @@
+# Add asdf to the path so it can find all languages
+if command -v asdf >/dev/null 2>&1; then
+  export PATH="~/.asdf/shims:$PATH"
+fi
+
 # Add support for current project Node binaries
 export PATH="$PATH:node_modules/.bin"
 
@@ -7,7 +12,7 @@ if command -v yarn >/dev/null 2>&1; then
 fi
 
 if command -v go >/dev/null 2>&1; then
-  export PATH="$($(which go) env GOPATH)/bin:$PATH"
+  export PATH="$(go env GOPATH)/bin:$PATH"
 fi
 
 # ... every other language will be prepended via asdf
