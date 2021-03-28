@@ -1,5 +1,6 @@
+lua require('init')
+
 scriptencoding utf-8
-source ~/.config/nvim/plugins.vim
 
 " Enable true color support
 set termguicolors
@@ -77,7 +78,6 @@ set cursorline
 
 set nofoldenable          " no folding at all
 set foldlevelstart=50 " Files open expanded
-set foldmethod=indent " Use decent folding
 
 " ============================================================================ "
 " ===                           PLUGIN SETUP                               === "
@@ -108,79 +108,21 @@ let g:fzf_action = {
 
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
-" --column: Show column number
-" --line-number: Show line number
-" --no-heading: Do not show file headings in results
-" --fixed-strings: Search term as a literal string
-" --ignore-case: Case insensitive search
-" --no-ignore: Do not respect .gitignore, etc...
-" --hidden: Search hidden files and folders
-" --follow: Follow symlinks
-" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-" --color: Search color options
-command! -bang -nargs=* F call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" --colors "path:fg:blue" --colors "match:fg:white" --colors "match:bg:yellow" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-
-" Wrap in try/catch to avoid errors on initial install before plugin is available
-try
-
-" === Vim airline ==== "
-" Enable extensions
-let g:airline_theme='gruvbox'
-
-" Update section z to just have line number
-let g:airline_section_z = airline#section#create(['linenr'])
-
-" Do not draw separators for empty sections (only for the active window) >
-let g:airline_skip_empty_sections = 1
-
-" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-
-" Custom setup that removes filetype/whitespace from default vim airline bar
-let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'z', 'warning', 'error']]
-
-" Disable vim-airline in preview mode
-let g:airline_exclude_preview = 1
-
-" Enable powerline fonts
-let g:airline_powerline_fonts = 1
-
-" Enable caching of syntax highlighting groups
-let g:airline_highlighting_cache = 1
-
-" Define custom airline symbols
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-" Don't show git changes to current file in airline
-let g:airline#extensions#hunks#enabled=0
-
-catch
-  echo 'Airline not installed. It should work after running :PlugInstall'
-endtry
-
-" === vim-jsx === "
-" Highlight jsx syntax even in non .jsx files
-let g:jsx_ext_required = 0
-
-" === Signify === "
-let g:signify_sign_delete = '-'
-
-" Rainbow Parentheses
-let g:rainbow_active = 1
+command! -nargs=* F Rg <args>
 
 " ============================================================================ "
 " ===                                UI                                    === "
 " ============================================================================ "
 
+" Transparent popup-menu
+set pumblend=10
+
+" Transparent floating windows
+set winblend=10
+
 " Editor theme
 set background=dark
 colorscheme gruvbox " OceanicNext
-
-let g:gruvbox_contrast_dark = 'medium'
-let g:gruvbox_contrast_light = 'medium'
-let g:gruvbox_invert_selection = 0
 
 " Reload vim config after 'tt' in normal mode
 nnoremap <leader>tt :so $MYVIMRC<CR>
@@ -248,8 +190,6 @@ endfunction
 " ============================================================================ "
 
 " === vim-better-whitespace === "
-"   <leader>y - Automatically remove trailing whitespace
-nmap <leader>y :StripWhitespace<CR>
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
 
@@ -295,9 +235,6 @@ noremap gV `[v`]
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 
-" Add common CHADTree commands for location a current file or just toggling it
-nmap <leader>nt :CHADopen<CR>
-
 " === Add sane mapping for resolving conflicts === "
 
 " get from REMOTE
@@ -319,11 +256,12 @@ nnoremap <silent> _ :nohl<CR>
 " Toggle fold at current position.
 nnoremap <leader><Tab> za
 
-nnoremap <leader>g :Gblame<CR>
-
 " ============================================================================ "
 " ===                                 MISC.                                === "
 " ============================================================================ "
+
+" Set better diffing algorithm
+set diffopt=filler,internal,algorithm:histogram,indent-heuristic
 
 " === Search === "
 " ignore case when searching
@@ -359,115 +297,4 @@ if has('autocmd')
         \ if !argc() && empty(v:this_session) && filereadable('Session.vim') && !&modified |
         \   source Session.vim |
         \ endif
-endif
-
-" ============================================================================ "
-" ===                                 LSP                                  === "
-" ============================================================================ "
-
-" Recommended settings for nvim-lua/completion-nvim
-let g:completion_enable_snippet = 'UltiSnips'
-
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-
-lua << EOF
-
-local lspconfig = require("lspconfig")
-local completion = require("completion")
-
-local on_attach = function(client, bufnr)
-    print("'" .. client.name .. "' language server started" )
-    completion.on_attach()
-
-    -- Avoid TSServer clashing with Prettier
-    client.resolved_capabilities.document_formatting = false
-
-    local opts = { noremap=true, silent=true }
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.goto_next({ severity = "Error" })<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>E', '<cmd>lua vim.lsp.diagnostic.goto_prev({ severity = "Error" })<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rr', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>', opts)
-end
-
--- https://github.com/neovim/neovim/pull/12655
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
-    virtual_text = true,
-    signs = true,
-    update_in_insert = true,
-  }
-)
-
-lspconfig.tsserver.setup{ on_attach = on_attach }
-lspconfig.html.setup{ on_attach = on_attach }
-lspconfig.gopls.setup{ on_attach = on_attach }
-lspconfig.cssls.setup{ on_attach = on_attach }
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true,
-    use_languagetree = false,
-  },
-}
-
-vim.lsp.handlers["textDocument/formatting"] = function(err, _, result, _, bufnr)
-  if err ~= nil or result == nil then
-    return
-  end
-
-  if not vim.api.nvim_buf_get_option(bufnr, "modified") then
-    local view = vim.fn.winsaveview()
-    vim.lsp.util.apply_text_edits(result, bufnr)
-    vim.fn.winrestview(view)
-    if bufnr == vim.api.nvim_get_current_buf() then
-      vim.api.nvim_command("noautocmd :update")
-    end
-  end
-end
-
-local efm_on_attach = function(client)
-  if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command [[augroup Format]]
-    vim.api.nvim_command [[autocmd! * <buffer>]]
-    vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
-    vim.api.nvim_command [[augroup END]]
-  end
-end
-
-lspconfig.efm.setup{ on_attach = efm_on_attach }
-
-EOF
-
-" ============================================================================ "
-" ===                                 TEST.                                === "
-" ============================================================================ "
-
-" neovim 0.4.0+: transparent popup-menu
-if exists('&pumblend')
-    set pumblend=10
-endif
-
-" neovim 0.4.0+: transparent floating windows
-if exists('&winblend')
-    set winblend=10
-endif
-
-" https://www.reddit.com/r/vim/comments/cn20tv/tip_histogrambased_diffs_using_modern_vim
-if has('nvim-0.3.2') || has("patch-8.1.0360")
-    set diffopt=filler,internal,algorithm:histogram,indent-heuristic
 endif
