@@ -1,1 +1,4 @@
-return {'mbbill/undotree'}
+return {
+  'mbbill/undotree',
+  cmd = {'UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle'},
+}

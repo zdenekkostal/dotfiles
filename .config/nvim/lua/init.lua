@@ -1,6 +1,4 @@
--- TODO bootstrap packer
--- TODO wrap plenary with something
--- require('plenary.reload').reload_module('plugins')
+require('bootstrap')
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]

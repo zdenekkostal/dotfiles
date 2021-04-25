@@ -80,67 +80,26 @@ set nofoldenable          " no folding at all
 set foldlevelstart=50 " Files open expanded
 
 " ============================================================================ "
-" ===                           PLUGIN SETUP                               === "
-" ============================================================================ "
-
-" === FZF === "
-nnoremap <leader>t :GitFiles<CR>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>m :Marks<CR>
-
-imap <c-x><c-w> <plug>(fzf-complete-word)
-imap <c-x><c-p> <plug>(fzf-complete-path)
-imap <c-x><c-f> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
-
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
-
-command! -nargs=* F Rg <args>
-
-" ============================================================================ "
 " ===                                UI                                    === "
 " ============================================================================ "
 
-" Transparent popup-menu
-set pumblend=10
+if has("nvim")
+  " Transparent popup-menu
+  set pumblend=10
 
-" Transparent floating windows
-set winblend=10
+  " Transparent floating windows
+  set winblend=10
+endif
 
 " Editor theme
+" This is set automatically via dark-notify, but let's fallback to dark
+" to make sure light theme does not damage my eyes when opening nvim during
+" the night
 set background=dark
-colorscheme gruvbox " OceanicNext
+colorscheme gruvbox
 
 " Reload vim config after 'tt' in normal mode
 nnoremap <leader>tt :so $MYVIMRC<CR>
-
-" Add custom highlights in method that is executed every time a
-" colorscheme is sourced
-" See https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f for
-" details
-function! MyHighlights() abort
-  " Hightlight trailing whitespace
-  highlight Trail ctermbg=red guibg=red
-  call matchadd('Trail', '\s\+$', 100)
-endfunction
-
-augroup MyColors
-  autocmd!
-  autocmd ColorScheme * call MyHighlights()
-augroup END
 
 " Change vertical split character to be a space (essentially hide it)
 set fillchars+=vert:.
@@ -152,46 +111,9 @@ set splitright
 " Don't dispay mode in command line (airilne already shows it)
 set noshowmode
 
-" Make background transparent for many things
-hi! Normal ctermbg=NONE guibg=NONE
-hi! NonText ctermbg=NONE guibg=NONE
-hi! LineNr ctermfg=NONE guibg=NONE
-hi! SignColumn ctermfg=NONE guibg=NONE
-
-" Try to hide vertical spit and end of buffer symbol
-hi! VertSplit gui=NONE guifg=#282828 guibg=NONE
-hi! EndOfBuffer ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
-
-" Make background color transparent for git changes
-hi! SignifySignAdd guibg=NONE
-hi! SignifySignDelete guibg=NONE
-hi! SignifySignChange guibg=NONE
-
-" Highlight git change signs
-hi! SignifySignAdd guifg=#99c794
-hi! SignifySignDelete guifg=#ec5f67
-hi! SignifySignChange guifg=#c594c5
-
-" Call method on window enter
-augroup WindowManagement
-  autocmd!
-  autocmd WinEnter * call Handle_Win_Enter()
-augroup END
-
-" Change highlight group of preview window when open
-function! Handle_Win_Enter()
-  if &previewwindow
-    setlocal winhighlight=Normal:MarkdownError
-  endif
-endfunction
-
 " ============================================================================ "
 " ===                             KEY MAPPINGS                             === "
 " ============================================================================ "
-
-" === vim-better-whitespace === "
-let g:better_whitespace_enabled=1
-let g:strip_whitespace_on_save=1
 
 " === Search shorcuts === "
 "   <leader>h - Find and replace
@@ -207,6 +129,7 @@ vnoremap <leader>p "_dP
 
 " ============================================================================ "
 " ===                               CUSTOM                                 === "
+" ============================================================================ "
 
 " Copy path to clipboard
 " Convert slashes to backslashes for Windows.
@@ -223,10 +146,6 @@ endif
 
 " Avoid unintentional switches to Ex mode.
 nnoremap Q <nop>
-
-" Expand visual selection by pressing 'v' multiple times
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
 
 " Select pasted text
 noremap gV `[v`]
@@ -259,9 +178,11 @@ nnoremap <leader><Tab> za
 " ============================================================================ "
 " ===                                 MISC.                                === "
 " ============================================================================ "
-
-" Set better diffing algorithm
-set diffopt=filler,internal,algorithm:histogram,indent-heuristic
+"
+if has("nvim")
+  " Set better diffing algorithm
+  set diffopt=filler,internal,algorithm:histogram,indent-heuristic
+endif
 
 " === Search === "
 " ignore case when searching

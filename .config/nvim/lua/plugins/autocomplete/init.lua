@@ -1,7 +1,7 @@
 return {
   'hrsh7th/nvim-compe',
   requires = {
-    'hrsh7th/vim-vsnip'
+    {'hrsh7th/vim-vsnip', event = 'InsertEnter *'}
   },
   event = 'InsertEnter *',
   config = function()
@@ -42,6 +42,13 @@ return {
       end
     end
 
+    vim.api.nvim_set_keymap("i", "<silent><expr> <C-Space>", "compe#complete()", { noremap = true })
+    -- vim.api.nvim_set_keymap("i", [[<silent><expr> <CR>]], [[compe#confirm('<CR>')]], { noremap = true })
+    -- vim.cmd [[inoremap <silent><expr> <CR>      compe#confirm('<CR>')]]
+    vim.api.nvim_set_keymap("i", "<silent><expr> <C-f>", "compe#scroll({ 'delta': +4 })", { noremap = true })
+    vim.api.nvim_set_keymap("i", "<silent><expr> <C-d>", "compe#scroll({ 'delta': -4 })", { noremap = true })
+
+    vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
     vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
     vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
     vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
@@ -63,12 +70,12 @@ return {
       max_menu_width = 100,
       documentation = true,
       source = {
+        vsnip = true,
         path = true,
         buffer = true,
         calc = true,
         nvim_lsp = true,
         nvim_lua = true,
-        vsnip = true,
       }
     })
   end

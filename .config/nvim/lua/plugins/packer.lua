@@ -1,1 +1,1 @@
-return {'wbthomason/packer.nvim'}
+return {'wbthomason/packer.nvim', opt = true}
