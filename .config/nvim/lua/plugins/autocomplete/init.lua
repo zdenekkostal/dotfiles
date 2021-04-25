@@ -4,6 +4,9 @@ return {
     {'hrsh7th/vim-vsnip', event = 'InsertEnter *'}
   },
   event = 'InsertEnter *',
+  setup = function()
+    vim.cmd[[ inoremap <silent><expr> <CR>      compe#confirm('<CR>') ]]
+  end,
   config = function()
     local t = function(str)
       return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -42,18 +45,6 @@ return {
       end
     end
 
-    vim.api.nvim_set_keymap("i", "<silent><expr> <C-Space>", "compe#complete()", { noremap = true })
-    -- vim.api.nvim_set_keymap("i", [[<silent><expr> <CR>]], [[compe#confirm('<CR>')]], { noremap = true })
-    -- vim.cmd [[inoremap <silent><expr> <CR>      compe#confirm('<CR>')]]
-    vim.api.nvim_set_keymap("i", "<silent><expr> <C-f>", "compe#scroll({ 'delta': +4 })", { noremap = true })
-    vim.api.nvim_set_keymap("i", "<silent><expr> <C-d>", "compe#scroll({ 'delta': -4 })", { noremap = true })
-
-    vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-    vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-    vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-    vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-    vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-
     vim.o.completeopt = "menuone,noinsert,noselect"
 
     require('compe').setup({
@@ -78,5 +69,16 @@ return {
         nvim_lua = true,
       }
     })
+
+    -- vim.api.nvim_set_keymap("i", "<silent><expr> <C-Space>", "compe#complete()", { noremap = true })
+    -- vim.api.nvim_set_keymap("i", "<silent><expr> <CR>", "compe#confirm('<CR>')", { noremap = true })
+    -- vim.api.nvim_set_keymap("i", "<silent><expr> <C-f>", "compe#scroll({ 'delta': +4 })", { noremap = true })
+    -- vim.api.nvim_set_keymap("i", "<silent><expr> <C-d>", "compe#scroll({ 'delta': -4 })", { noremap = true })
+
+    vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+    vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+    vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+    vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+    vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
   end
 }
