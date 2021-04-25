@@ -1,13 +1,12 @@
-lua require('init')
+if has('nvim')
+  lua require('init')
+endif
 
 scriptencoding utf-8
 
 " Enable true color support
 set termguicolors
 
-" ============================================================================ "
-"               Heavily inspired and copy pasted from excellent                "
-"                     https://github.com/ctaylo21/jarvis                       "
 " ============================================================================ "
 " ===                           EDITING OPTIONS                            === "
 " ============================================================================ "
