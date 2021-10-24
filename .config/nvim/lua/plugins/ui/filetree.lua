@@ -3,11 +3,14 @@ return {
   requires = {
     {'kyazdani42/nvim-web-devicons', opt = true},
   },
-  -- cmd = {'NvimTreeToggle', 'NvimTreeFindFile'},
+  cmd = {'NvimTreeToggle', 'NvimTreeFindFile'},
   setup = function()
     vim.api.nvim_set_keymap('n', '<Leader>nt', ':NvimTreeToggle<CR>', { noremap = true })
     vim.api.nvim_set_keymap('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true })
 
     vim.g.nvim_tree_ignore = {'.git'}
+  end,
+  config = function()
+    require'nvim-tree'.setup()
   end
 }
