@@ -35,7 +35,6 @@ require('packer').startup({
 
     -- Tmux
     require('plugins/tmux/navigation'),
-    require('plugins/tmux/focus-events'),
 
     -- Theming
     require('plugins/themes/gruvbox'),
