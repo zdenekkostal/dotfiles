@@ -9,6 +9,9 @@ eval "$(direnv hook zsh)"
 # Enable starship - excellent shell prompt
 eval "$(starship init zsh)"
 
+# And let's have some nice jumps
+eval "$(zoxide init zsh)"
+
 # Source ZSH plugins via antibody
 [ -f ~/.zsh_plugins.sh ] && source ~/.zsh_plugins.sh
 
