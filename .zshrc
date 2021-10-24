@@ -18,6 +18,14 @@ eval "$(starship init zsh)"
 function terminal-scheme {
   sed -i '' -e "s#^colors:.*#colors: \*$1#g" ~/.config/alacritty/alacritty.yml
   sed -i '' -e "s#^set background=.*#set background=$1#g" ~/.config/nvim/init.vim
+
+  # Bat
+  sed -i '' -e "s#^--theme=.*#--theme=\"gruvbox-$1\"#g" ~/.config/bat/config
+
+  # Tmux
+  sed -i '' -e "s#syntax-theme = .*#syntax-theme = \"gruvbox-$1\"#g" ~/.gitconfig
+  tmux set-option -g @tmux-gruvbox $1
+  tmux source-file ~/.tmux.conf
 }
 
 alias light="terminal-scheme light"
