@@ -11,13 +11,20 @@ return {
         lualine_c = {
           {
             'filename',
-            full_name = true,
-            shorten = false
+            path = 1
           }
         },
         lualine_x = {'filetype'},
         lualine_y = {'progress'},
         lualine_z = {'location'}
+      },
+      inactive_sections = {
+        lualine_c = {
+          {
+            'filename',
+            path = 1
+          }
+        }
       }
     }
   end
