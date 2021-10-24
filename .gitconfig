@@ -18,7 +18,7 @@
     l = log --pretty=format:'%Cred%h%Creset %Cgreen%s%Creset [%ar by %an]'
     lg = log --graph --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)(%cr) %C(blue)<%an>%C(reset)' --abbrev-commit --date=relative
 
-    fixup = !sh -c 'git commit --fixup=$1' -
+    fixup = !sh -c 'git commit --no-verify --fixup=$1' -
     squash = !sh -c 'git commit --squash=$1' -
 
     # Github is sorting the commits by their date -> reset it on rebase
