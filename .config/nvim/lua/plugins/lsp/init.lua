@@ -1,12 +1,18 @@
 return {
   'neovim/nvim-lspconfig',
+  requires = {
+    {'ray-x/lsp_signature.nvim'},
+    {'hrsh7th/cmp-nvim-lsp'},
+  },
   config = function()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-    local lspconfig = require("lspconfig")
+    local lspconfig = require('lspconfig')
 
     local on_attach = function(client, bufnr)
+      require('lsp_signature').on_attach()
+
       local opts = { noremap=true, silent=true }
       print("'" .. client.name .. "' language server started" )
 
@@ -27,35 +33,14 @@ return {
       vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rr', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>', opts)
     end
 
-    -- https://github.com/neovim/neovim/pull/12655
-    -- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    --   vim.lsp.diagnostic.on_publish_diagnostics, {
-    --     underline = true,
-    --     virtual_text = true,
-    --     signs = true,
-    --     update_in_insert = true,
-    --   }
-    -- )
-
-    lspconfig.tsserver.setup{ on_attach = on_attach, capabilities = capabilities }
-    lspconfig.html.setup{ on_attach = on_attach }
-    lspconfig.gopls.setup{ on_attach = on_attach }
-    lspconfig.rust_analyzer.setup{ on_attach = on_attach }
-
-    vim.lsp.handlers["textDocument/formatting"] = function(err, _, result, _, bufnr)
-      if err ~= nil or result == nil then
-        return
-      end
-
-      if not vim.api.nvim_buf_get_option(bufnr, "modified") then
-        local view = vim.fn.winsaveview()
-        vim.lsp.util.apply_text_edits(result, bufnr)
-        vim.fn.winrestview(view)
-        if bufnr == vim.api.nvim_get_current_buf() then
-          vim.api.nvim_command("noautocmd :update")
-        end
-      end
+    local servers = { 'tsserver', 'rust_analyzer', 'gopls' }
+    for _, server in ipairs(servers) do
+      lspconfig[server].setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      }
     end
+
 
     local efm_on_attach = function(client)
       if client.resolved_capabilities.document_formatting then
@@ -66,6 +51,9 @@ return {
       end
     end
 
-    lspconfig.efm.setup{ on_attach = efm_on_attach }
+    lspconfig.efm.setup{
+      on_attach = efm_on_attach,
+      init_options = {documentFormatting = true},
+    }
   end
 }
