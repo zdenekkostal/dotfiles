@@ -48,6 +48,7 @@
     editor = nvim
     pager = delta
     excludesfile = /Users/z/.gitignore_global
+    hooksPath = /dev/null
 
 [push]
     default = simple
