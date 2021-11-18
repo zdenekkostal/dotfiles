@@ -7,10 +7,10 @@ return {
   setup = function()
     vim.api.nvim_set_keymap('n', '<Leader>nt', ':NvimTreeToggle<CR>', { noremap = true })
     vim.api.nvim_set_keymap('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true })
-
-    vim.g.nvim_tree_ignore = {'.git'}
   end,
   config = function()
-    require'nvim-tree'.setup()
+    require'nvim-tree'.setup({
+      nvim_tree_ignore = {'.git'}
+    })
   end
 }
