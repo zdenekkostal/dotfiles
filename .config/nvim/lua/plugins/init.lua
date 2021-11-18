@@ -37,6 +37,9 @@ require('packer').startup({
 
     -- Theming
     require('plugins/themes/gruvbox'),
+    require('plugins/themes/rose-pine'),
+    -- require('plugins/themes/lighthaus'),
+    -- require('plugins/themes/material'),
 
     -- LSP
     require('plugins/lsp'),

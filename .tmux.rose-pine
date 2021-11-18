@@ -1,0 +1,50 @@
+## COLORSCHEME: rose-pine base
+set-option -g status "on"
+
+# default statusbar color
+set-option -g status-style bg=#191724,fg=#e0def4
+
+# default window title colors
+set-window-option -g window-status-style bg=#eb6f92,fg=#e0def4
+
+# default window with an activity alert
+set-window-option -g window-status-activity-style bg=#191724,fg=#e0def4
+
+# active window title colors
+set-window-option -g window-status-current-style bg=#eb6f92,fg=#191724
+
+# pane border
+set-option -g pane-active-border-style fg=#3a384a
+set-option -g pane-border-style fg=#26233a
+
+# message infos
+set-option -g message-style bg=#191724,fg=#e0def4
+
+# writing commands inactive
+set-option -g message-command-style bg=#26233a,fg=#e0def4
+
+# pane number display
+set-option -g display-panes-colour #191724
+set-option -g display-panes-active-colour #ebbcba
+
+# clock
+set-window-option -g clock-mode-colour #9ccfd8
+
+# bell
+set-window-option -g window-status-bell-style bg=#eb6f92,fg=#e0def4
+
+## Theme settings mixed with colors (unfortunately, but there is no cleaner way)
+set-option -g status-justify "left"
+set-option -g status-left-style none
+set-option -g status-left-length "80"
+set-option -g status-right-style none
+set-option -g status-right-length "80"
+set-window-option -g window-status-separator ""
+
+set-option -g status-left "#[bg=#ebbcba,fg=#2a2837] #S #[bg=#191724,fg=#ebbcba,nobold,noitalics,nounderscore]"
+set-option -g status-right "#[bg=#191724,fg=#26233a nobold, nounderscore, noitalics]#[bg=#26233a,fg=#ebbcba] %Y-%m-%d #[bg=#26233a,fg=#191724] #[bg=#26233a,fg=#ebbcba]%H:%M #[bg=#26233a,fg=#ebbcba,nobold,noitalics,nounderscore]#[bg=#ebbcba,fg=#191724] #h "
+
+set-window-option -g window-status-current-format "#[bg=#ebbcba,fg=#191724,nobold,noitalics,nounderscore]#[bg=#ebbcba,fg=#191724] #I #[bg=#ebbcba,fg=#26233a,bold] #W#{?window_zoomed_flag, ◎,} #[bg=#191724,fg=#ebbcba,nobold,noitalics,nounderscore]"
+set-window-option -g window-status-format "#[bg=#26233a,fg=#191724,noitalics]#[bg=#26233a,fg=#ebbcba] #I #[bg=#26233a,fg=#191724]#[bg=#26233a,fg=#ebbcba] #W #[bg=#191724,fg=#26233a,noitalics]"
+
+# vim: set ft=tmux tw=0 nowrap:

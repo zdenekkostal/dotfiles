@@ -100,7 +100,7 @@
 
 [delta]
     features = side-by-side line-numbers decorations
-    syntax-theme = "gruvbox"
+    syntax-theme = "gruvbox-dark"
 
 [delta "decorations"]
     commit-decoration-style = yellow ul
