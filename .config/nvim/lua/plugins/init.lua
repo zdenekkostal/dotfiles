@@ -26,7 +26,7 @@ require('packer').startup({
     require('plugins/ui/filetree'),
     require('plugins/ui/marks'),
     require('plugins/ui/undotree'),
-    require('plugins/ui/indent-lines'),
+    -- require('plugins/ui/indent-lines'),
 
     -- Misc
     require('plugins/misc/sessions'),
