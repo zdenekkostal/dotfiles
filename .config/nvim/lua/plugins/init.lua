@@ -43,6 +43,7 @@ require('packer').startup({
 
     -- LSP
     require('plugins/lsp'),
+    require('plugins/lsp/null-ls'),
     require('plugins/autocomplete'),
   }
 })

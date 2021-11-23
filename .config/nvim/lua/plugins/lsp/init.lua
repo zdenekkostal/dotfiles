@@ -14,7 +14,6 @@ return {
       require('lsp_signature').on_attach()
 
       local opts = { noremap=true, silent=true }
-      print("'" .. client.name .. "' language server started" )
 
       -- Avoid TSServer clashing with Prettier
       client.resolved_capabilities.document_formatting = false
@@ -33,27 +32,12 @@ return {
       vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rr', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>', opts)
     end
 
-    local servers = { 'tsserver', 'rust_analyzer', 'gopls' }
+    local servers = { 'tsserver', 'rust_analyzer', 'gopls', 'eslint' }
     for _, server in ipairs(servers) do
       lspconfig[server].setup {
         on_attach = on_attach,
         capabilities = capabilities,
       }
     end
-
-
-    local efm_on_attach = function(client)
-      if client.resolved_capabilities.document_formatting then
-        vim.api.nvim_command [[augroup Format]]
-        vim.api.nvim_command [[autocmd! * <buffer>]]
-        vim.api.nvim_command [[autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()]]
-        vim.api.nvim_command [[augroup END]]
-      end
-    end
-
-    lspconfig.efm.setup{
-      on_attach = efm_on_attach,
-      init_options = {documentFormatting = true},
-    }
   end
 }
