@@ -29,9 +29,6 @@ export LC_ALL=en_US.UTF-8
 
 export EDITOR='nvim'
 
-# https://github.com/tmux/tmux/issues/475
-export EVENT_NOKQUEUE=1
-
 # Set up better git commit message formatting in vim
 export RI="--format ansi --width 70"
 
