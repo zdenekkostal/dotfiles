@@ -14,6 +14,11 @@ eval "$(starship init zsh)"
 # And let's have some nice jumps
 eval "$(zoxide init zsh)"
 
+plugins=(
+  gitfast
+  fzf
+)
+
 # Load plugins
 eval "$(sheldon source)"
 
@@ -40,5 +45,3 @@ alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '(
 alias apply-patch="pbpaste | sed -e '$a' | git apply"
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
