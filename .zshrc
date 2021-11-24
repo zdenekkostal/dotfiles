@@ -1,3 +1,5 @@
+export ZSH="$HOME/.sheldon/repos/github.com/ohmyzsh/ohmyzsh"
+
 # Enable direnv - sets shell variables per directory
 # also, silence it to avoid text output when opening a new shell
 export DIRENV_LOG_FORMAT=
@@ -12,8 +14,8 @@ eval "$(starship init zsh)"
 # And let's have some nice jumps
 eval "$(zoxide init zsh)"
 
-# Source ZSH plugins via antibody
-[ -f ~/.zsh_plugins.sh ] && source ~/.zsh_plugins.sh
+# Load plugins
+eval "$(sheldon source)"
 
 ####################################################
 # Functions

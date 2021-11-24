@@ -1,14 +1,13 @@
-# Welcome to my dotfiles 
+# Welcome to my dotfiles
 
 To install everything from scratch just open the `Terminal` app and run the following:
 
 ```bash
-# Install brew - yeah, Macports would be nicer but it's missing a lot of packages I use :(
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-brew install asdf git tig tmux fzf direnv docker ripgrep gnupg svgo tldr starship git-delta antibody
+brew install asdf git tig tmux fzf direnv docker ripgrep gnupg svgo tldr starship git-delta markdownlint shellcheck sheldon
 brew install --HEAD neovim
-brew cask install alacritty 
+brew cask install alacritty
 brew tap homebrew/cask-fonts
 brew cask install font-hack-nerd-font
 brew install TankerHQ/homebrew-repo/ruplacer
@@ -31,6 +30,7 @@ Interact with the repository with the `dotfiles` command (specified in `.zshrc`)
 Also, don't forget to download excellent [Fira Code](https://github.com/tonsky/FiraCode).
 
 List of applications I use:
+
 - 1Password
 - Notion
 - Choosy (open links in the right browser)
