@@ -8,11 +8,10 @@ return {
     local null_ls = require('null-ls')
 
     null_ls.config({
-      debug = true,
       sources = {
         null_ls.builtins.formatting.prettierd,
+        null_ls.builtins.diagnostics.eslint_d,
         null_ls.builtins.diagnostics.shellcheck,
-        null_ls.builtins.diagnostics.shfmt,
         null_ls.builtins.diagnostics.markdownlint,
       },
     })

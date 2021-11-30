@@ -32,7 +32,7 @@ return {
       vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rr', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>', opts)
     end
 
-    local servers = { 'tsserver', 'rust_analyzer', 'gopls', 'eslint' }
+    local servers = { 'tsserver', 'rust_analyzer', 'gopls' }
     for _, server in ipairs(servers) do
       lspconfig[server].setup {
         on_attach = on_attach,
