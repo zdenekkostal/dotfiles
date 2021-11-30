@@ -42,3 +42,9 @@ alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '(
 alias apply-patch="pbpaste | sed -e '$a' | git apply"
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+function wallpaper {
+  if [[ -f "$1" ]] && command -v osascript >/dev/null 2>&1; then
+   osascript -e 'tell application "System Events" to tell every desktop to set picture to "'$1'"'
+  fi
+}
