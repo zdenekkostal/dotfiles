@@ -2,27 +2,26 @@
 
 cd ~
 
-echo "Installing homebrew"
-
 # Instal brew if not installed yet
 if ! command -v brew >/dev/null 2>&1; then
-  curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+  echo "Installing homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 echo "Installing homebrew packages"
-brew install asdf git tig tmux fzf direnv ripgrep gnupg svgo tldr starship git-delta markdownlint-cli shellcheck bat jq sheldon mas rust-analyzer TankerHQ/homebrew-repo/ruplacer
+brew install asdf git tig tmux fzf direnv ripgrep gnupg svgo tldr starship git-delta markdownlint-cli shellcheck bat jq sheldon mas rust-analyzer dictionaries TankerHQ/homebrew-repo/ruplacer
 brew install --HEAD neovim
 
 echo "Installing homebrew applications"
 brew install --cask alacritty karabiner-elements cleanshot font-hack-nerd-font spotify notion choosy keka dash muzzle pixelsnap tripmode beardedspice iina viscosity handbrake homebrew/cask-versions/firefox-developer-edition homebrew/cask-fonts/font-fira-code
 
-echo "Installing App store applications"
 if defaults read MobileMeAccounts Accounts | grep -q 'AccountID'; then
+  echo "Installing App store applications"
   brew bundle install --file=brewfile_apps
 fi
 
-echo "Installing Tmux plugin manager"
 if [ ! -d "$HOME/tmux/plugins/tpm" ]; then
+  echo "Installing Tmux plugin manager"
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   ~/.tmux/plugins/tpm/bin/install_plugins
 fi
@@ -34,16 +33,16 @@ for lang in golang nodejs yarn python rust; do
   asdf global "$lang" latest
 done
 
-echo "Configuring MacOS defaults"
 if command -v defaults >/dev/null 2>&1; then
+  echo "Configuring MacOS defaults"
   defaults write -g InitialKeyRepeat -int 15
   defaults write -g KeyRepeat -int 2
 fi
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-echo "Cloning the dotfiles"
 if [ ! -d "$HOME/.dotfiles" ]; then
+  echo "Cloning the dotfiles"
   git clone --bare git@github.com:zdenekkostal/dotfiles.git "$HOME/.dotfiles"
   dotfiles config status.showUntrackedFiles no
 fi
@@ -64,8 +63,8 @@ npm install -g @fsouza/prettierd eslint_d typescript-language-server
 go install golang.org/x/tools/gopls@latest
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
-echo "Installing keyboard layout"
 if [ ! -f "/Library/Keyboard Layouts/Czech_Programmers_0.2.keylayout" ]; then
+  echo "Installing keyboard layout"
   cp ./keyboard_layouts/Czech_Programmers_0.2.keylayout /Library/Keyboard Layouts/
 fi
 
