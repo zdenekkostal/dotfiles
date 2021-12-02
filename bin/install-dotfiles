@@ -15,7 +15,7 @@ brew install --HEAD neovim
 echo "Installing homebrew applications"
 brew install --cask alacritty karabiner-elements cleanshot font-hack-nerd-font spotify notion choosy keka dash muzzle pixelsnap tripmode beardedspice iina viscosity handbrake homebrew/cask-versions/firefox-developer-edition homebrew/cask-fonts/font-fira-code
 
-if defaults read MobileMeAccounts Accounts | grep -q 'AccountID'; then
+if defaults read MobileMeAccounts Accounts 2>/dev/null | grep -q 'AccountID'; then
   echo "Installing App store applications"
   brew bundle install --file=brewfile_apps
 fi
