@@ -27,7 +27,7 @@ if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 fi
 
 echo "Installing latest versions of languages"
-for lang in golang nodejs yarn python rust; do
+for lang in golang nodejs yarn rust; do
   asdf plugin-add "$lang"
   asdf install "$lang" latest
   asdf global "$lang" latest
