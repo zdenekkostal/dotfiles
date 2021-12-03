@@ -41,19 +41,22 @@ fi
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+# Expand aliases when using xargs
+alias xargs = 'xargs '
+
 if [ ! -d "$HOME/.dotfiles" ]; then
   echo "Cloning the dotfiles"
-  git clone --bare git@github.com:zdenekkostal/dotfiles.git "$HOME/.dotfiles"
+  git clone --bare https://github.com/zdenekkostal/dotfiles.git "$HOME/.dotfiles"
   dotfiles config status.showUntrackedFiles no
-fi
 
-if dotfiles diff-index --quiet HEAD --; then
   echo "Restoring dotfiles"
-  dotfiles restore .
-else
-  echo "Can't restore dotfiles due to uncommited changes"
-  dotfiles diff --stat
-  exit 1
+  dotfiles restore --staged .
+  dotfiles diff --diff-filter=D --name-only | xargs dotfiles restore $1
+
+  if ! dotfiles diff-index --quiet HEAD --; then
+    echo "Some files were not restored due to current changes"
+    dotfiles diff --stat
+  fi
 fi
 
 [ -f ~/.profile ] && source ~/.profile
