@@ -20,7 +20,7 @@ if defaults read MobileMeAccounts Accounts 2>/dev/null | grep -q 'AccountID'; th
   brew bundle install --file=brewfile_apps
 fi
 
-if [ ! -d "$HOME/tmux/plugins/tpm" ]; then
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
   echo "Installing Tmux plugin manager"
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   ~/.tmux/plugins/tpm/bin/install_plugins
