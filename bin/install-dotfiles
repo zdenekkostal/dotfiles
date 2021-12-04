@@ -42,7 +42,7 @@ fi
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Expand aliases when using xargs
-alias xargs = 'xargs '
+alias xargs='xargs '
 
 if [ ! -d "$HOME/.dotfiles" ]; then
   echo "Cloning the dotfiles"
