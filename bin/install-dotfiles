@@ -61,6 +61,10 @@ if [ ! -d "$HOME/.dotfiles" ]; then
   fi
 fi
 
+echo "Installing shell plugins"
+sheldon source
+
+echo "Sourcing dotfiles"
 [ -f ~/.profile ] && source ~/.profile
 [ -f ~/.zshrc ] && source ~/.zshrc
 
@@ -68,9 +72,6 @@ echo "Installing Neovim packages and LSP dependencies"
 npm install -g @fsouza/prettierd eslint_d typescript-language-server
 go install golang.org/x/tools/gopls@latest
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
-echo "Installing shell plugins"
-sheldon source
 
 if [ ! -f "/Library/Keyboard Layouts/Czech_Programmers_0.2.keylayout" ]; then
   echo "Installing keyboard layout"
