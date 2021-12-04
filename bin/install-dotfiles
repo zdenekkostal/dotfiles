@@ -2,6 +2,8 @@
 
 cd ~
 
+PATH="/opt/homebrew/bin:$PATH"
+
 # Instal brew if not installed yet
 if ! command -v brew >/dev/null 2>&1; then
   echo "Installing homebrew"

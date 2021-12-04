@@ -1,6 +1,9 @@
 # Private profile vars
 [ -f ~/.private/profile ] && source ~/.private/profile
 
+# Homebrew installation path on Apple silicon
+export PATH="/opt/homebrew/bin:$PATH"
+
 # Add asdf to the path so it can find all languages
 if command -v asdf >/dev/null 2>&1; then
   export PATH="$HOME/.asdf/shims:$PATH"
