@@ -60,6 +60,7 @@ if [ ! -d "$HOME/.dotfiles" ]; then
 fi
 
 [ -f ~/.profile ] && source ~/.profile
+[ -f ~/.zshrc ] && source ~/.zshrc
 
 echo "Installing Neovim packages and LSP dependencies"
 npm install -g @fsouza/prettierd eslint_d typescript-language-server
