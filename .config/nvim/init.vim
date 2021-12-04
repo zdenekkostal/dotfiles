@@ -95,7 +95,6 @@ endif
 " to make sure light theme does not damage my eyes when opening nvim during
 " the night
 set background=dark
-colorscheme gruvbox
 
 " Reload vim config after 'tt' in normal mode
 nnoremap <leader>tt :so $MYVIMRC<CR>
