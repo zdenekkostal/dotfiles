@@ -21,12 +21,6 @@ if defaults read MobileMeAccounts Accounts 2>/dev/null | grep -q 'AccountID'; th
   brew bundle install --file=brewfile_apps
 fi
 
-if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-  echo "Installing Tmux plugin manager"
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  ~/.tmux/plugins/tpm/bin/install_plugins
-fi
-
 echo "Installing latest versions of languages"
 for lang in golang nodejs yarn rust; do
   asdf plugin-add "$lang"
@@ -62,6 +56,12 @@ fi
 
 echo "Installing shell plugins"
 sheldon source
+
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  echo "Installing Tmux plugin manager"
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  ~/.tmux/plugins/tpm/bin/install_plugins
+fi
 
 echo "Sourcing dotfiles"
 [ -f ~/.profile ] && source ~/.profile
