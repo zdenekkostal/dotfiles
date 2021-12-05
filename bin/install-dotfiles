@@ -70,7 +70,7 @@ echo "Sourcing dotfiles"
 echo "Installing Neovim packages and LSP dependencies"
 npm install -g @fsouza/prettierd eslint_d typescript-language-server
 go install golang.org/x/tools/gopls@latest
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless --cmd 'autocmd User PackerComplete quitall'
 
 if [ ! -f "/Library/Keyboard Layouts/Czech_Programmers_0.2.keylayout" ]; then
   echo "Installing keyboard layout"
