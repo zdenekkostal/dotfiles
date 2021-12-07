@@ -63,7 +63,7 @@ echo "Sourcing dotfiles"
 [ -f ~/.zshrc ] && source ~/.zshrc
 
 echo "Installing Neovim packages and LSP dependencies"
-npm install -g @fsouza/prettierd eslint_d typescript-language-server
+yarn global add @fsouza/prettierd eslint_d typescript-language-server typescript
 go install golang.org/x/tools/gopls@latest
 nvim --headless --cmd 'autocmd User PackerComplete quitall'
 
