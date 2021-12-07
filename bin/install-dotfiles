@@ -72,5 +72,10 @@ if [ ! -f "/Library/Keyboard Layouts/Czech_Programmers_0.2.keylayout" ]; then
   sudo cp ./keyboard_layouts/Czech_Programmers_0.2.keylayout /Library/Keyboard\ Layouts/
 fi
 
+if defaults read MobileMeAccounts Accounts 2>/dev/null | grep -q 'AccountID'; then
+  echo "Installing App store applications"
+  brew bundle install --file=brewfile_apps
+fi
+
 echo "Setting up wallpaper"
 wallpaper ~/wallpapers/gradiant.heic
