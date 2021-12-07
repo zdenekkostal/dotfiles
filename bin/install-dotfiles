@@ -69,7 +69,7 @@ nvim --headless --cmd 'autocmd User PackerComplete quitall'
 
 if [ ! -f "/Library/Keyboard Layouts/Czech_Programmers_0.2.keylayout" ]; then
   echo "Installing keyboard layout"
-  cp ./keyboard_layouts/Czech_Programmers_0.2.keylayout /Library/Keyboard Layouts/
+  sudo cp ./keyboard_layouts/Czech_Programmers_0.2.keylayout /Library/Keyboard\ Layouts/
 fi
 
 echo "Setting up wallpaper"
