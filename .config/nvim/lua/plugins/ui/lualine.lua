@@ -1,5 +1,8 @@
 return {
   'hoob3rt/lualine.nvim',
+  requires = {
+    {'kyazdani42/nvim-web-devicons', opt = true}
+  },
   config = function()
     require('lualine').setup{
       options = {
@@ -25,6 +28,11 @@ return {
             path = 1
           }
         }
+      },
+      tabline = {
+        lualine_a = {
+          {'tabs', mode = 1}
+        },
       }
     }
   end
