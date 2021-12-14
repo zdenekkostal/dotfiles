@@ -25,8 +25,24 @@ done
 
 if command -v defaults >/dev/null 2>&1; then
   echo "Configuring MacOS defaults"
+
+  # Thanks https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+  osascript -e 'tell application "System Preferences" to quit'
+
   defaults write -g InitialKeyRepeat -int 15
   defaults write -g KeyRepeat -int 2
+
+  # Disable auto-correct
+  defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+
+  # Disable the “Are you sure you want to open this application?” dialog
+  defaults write com.apple.LaunchServices LSQuarantine -bool false
+
+  # Disable applications being added to dock automatically
+  defaults write com.apple.dock show-recents -bool false
+
+  # Turn on tap to click
+  defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 fi
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
