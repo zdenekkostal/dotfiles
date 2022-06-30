@@ -12,8 +12,11 @@ eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 
 plugins=(
+  yarn
+  asdf
   gitfast
   fzf
+  tig
 )
 
 # Load plugins
