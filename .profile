@@ -19,7 +19,7 @@ if command -v go >/dev/null 2>&1; then
 fi
 
 # Add support for current project Node binaries
-export PATH="$PATH:node_modules/.bin"
+export PATH="node_modules/.bin:$PATH"
 
 # ... every other language will be prepended via asdf
 
