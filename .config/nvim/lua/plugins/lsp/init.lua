@@ -27,9 +27,8 @@ return {
       vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
       vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.goto_next({ severity = "Error" })<CR>', opts)
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>E', '<cmd>lua vim.lsp.diagnostic.goto_prev({ severity = "Error" })<CR>', opts)
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rr', '<cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>', opts)
+      vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.goto_next({ severity = "Error" })<CR>', opts)
+      vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>E', '<cmd>lua vim.diagnostic.goto_prev({ severity = "Error" })<CR>', opts)
     end
 
     local servers = { 'tsserver', 'rust_analyzer', 'gopls' }
