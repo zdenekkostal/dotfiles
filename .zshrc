@@ -1,10 +1,5 @@
 export ZSH="$HOME/.sheldon/repos/github.com/ohmyzsh/ohmyzsh"
 
-# Enable direnv - sets shell variables per directory
-# also, silence it to avoid text output when opening a new shell
-export DIRENV_LOG_FORMAT=
-eval "$(direnv hook zsh)"
-
 # Private stuff
 [ -f ~/.private/env ] && source ~/.private/env
 
@@ -17,6 +12,7 @@ plugins=(
   gitfast
   fzf
   tig
+  direnv
 )
 
 # Load plugins
