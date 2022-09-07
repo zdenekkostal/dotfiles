@@ -115,3 +115,5 @@
 
 [diff "exif"]
     textconv = exiftool
+[init]
+	defaultBranch = main
