@@ -10,7 +10,7 @@ return {
   -- Git
   require('plugins/git/signs'),
   require('plugins/git/fugitive'),
-  -- require('plugins/git/diffview'),
+  require('plugins/git/diffview'),
 
   -- Editing
   require('plugins/editing/editorconfig'),
