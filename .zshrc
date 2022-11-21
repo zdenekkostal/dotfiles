@@ -1,4 +1,4 @@
-export ZSH="$HOME/.sheldon/repos/github.com/ohmyzsh/ohmyzsh"
+export ZSH="$HOME/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
 
 # Private stuff
 [ -f ~/.private/env ] && source ~/.private/env
