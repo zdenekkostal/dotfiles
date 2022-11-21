@@ -5,8 +5,7 @@ return {
     {'hrsh7th/cmp-nvim-lsp'},
   },
   config = function()
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
     local lspconfig = require('lspconfig')
 
@@ -16,7 +15,7 @@ return {
       local opts = { noremap=true, silent=true }
 
       -- Avoid TSServer clashing with Prettier
-      client.resolved_capabilities.document_formatting = false
+      client.server_capabilities.documentFormattingProvider = nil
 
       vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
       vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -31,7 +30,7 @@ return {
       vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>E', '<cmd>lua vim.diagnostic.goto_prev({ severity = "Error" })<CR>', opts)
     end
 
-    local servers = { 'tsserver', 'rust_analyzer', 'gopls' }
+    local servers = { 'tsserver', 'rust_analyzer', 'gopls', 'jsonls', 'terraformls' }
     for _, server in ipairs(servers) do
       lspconfig[server].setup {
         on_attach = on_attach,

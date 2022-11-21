@@ -32,7 +32,7 @@ return {
   -- Misc
   require('plugins/misc/sessions'),
   require('plugins/misc/fzf'),
-  -- require('plugins/misc/replacer'),
+  require('plugins/misc/zk-nvim'),
 
   -- Tmux
   require('plugins/tmux/navigation'),
