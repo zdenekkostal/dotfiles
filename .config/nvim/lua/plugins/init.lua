@@ -14,7 +14,7 @@ return {
 
   -- Editing
   require('plugins/editing/editorconfig'),
-  require('plugins/editing/trailing-whitespace'),
+  -- require('plugins/editing/trailing-whitespace'),
   require('plugins/editing/brackets'),
   require('plugins/editing/visual-expand-region'),
   require('plugins/editing/auto-pairs'),
