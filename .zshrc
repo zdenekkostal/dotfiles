@@ -27,6 +27,8 @@ plugins=(
   fzf
   tig
   direnv
+  docker
+  kubectl
 )
 
 # Load plugins
