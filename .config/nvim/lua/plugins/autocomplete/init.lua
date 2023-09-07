@@ -6,6 +6,7 @@ return {
     {'hrsh7th/cmp-path'},
     {'hrsh7th/cmp-buffer'},
     {'saadparwaiz1/cmp_luasnip'},
+    {'rafamadriz/friendly-snippets'}
   },
   config = function()
     vim.o.completeopt = "menu,menuone,noselect"
@@ -77,5 +78,7 @@ return {
         { name = 'buffer' },
       })
     })
+
+    require("luasnip.loaders.from_vscode").lazy_load()
   end
 }
