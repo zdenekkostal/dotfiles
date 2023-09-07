@@ -33,6 +33,7 @@ return {
   require('plugins/misc/sessions'),
   require('plugins/misc/fzf'),
   require('plugins/misc/zk-nvim'),
+  require('plugins/misc/glow'),
 
   -- Tmux
   require('plugins/tmux/navigation'),
