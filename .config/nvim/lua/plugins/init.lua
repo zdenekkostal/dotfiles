@@ -34,6 +34,7 @@ return {
   require('plugins/misc/fzf'),
   require('plugins/misc/zk-nvim'),
   require('plugins/misc/glow'),
+  require('plugins/misc/zen-mode'),
 
   -- Tmux
   require('plugins/tmux/navigation'),
