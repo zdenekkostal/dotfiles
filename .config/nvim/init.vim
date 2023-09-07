@@ -171,7 +171,7 @@ nnoremap <silent> _ :nohl<CR>
 
 " https://github.com/wincent/wincent
 " Toggle fold at current position.
-nnoremap <leader><Tab> za
+" nnoremap <leader><Tab> za
 
 " ============================================================================ "
 " ===                                 MISC.                                === "
