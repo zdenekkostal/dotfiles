@@ -1,39 +1,62 @@
 return {
   'neovim/nvim-lspconfig',
   requires = {
-    {'ray-x/lsp_signature.nvim'},
     {'hrsh7th/cmp-nvim-lsp'},
   },
   config = function()
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+    vim.api.nvim_create_autocmd('LspAttach', {
+      group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+      callback = function(ev)
+        -- Enable completion triggered by <c-x><c-o>
+        -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+        -- Buffer local mappings.
+        local opts = { buffer = ev.buf }
+
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+        vim.keymap.set('n', '<space>wl', function()
+          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, opts)
+        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+        vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+
+        vim.keymap.set('n', '<leader>e', function() 
+          vim.diagnostic.goto_next({ severity = "Error" })
+        end , opts)
+        vim.keymap.set('n', '<leader>E', function() 
+          vim.diagnostic.goto_prev({ severity = "Error" })
+        end , opts)
+      end,
+    })
+
     local lspconfig = require('lspconfig')
+    local servers = { 'tsserver', 'rust_analyzer', 'gopls', 'jsonls', 'terraformls', 'ruby_ls' }
 
-    local on_attach = function(client, bufnr)
-      require('lsp_signature').on_attach()
+    -- local servers = {
+    --   settings = {
+    --     rust_analyzer = {
+    --       ["rust-analyzer"] = {
+    --         checkOnSave = {
+    --           command = "clippy",
+    --         },
+    --       },
+    --     },
+    --   },
+    -- }
 
-      local opts = { noremap=true, silent=true }
-
-      -- Avoid TSServer clashing with Prettier
-      client.server_capabilities.documentFormattingProvider = nil
-
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.goto_next({ severity = "Error" })<CR>', opts)
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>E', '<cmd>lua vim.diagnostic.goto_prev({ severity = "Error" })<CR>', opts)
-    end
-
-    local servers = { 'tsserver', 'rust_analyzer', 'gopls', 'jsonls', 'terraformls' }
     for _, server in ipairs(servers) do
       lspconfig[server].setup {
-        on_attach = on_attach,
+        -- on_attach = on_attach,
         capabilities = capabilities,
       }
     end
