@@ -51,3 +51,5 @@ export FZF_DEFAULT_COMMAND='rg --files --follow 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export ZK_NOTEBOOK_DIR="$HOME/notes/"
+
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
