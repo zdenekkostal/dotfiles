@@ -1,5 +1,19 @@
 export ZSH="$HOME/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
 
+# Thanks to https://gist.github.com/mattmc3/c490d01751d6eb80aa541711ab1d54b1
+
+# remove superfluous blanks from each command line being added to the history list
+setopt hist_reduce_blanks
+
+# don't write a duplicate event to the history file
+setopt hist_save_no_dups
+
+# write to the history file immediately, not when the shell exits
+setopt inc_append_history
+
+# share history between all sessions
+setopt share_history
+
 # Private stuff
 [ -f ~/.private/env ] && source ~/.private/env
 
