@@ -19,7 +19,7 @@ return {
   require('plugins/editing/visual-expand-region'),
   require('plugins/editing/auto-pairs'),
   require('plugins/editing/comments'),
-  require('plugins/editing/goyo'),
+  -- require('plugins/editing/goyo'),
   -- require('plugins/editing/lightspeed'),
 
   -- UI
