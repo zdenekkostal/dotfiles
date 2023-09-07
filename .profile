@@ -4,11 +4,6 @@
 # Homebrew installation path on Apple silicon
 export PATH="/opt/homebrew/bin:$PATH"
 
-# Add asdf to the path so it can find all languages
-if command -v asdf >/dev/null 2>&1; then
-  export PATH="$HOME/.asdf/shims:$PATH"
-fi
-
 # and for global yarn modules
 if command -v yarn >/dev/null 2>&1; then
   export PATH="$(yarn global bin):$PATH"
@@ -18,8 +13,18 @@ if command -v go >/dev/null 2>&1; then
   export PATH="$(go env GOPATH)/bin:$PATH"
 fi
 
+# Add asdf to the path so it can find all languages
+if command -v asdf >/dev/null 2>&1; then
+  export ASDF_FORCE_PREPEND=no
+  export PATH="$HOME/.asdf/shims:$PATH"
+fi
+
 # Add support for current project Node binaries
 export PATH="node_modules/.bin:$PATH"
+
+# And Cargo!
+#
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # ... every other language will be prepended via asdf
 
