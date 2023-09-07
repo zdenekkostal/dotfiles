@@ -11,7 +11,7 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 
 echo "Installing homebrew packages"
-brew install asdf git tig tmux neovim zk fzf direnv ripgrep gnupg svgo tldr starship git-delta markdownlint-cli shellcheck bat jq sheldon mas rust-analyzer miniserve tree fd TankerHQ/homebrew-repo/ruplacer awscli mkcert nss glow colima hashicorp/tap/terraform-ls
+brew install asdf git tig tmux neovim zk fzf direnv ripgrep gnupg svgo tldr starship git-delta markdownlint-cli shellcheck bat jq sheldon mas rust-analyzer miniserve tree fd TankerHQ/homebrew-repo/ruplacer awscli mkcert nss glow colima kubectl hashicorp/tap/terraform-ls
 
 echo "Installing homebrew applications"
 brew install --cask alacritty karabiner-elements cleanshot spotify notion choosy keka dash muzzle pixelsnap tripmode beardedspice iina viscosity handbrake topnotch zoom steam dictionaries homebrew/cask-versions/firefox-developer-edition homebrew/cask-fonts/font-fira-code-nerd-font homebrew/cask-fonts/font-hack-nerd-font remotemobprogramming/brew/mob 1password/tap/1password-cli
