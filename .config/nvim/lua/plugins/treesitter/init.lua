@@ -3,13 +3,56 @@ return {
   run = ':TSUpdate',
   config = function()
     require('nvim-treesitter.configs').setup({
+      ensure_installed = {
+        "awk",
+        "bash",
+        "comment",
+        "css",
+        "csv",
+        "diff",
+        "dockerfile",
+        "elixir",
+        "git_config",
+        "git_rebase",
+        "gitattributes",
+        "gitcommit",
+        "gitignore",
+        "go",
+        "gomod",
+        "gosum",
+        "graphql",
+        "html",
+        "javascript",
+        "jq",
+        "jsdoc",
+        "json",
+        "lua",
+        "luadoc",
+        "make",
+        "php",
+        "phpdoc",
+        "python",
+        "regex",
+        "ruby",
+        "rust",
+        "sql",
+        "terraform",
+        "toml",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "xml",
+        "yaml",
+      },
+      auto_install = true,
       highlight = {
         enable = true,
         use_language_tree = true,
+        additional_vim_regex_highlighting = false,
       },
       indent = {
         enable = true
-      }
+      },
     })
   end
 }
