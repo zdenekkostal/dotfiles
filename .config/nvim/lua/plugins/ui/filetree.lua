@@ -10,7 +10,9 @@ return {
   end,
   config = function()
     require'nvim-tree'.setup({
-      nvim_tree_ignore = {'.git'}
+      filters = {
+        custom = {'.git'}
+      }
     })
   end
 }
