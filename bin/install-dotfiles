@@ -48,6 +48,9 @@ if command -v defaults >/dev/null 2>&1; then
 
   # Turn on tap to click
   defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+
+  # Enable thin strokes in Allacritty
+  defaults write -g AppleFontSmoothing -int 0
 fi
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'

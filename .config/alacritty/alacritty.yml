@@ -18,7 +18,7 @@ window:
   # (changes require restart)
   dimensions:
     columns: 208
-    lines: 59
+    lines: 61
 
   # Adds this many blank pixels of padding around the window
   # Units are physical pixels; this is not DPI aware.
@@ -71,178 +71,12 @@ font:
     x: 0
     y: 0
 
-  # OS X only: use thin stroke font rendering. Thin strokes are suitable
-  # for retina displays, but for non-retina you probably want this set to
-  # false.
-  use_thin_strokes: true
-
 debug:
   # Should display the render timer
   render_timer: false
 
-color_schemes:
-  # Colors (Gruvbox light)
-  gruvbox_light: &gruvbox_light
-    primary:
-      # hard contrast: background = '#f9f5d7'
-      background: "#fbf1c7"
-      # soft contrast: background = '#f2e5bc'
-      foreground: "#3c3836"
-
-    normal:
-      black: "#fbf1c7"
-      red: "#cc241d"
-      green: "#98971a"
-      yellow: "#d79921"
-      blue: "#458588"
-      magenta: "#b16286"
-      cyan: "#689d6a"
-      white: "#7c6f64"
-
-    bright:
-      black: "#928374"
-      red: "#9d0006"
-      green: "#79740e"
-      yellow: "#b57614"
-      blue: "#076678"
-      magenta: "#8f3f71"
-      cyan: "#427b58"
-      white: "#3c3836"
-
-  # Colors (Gruvbox dark)
-  gruvbox_dark: &gruvbox_dark
-    primary:
-      # hard contrast: background = '#1d2021'
-      background: "#282828"
-      # soft contrast: background = '#32302f'
-      foreground: "#ebdbb2"
-
-    normal:
-      black: "#282828"
-      red: "#cc241d"
-      green: "#98971a"
-      yellow: "#d79921"
-      blue: "#458588"
-      magenta: "#b16286"
-      cyan: "#689d6a"
-      white: "#a89984"
-
-    bright:
-      black: "#928374"
-      red: "#fb4934"
-      green: "#b8bb26"
-      yellow: "#fabd2f"
-      blue: "#83a598"
-      magenta: "#d3869b"
-      cyan: "#8ec07c"
-      white: "#ebdbb2"
-
-  rose_pine: &rose_pine
-    primary:
-      background: "0x191724"
-      foreground: "0xe0def4"
-    cursor:
-      text: "0x191724"
-      cursor: "0x796268"
-    vi_mode_cursor:
-      text: "0x191724"
-      cursor: "0x796268"
-    line_indicator:
-      foreground: None
-      background: None
-    selection:
-      text: CellForeground
-      background: "0x2A2738"
-    normal:
-      black: "0x6e6a86"
-      red: "0xeb6f92"
-      green: "0x9ccfd8"
-      yellow: "0xf6c177"
-      blue: "0x31748f"
-      magenta: "0xc4a7e7"
-      cyan: "0xebbcba"
-      white: "0xe0def4"
-    bright:
-      black: "0x6e6a86"
-      red: "0xeb6f92"
-      green: "0x9ccfd8"
-      yellow: "0xf6c177"
-      blue: "0x31748f"
-      magenta: "0xc4a7e7"
-      cyan: "0xebbcba"
-      white: "0xe0def4"
-
-  rose_pine_dawn: &rose_pine_dawn
-    primary:
-      background: "0xfffaf3"
-      foreground: "0x575279"
-    cursor:
-      text: "0xfaf4ed"
-      cursor: "0xECC5BF"
-    vi_mode_cursor:
-      text: "0xfaf4ed"
-      cursor: "0xECC5BF"
-    line_indicator:
-      foreground: None
-      background: None
-    selection:
-      text: CellForeground
-      background: "0xF5E2DF"
-    normal:
-      black: "0x6e6a86"
-      red: "0xb4637a"
-      green: "0x56949f"
-      yellow: "0xea9d34"
-      blue: "0x286983"
-      magenta: "0x907aa9"
-      cyan: "0xd7827e"
-      white: "0x575279"
-    bright:
-      black: "0x6e6a86"
-      red: "0xeb6f92"
-      green: "0x9ccfd8"
-      yellow: "0xf6c177"
-      blue: "0x31748f"
-      magenta: "0xc4a7e7"
-      cyan: "0xebbcba"
-      white: "0xe0def4"
-
-  rose_pine_moon: &rose_pine_moon
-    primary:
-      background: "0x232136"
-      foreground: "0xe0def4"
-    cursor:
-      text: "0x232136"
-      cursor: "0x825B65"
-    vi_mode_cursor:
-      text: "0x191724"
-      cursor: "0x825B65"
-    line_indicator:
-      foreground: None
-      background: None
-    selection:
-      text: CellForeground
-      background: "0x312E45"
-    normal:
-      black: "0x817c9c"
-      red: "0xeb6f92"
-      green: "0x9ccfd8"
-      yellow: "0xf6c177"
-      blue: "0x3e8fb0"
-      magenta: "0xc4a7e7"
-      cyan: "0xea9a97"
-      white: "0xe0def4"
-    bright:
-      black: "0x6e6a86"
-      red: "0xeb6f92"
-      green: "0x9ccfd8"
-      yellow: "0xf6c177"
-      blue: "0x31748f"
-      magenta: "0xc4a7e7"
-      cyan: "0xebbcba"
-      white: "0xe0def4"
-
-colors: *rose_pine
+import:
+  - ~/.config/alacritty/rose-pine.yml
 
 # Visual Bell
 #
