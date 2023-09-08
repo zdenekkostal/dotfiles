@@ -3,7 +3,6 @@ return {
 
   -- Treesitter support and related plugins
   require('plugins/treesitter'),
-  require('plugins/treesitter/completion'),
   require('plugins/treesitter/commentstring'),
   require('plugins/treesitter/rainbow-brackets'),
 
