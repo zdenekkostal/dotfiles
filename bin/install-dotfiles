@@ -14,7 +14,7 @@ echo "Installing homebrew packages"
 brew install asdf git tig tmux neovim zk fzf direnv ripgrep gnupg svgo tldr starship git-delta markdownlint-cli shellcheck bat jq sheldon mas rust-analyzer miniserve tree fd TankerHQ/homebrew-repo/ruplacer awscli mkcert nss glow colima kubectl hashicorp/tap/terraform-ls remotemobprogramming/brew/mob
 
 echo "Installing homebrew applications"
-brew install --cask alacritty karabiner-elements cleanshot spotify notion choosy keka muzzle pixelsnap beardedspice iina handbrake topnotch zoom steam dictionaries homebrew/cask-versions/firefox-developer-edition homebrew/cask-fonts/font-fira-code-nerd-font homebrew/cask-fonts/font-hack-nerd-font 1password/tap/1password-cli
+brew install --cask alacritty karabiner-elements cleanshot spotify notion choosy keka muzzle pixelsnap beardedspice iina handbrake topnotch zoom steam dictionaries raycast homebrew/cask-versions/firefox-developer-edition homebrew/cask-fonts/font-fira-code-nerd-font homebrew/cask-fonts/font-hack-nerd-font 1password/tap/1password-cli
 
 echo "Installing latest versions of languages"
 for lang in golang yarn; do
