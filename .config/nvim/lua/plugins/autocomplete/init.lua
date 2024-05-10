@@ -5,11 +5,12 @@ return {
     {'onsails/lspkind-nvim'},
     {'hrsh7th/cmp-path'},
     {'hrsh7th/cmp-buffer'},
+    {'petertriho/cmp-git'},
     {'saadparwaiz1/cmp_luasnip'},
     {'rafamadriz/friendly-snippets'}
   },
   config = function()
-    vim.o.completeopt = "menu,menuone,noselect"
+    vim.o.completeopt = "menu,menuone"
 
     local luasnip = require('luasnip')
     local cmp = require('cmp')
@@ -43,6 +44,7 @@ return {
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-s>'] = cmp.mapping.complete({ reason = cmp.ContextReason.Auto }),
         ['<C-e>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
@@ -77,6 +79,34 @@ return {
       }, {
         { name = 'buffer' },
       })
+    })
+
+    -- Set configuration for specific filetype.
+    cmp.setup.filetype('gitcommit', {
+      sources = cmp.config.sources({
+        { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+      }, {
+        { name = 'buffer' },
+      })
+    })
+
+    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline({ '/', '?' }, {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' }
+      }
+    })
+
+    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline(':', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = 'path' }
+      }, {
+        { name = 'cmdline' }
+      }),
+      matching = { disallow_symbol_nonprefix_matching = false }
     })
 
     require("luasnip.loaders.from_vscode").lazy_load()
