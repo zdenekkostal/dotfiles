@@ -42,9 +42,10 @@ return {
 
   -- Theming
   require('plugins/themes/gruvbox'),
-  require('plugins/themes/rose-pine'),
   -- require('plugins/themes/lighthaus'),
   -- require('plugins/themes/material'),
+  require('plugins/themes/kanagawa'),
+  require('plugins/themes/rose-pine'),
 
   -- LSP
   require('plugins/lsp'),
