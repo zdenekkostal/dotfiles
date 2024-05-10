@@ -27,7 +27,11 @@ plugins=(
   tig
   docker
   kubectl
+  make
 )
+
+# Ctrl+Space
+bindkey '^ ' autosuggest-accept
 
 # Load plugins
 eval "$(sheldon source)"
