@@ -3,8 +3,12 @@ return {
 
   -- Treesitter support and related plugins
   require('plugins/treesitter'),
+  require('plugins/treesitter/context'),
   require('plugins/treesitter/commentstring'),
   require('plugins/treesitter/rainbow-brackets'),
+  require('plugins/treesitter/textobjects'),
+  require('plugins/treesitter/textsubjects'),
+  require('plugins/treesitter/refactor'),
 
   -- Git
   require('plugins/git/signs'),
