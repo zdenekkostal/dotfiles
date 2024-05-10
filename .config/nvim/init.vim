@@ -75,9 +75,6 @@ set scrolloff=10
 " Add a background to current line
 set cursorline
 
-set nofoldenable          " no folding at all
-set foldlevelstart=50 " Files open expanded
-
 " ============================================================================ "
 " ===                                UI                                    === "
 " ============================================================================ "
@@ -171,7 +168,7 @@ nnoremap <silent> _ :nohl<CR>
 
 " https://github.com/wincent/wincent
 " Toggle fold at current position.
-" nnoremap <leader><Tab> za
+nnoremap <Tab> za
 
 " ============================================================================ "
 " ===                                 MISC.                                === "
