@@ -9,9 +9,6 @@ return {
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
         -- Buffer local mappings.
         local opts = { buffer = ev.buf }
 
@@ -39,24 +36,37 @@ return {
       end,
     })
 
-    local lspconfig = require('lspconfig')
-    local servers = { 'tsserver', 'rust_analyzer', 'gopls', 'jsonls', 'terraformls', 'ruby_ls' }
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+      vim.lsp.handlers.hover, {
+        border = "single"
+      }
+    )
 
-    -- local servers = {
-    --   settings = {
-    --     rust_analyzer = {
-    --       ["rust-analyzer"] = {
-    --         checkOnSave = {
-    --           command = "clippy",
-    --         },
-    --       },
-    --     },
-    --   },
-    -- }
+    local lspconfig = require('lspconfig')
+    local servers = { 'tsserver', 'jsonls', 'terraformls', 'ruby_ls' }
+
+    require('lspconfig').gopls.setup({
+      settings = {
+        gopls = {
+          gofumpt = true
+        }
+      }
+    })
+
+    require('lspconfig').rust_analyzer.setup({
+      settings = {
+        rust_analyzer = {
+          ["rust-analyzer"] = {
+            checkOnSave = {
+              command = "clippy",
+            },
+          },
+        },
+      }
+    })
 
     for _, server in ipairs(servers) do
       lspconfig[server].setup {
-        -- on_attach = on_attach,
         capabilities = capabilities,
       }
     end
