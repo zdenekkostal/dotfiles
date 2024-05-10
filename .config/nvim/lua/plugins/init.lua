@@ -22,8 +22,8 @@ return {
   require('plugins/editing/visual-expand-region'),
   require('plugins/editing/auto-pairs'),
   require('plugins/editing/comments'),
-  -- require('plugins/editing/goyo'),
   require('plugins/editing/folding'),
+  require('plugins/editing/search_and_replace'),
   -- require('plugins/editing/lightspeed'),
 
   -- UI
@@ -34,11 +34,13 @@ return {
   -- require('plugins/ui/indent-lines'),
 
   -- Misc
+  require('plugins/misc/aerial'),
   require('plugins/misc/sessions'),
   require('plugins/misc/fzf'),
   require('plugins/misc/zk-nvim'),
   require('plugins/misc/glow'),
   require('plugins/misc/zen-mode'),
+  require('plugins/misc/linker'),
   require('plugins/misc/neotest'),
 
   -- Tmux
