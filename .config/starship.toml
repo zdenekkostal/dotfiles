@@ -9,7 +9,7 @@ disabled = true
 disabled = true
 
 [nodejs]
-disabled = true
+disabled = false
 
 [git_branch]
 style = "bold yellow"
