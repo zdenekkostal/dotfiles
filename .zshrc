@@ -38,6 +38,8 @@ eval "$(sheldon source)"
 
 eval "$(mise activate zsh)"
 
+[ -f ~/.config/op/plugins.sh ] && source ~/.config/op/plugins.sh
+
 ####################################################
 # Functions
 
