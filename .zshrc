@@ -22,17 +22,17 @@ eval "$(starship init zsh)"
 
 plugins=(
   yarn
-  asdf
   gitfast
   fzf
   tig
-  direnv
   docker
   kubectl
 )
 
 # Load plugins
 eval "$(sheldon source)"
+
+eval "$(mise activate zsh)"
 
 ####################################################
 # Functions

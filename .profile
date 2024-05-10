@@ -1,32 +1,11 @@
-# Private profile vars
-[ -f ~/.private/profile ] && source ~/.private/profile
-
 # Homebrew installation path on Apple silicon
 export PATH="/opt/homebrew/bin:$PATH"
-
-# and for global yarn modules
-if command -v yarn >/dev/null 2>&1; then
-  export PATH="$(yarn global bin):$PATH"
-fi
-
-if command -v go >/dev/null 2>&1; then
-  export PATH="$(go env GOPATH)/bin:$PATH"
-fi
-
-# Add asdf to the path so it can find all languages
-if command -v asdf >/dev/null 2>&1; then
-  export ASDF_FORCE_PREPEND=no
-  export PATH="$HOME/.asdf/shims:$PATH"
-fi
 
 # Add support for current project Node binaries
 export PATH="node_modules/.bin:$PATH"
 
-# And Cargo!
-#
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
-
-# ... every other language will be prepended via asdf
+# Prefer Rust installed with the recommended way 
+export PATH="$HOME/.cargo/bin:$PATH"
 
 ####################################################
 ### And go to other stuff!
