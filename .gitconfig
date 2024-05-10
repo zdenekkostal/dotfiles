@@ -47,7 +47,7 @@
 [core]
     editor = nvim
     pager = delta
-    excludesfile = /Users/z/.gitignore_global
+	excludesFile = /Users/zdenek.kostal/.gitignore_global
     hooksPath = /dev/null
 
 [push]

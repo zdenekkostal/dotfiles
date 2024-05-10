@@ -71,6 +71,9 @@ if [ ! -d "$HOME/.dotfiles" ]; then
   fi
 fi
 
+# Respect the global gitignore
+git config --global core.excludesFile ~/.gitignore_global 
+
 echo "Installing shell plugins"
 sheldon source
 
