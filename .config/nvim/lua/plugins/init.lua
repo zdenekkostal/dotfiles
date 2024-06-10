@@ -36,7 +36,8 @@ return {
   -- Misc
   require('plugins/misc/aerial'),
   require('plugins/misc/sessions'),
-  require('plugins/misc/fzf'),
+  require('plugins/misc/telescope'),
+  require('plugins/misc/telescope-fzf'),
   require('plugins/misc/zk-nvim'),
   require('plugins/misc/glow'),
   require('plugins/misc/zen-mode'),
