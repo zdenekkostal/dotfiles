@@ -43,7 +43,7 @@ return {
     )
 
     local lspconfig = require('lspconfig')
-    local servers = { 'tsserver', 'jsonls', 'terraformls', 'ruby_ls' }
+    local servers = { 'tsserver', 'jsonls', 'terraformls' }
 
     require('lspconfig').gopls.setup({
       settings = {
