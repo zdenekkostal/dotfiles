@@ -1,6 +1,6 @@
 return {
   'neovim/nvim-lspconfig',
-  requires = {
+  dependencies = {
     {'hrsh7th/cmp-nvim-lsp'},
   },
   config = function()

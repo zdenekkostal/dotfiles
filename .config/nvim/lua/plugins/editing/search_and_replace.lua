@@ -1,6 +1,6 @@
 return {
   'nvim-pack/nvim-spectre',
-  requires = {
+  dependencies = {
     {'nvim-lua/plenary.nvim'}
   },
   config = function()

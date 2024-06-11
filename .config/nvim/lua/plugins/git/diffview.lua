@@ -1,11 +1,10 @@
 return {
   'sindrets/diffview.nvim',
-  requires = {
+  dependencies = {
     'nvim-lua/plenary.nvim'
   },
-  cmd = {'DiffviewOpen', 'DiffviewClose', 'DiffviewFileHistory'},
-  setup = function()
-    vim.api.nvim_set_keymap('n', '<Leader>dio', ':DiffviewOpen<CR>', { noremap = false })
-    vim.api.nvim_set_keymap('n', '<Leader>dic', ':DiffviewClose<CR>', { noremap = false })
-  end
+  keys = {
+    { "<leader>dio", "<cmd>DiffviewOpen<cr>", desc = "DiffviewOpen" },
+    { "<leader>dic", "<cmd>DiffviewClose<cr>", desc = "DiffviewClose" },
+  }
 }

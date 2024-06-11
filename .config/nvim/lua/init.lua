@@ -1,18 +1,19 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
 
-vim.cmd [[packadd packer.nvim]]
+vim.opt.rtp:prepend(lazypath)
 
-require('packer').startup(function(use)
-  use(require('plugins'))
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
-  if packer_bootstrap then
-    require('packer').sync()
-  else
-    vim.cmd [[doautocmd User PackerComplete]]
-  end
-end)
+require("lazy").setup(require('plugins'), opts)

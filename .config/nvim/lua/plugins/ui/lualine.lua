@@ -1,6 +1,6 @@
 return {
   'nvim-lualine/lualine.nvim',
-  requires = {
+  dependencies = {
     {'kyazdani42/nvim-web-devicons', opt = true}
   },
   config = function()

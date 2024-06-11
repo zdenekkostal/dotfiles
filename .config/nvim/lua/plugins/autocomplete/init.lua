@@ -1,6 +1,6 @@
 return {
   'hrsh7th/nvim-cmp',
-  requires = {
+  dependencies = {
     {'L3MON4D3/LuaSnip'},
     {'onsails/lspkind-nvim'},
     {'hrsh7th/cmp-path'},

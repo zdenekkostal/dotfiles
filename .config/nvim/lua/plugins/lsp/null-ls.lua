@@ -1,6 +1,6 @@
 return {
   'jose-elias-alvarez/null-ls.nvim',
-  requires = {
+  dependencies = {
     {'plenary.nvim'}
   },
   config = function()

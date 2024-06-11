@@ -1,6 +1,6 @@
 return {
     'ruifm/gitlinker.nvim',
-    requires = {
+    dependencies = {
         {'nvim-lua/plenary.nvim'}
     },
     config = function ()

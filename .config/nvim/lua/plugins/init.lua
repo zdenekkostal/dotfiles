@@ -1,6 +1,4 @@
 return {
-  require('plugins/packer'),
-
   -- Treesitter support and related plugins
   require('plugins/treesitter'),
   require('plugins/treesitter/context'),
@@ -15,7 +13,7 @@ return {
   require('plugins/git/fugitive'),
   require('plugins/git/diffview'),
 
-  -- Editing
+  -- -- Editing
   require('plugins/editing/editorconfig'),
   -- require('plugins/editing/trailing-whitespace'),
   require('plugins/editing/brackets'),
@@ -31,13 +29,12 @@ return {
   require('plugins/ui/filetree'),
   require('plugins/ui/marks'),
   require('plugins/ui/undotree'),
-  -- require('plugins/ui/indent-lines'),
+  -- -- require('plugins/ui/indent-lines'),
 
   -- Misc
   require('plugins/misc/aerial'),
   require('plugins/misc/sessions'),
   require('plugins/misc/telescope'),
-  require('plugins/misc/telescope-fzf'),
   require('plugins/misc/zk-nvim'),
   require('plugins/misc/glow'),
   require('plugins/misc/zen-mode'),
@@ -48,15 +45,16 @@ return {
   require('plugins/tmux/navigation'),
 
   -- Theming
-  require('plugins/themes/gruvbox'),
+  require('plugins/themes/rose-pine'),
+  -- require('plugins/themes/gruvbox'),
   -- require('plugins/themes/lighthaus'),
   -- require('plugins/themes/material'),
-  require('plugins/themes/kanagawa'),
-  require('plugins/themes/rose-pine'),
+  -- require('plugins/themes/kanagawa'),
 
   -- LSP
   require('plugins/lsp'),
   require('plugins/lsp/null-ls'),
   require('plugins/lsp/lsp-signature'),
   require('plugins/autocomplete'),
+  require('plugins/lsp/sourcegraph'),
 }

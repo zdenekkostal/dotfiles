@@ -1,7 +1,6 @@
 return {
   'kevinhwang91/nvim-ufo',
-  after = "nvim-lspconfig",
-  requires = {
+  dependencies = {
     {"neovim/nvim-lspconfig"},
     {'kevinhwang91/promise-async'},
     {'luukvbaal/statuscol.nvim'}
