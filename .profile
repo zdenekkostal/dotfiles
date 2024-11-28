@@ -1,6 +1,9 @@
 # Homebrew installation path on Apple silicon
 export PATH="/opt/homebrew/bin:$PATH"
 
+# Add mise to path so some tools can find the executables (like VSCode go plugin)
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+
 # Add support for current project Node binaries
 export PATH="node_modules/.bin:$PATH"
 
