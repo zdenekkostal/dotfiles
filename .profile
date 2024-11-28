@@ -19,6 +19,8 @@ export LC_ALL=en_US.UTF-8
 
 export EDITOR='nvim'
 
+export K9S_CONFIG_DIR=$HOME/.config/k9s
+
 # Set up better git commit message formatting in vim
 export RI="--format ansi --width 70"
 
