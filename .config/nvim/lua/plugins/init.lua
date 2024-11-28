@@ -20,7 +20,6 @@ return {
   require('plugins/editing/visual-expand-region'),
   require('plugins/editing/auto-pairs'),
   require('plugins/editing/comments'),
-  require('plugins/editing/folding'),
   require('plugins/editing/search_and_replace'),
   -- require('plugins/editing/lightspeed'),
 
