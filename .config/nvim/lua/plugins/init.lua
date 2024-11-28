@@ -55,6 +55,10 @@ return {
   require('plugins/lsp'),
   require('plugins/lsp/null-ls'),
   require('plugins/lsp/lsp-signature'),
+  require('plugins/lsp/copilot'),
+
   require('plugins/autocomplete'),
-  require('plugins/lsp/sourcegraph'),
+
+  require('plugins/dap'),
+  require('plugins/dap/ui')
 }

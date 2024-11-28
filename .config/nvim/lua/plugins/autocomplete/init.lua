@@ -7,10 +7,13 @@ return {
     {'hrsh7th/cmp-buffer'},
     {'petertriho/cmp-git'},
     {'saadparwaiz1/cmp_luasnip'},
-    {'rafamadriz/friendly-snippets'}
+    {'rafamadriz/friendly-snippets'},
+    {"zbirenbaum/copilot-cmp"}
   },
   config = function()
     vim.o.completeopt = "menu,menuone,noselect"
+
+    require("copilot_cmp").setup()
 
     local luasnip = require('luasnip')
     local cmp = require('cmp')
@@ -35,7 +38,8 @@ return {
           mode = 'symbol',
           maxwidth = 50,
           symbol_map = {
-            Cody = ''
+            Cody = '',
+            Copilot = '',
           },
         })
       },
@@ -76,17 +80,9 @@ return {
             fallback()
           end
         end, { "i", "s" }),
-
-        -- Manually trigger cody completions
-        ["<c-a>"] = cmp.mapping.complete {
-          config = {
-            sources = {
-              { name = "cody" },
-            },
-          },
-        },
       },
       sources = cmp.config.sources({
+        { name = "copilot" },
         { name = 'cody' },
         { name = 'nvim_lsp' },
         { name = 'luasnip' },

@@ -110,10 +110,6 @@ set noshowmode
 " ===                             KEY MAPPINGS                             === "
 " ============================================================================ "
 
-" === Search shorcuts === "
-"   <leader>h - Find and replace
-map <leader>h :%s/
-
 " Allows you to save files you opened without write permissions via sudo
 cmap w!! w !sudo tee %
 
