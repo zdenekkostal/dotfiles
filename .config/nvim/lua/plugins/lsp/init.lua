@@ -28,10 +28,18 @@ return {
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 
         vim.keymap.set('n', '<leader>e', function() 
-          vim.diagnostic.goto_next({ severity = "Error" })
+          vim.diagnostic.goto_next({ severity = {
+            vim.diagnostic.severity.ERROR,
+            vim.diagnostic.severity.WARN,
+            vim.diagnostic.severity.INFO,
+          }})
         end , opts)
         vim.keymap.set('n', '<leader>E', function() 
-          vim.diagnostic.goto_prev({ severity = "Error" })
+          vim.diagnostic.goto_prev({ severity = {
+            vim.diagnostic.severity.ERROR,
+            vim.diagnostic.severity.WARN,
+            vim.diagnostic.severity.INFO,
+          }})
         end , opts)
       end,
     })
