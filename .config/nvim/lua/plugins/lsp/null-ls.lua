@@ -32,13 +32,30 @@ return {
 
     null_ls.setup({
       sources = {
+        -- JS/TS
         null_ls.builtins.formatting.prettierd,
-        null_ls.builtins.formatting.gofumpt,
-        null_ls.builtins.formatting.rustfmt,
         null_ls.builtins.diagnostics.eslint_d,
-        null_ls.builtins.diagnostics.shellcheck,
-        null_ls.builtins.diagnostics.markdownlint,
+
+        -- Go
+        null_ls.builtins.formatting.gofumpt,
         null_ls.builtins.diagnostics.golangci_lint,
+
+        -- Rust
+        null_ls.builtins.formatting.rustfmt,
+
+        -- Python
+        null_ls.builtins.formatting.ruff,
+        null_ls.builtins.diagnostics.ruff,
+
+        -- Yaml
+        null_ls.builtins.formatting.yamlfmt,
+        null_ls.builtins.diagnostics.yamllint,
+
+        -- Shell
+        null_ls.builtins.diagnostics.shellcheck,
+
+        -- Markdown
+        null_ls.builtins.diagnostics.markdownlint,
       },
       on_attach = on_attach
     })

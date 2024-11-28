@@ -51,7 +51,7 @@ return {
     )
 
     local lspconfig = require('lspconfig')
-    local servers = { 'tsserver', 'jsonls', 'terraformls' }
+    local servers = { 'ts_ls', 'jsonls', 'terraformls', 'pyright', 'ruff' }
 
     require('lspconfig').gopls.setup({
       settings = {

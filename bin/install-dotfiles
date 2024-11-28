@@ -17,7 +17,7 @@ echo "Installing homebrew applications"
 brew install --cask alacritty karabiner-elements cleanshot spotify notion choosy keka muzzle pixelsnap beardedspice iina handbrake topnotch zoom steam dictionaries raycast homebrew/cask-versions/firefox-developer-edition homebrew/cask-fonts/font-fira-code-nerd-font homebrew/cask-fonts/font-hack-nerd-font 1password/tap/1password-cli
 
 echo "Installing latest versions of languages"
-mise use --global nodejs@lts yarn@latest golang@latest
+mise use --global nodejs@lts yarn@latest golang@latest python@latest
 
 echo "Installing Rust"
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
