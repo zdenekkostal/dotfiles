@@ -38,8 +38,6 @@ eval "$(sheldon source)"
 
 eval "$(mise activate zsh)"
 
-[ -f ~/.config/op/plugins.sh ] && source ~/.config/op/plugins.sh
-
 ####################################################
 # Functions
 
@@ -65,8 +63,6 @@ alias apply-patch="pbpaste | sed -e '$a' | git apply"
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 alias rg="rg --hidden --glob '!.git'"
-
-alias aws="op run --env-file=$HOME/.config/op/aws-env -- aws"
 
 function wallpaper {
   if [[ -f "$1" ]] && command -v osascript >/dev/null 2>&1; then
