@@ -40,6 +40,7 @@ return {
   require('plugins/misc/zen-mode'),
   require('plugins/misc/linker'),
   require('plugins/misc/neotest'),
+  require('plugins/misc/which-key'),
 
   -- Tmux
   require('plugins/tmux/navigation'),
