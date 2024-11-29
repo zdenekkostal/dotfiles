@@ -9,6 +9,7 @@ return {
   require('plugins/treesitter/refactor'),
 
   -- Git
+  require('plugins/git/conflict'),
   require('plugins/git/signs'),
   require('plugins/git/fugitive'),
   require('plugins/git/diffview'),
@@ -60,6 +61,11 @@ return {
 
   require('plugins/autocomplete'),
 
+  -- DAP
   require('plugins/dap'),
-  require('plugins/dap/ui')
+  require('plugins/dap/ui'),
+
+  -- AI
+  require('plugins/ai/avante'),
+
 }
