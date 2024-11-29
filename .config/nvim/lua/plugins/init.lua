@@ -21,6 +21,8 @@ return {
   require('plugins/editing/auto-pairs'),
   require('plugins/editing/comments'),
   require('plugins/editing/search_and_replace'),
+  require('plugins/editing/linting'),
+  require('plugins/editing/formatting'),
   -- require('plugins/editing/lightspeed'),
 
   -- UI
@@ -53,7 +55,6 @@ return {
 
   -- LSP
   require('plugins/lsp'),
-  require('plugins/lsp/null-ls'),
   require('plugins/lsp/lsp-signature'),
   require('plugins/lsp/copilot'),
 
