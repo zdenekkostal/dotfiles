@@ -1,10 +1,32 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    {'hrsh7th/cmp-nvim-lsp'},
+    -- {'hrsh7th/cmp-nvim-lsp'},
+    {'saghen/blink.cmp'},
   },
-  config = function()
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+  opts = {
+    servers = {
+      ts_ls = {},
+      jsonls = {},
+      terraformls = {},
+      ruff = {},
+      pyright = {},
+      gopls = {
+        gofumpt = true
+      },
+      rust_analyzer = {
+        ["rust-analyzer"] = {
+          checkOnSave = {
+            command = "clippy",
+          },
+        },
+      }
+    }
+  },
+
+  config = function(_, opts)
+    local lspconfig = require('lspconfig')
 
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -50,33 +72,11 @@ return {
       }
     )
 
-    local lspconfig = require('lspconfig')
-    local servers = { 'ts_ls', 'jsonls', 'terraformls', 'pyright', 'ruff' }
+    for server, config in pairs(opts.servers) do
+      -- print(server, config)
+      config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
 
-    require('lspconfig').gopls.setup({
-      settings = {
-        gopls = {
-          gofumpt = true
-        }
-      }
-    })
-
-    require('lspconfig').rust_analyzer.setup({
-      settings = {
-        rust_analyzer = {
-          ["rust-analyzer"] = {
-            checkOnSave = {
-              command = "clippy",
-            },
-          },
-        },
-      }
-    })
-
-    for _, server in ipairs(servers) do
-      lspconfig[server].setup {
-        capabilities = capabilities,
-      }
+      lspconfig[server].setup(config)
     end
   end
 }

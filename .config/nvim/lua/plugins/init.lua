@@ -58,7 +58,8 @@ return {
   require('plugins/lsp'),
   require('plugins/lsp/lsp-signature'),
 
-  require('plugins/autocomplete'),
+  -- require('plugins/autocomplete'),
+  require('plugins/autocomplete/blink'),
 
   -- DAP
   require('plugins/dap'),
