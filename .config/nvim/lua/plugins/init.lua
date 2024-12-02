@@ -57,6 +57,7 @@ return {
   -- LSP
   require('plugins/lsp'),
   require('plugins/lsp/lsp-signature'),
+  require('plugins/lsp/copilot'),
 
   -- require('plugins/autocomplete'),
   require('plugins/autocomplete/blink'),
