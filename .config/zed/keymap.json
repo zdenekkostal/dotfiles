@@ -1,0 +1,51 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Terminal",
+    "bindings": {}
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "g f": "workspace::CloseAllDocks",
+      "g t": "panel::NextPanelTab",
+      "g T": "panel::PreviousPanelTab"
+      // "ctrl-k": "menu::SelectPrevious",
+      // "ctrl-j": "menu::SelectNext"
+      // "shift shift": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "] d": "editor::GoToDiagnostic",
+      "[ d": "editor::GoToPreviousDiagnostic"
+      // "j k": ["workspace::SendKeystrokes", "escape"]
+    }
+  },
+  {
+    "context": "Editor && (showing_code_actions || showing_completions)",
+    "bindings": {
+      "shift-tab": "editor::ContextMenuPrevious",
+      "ctrl-k": "editor::ContextMenuPrevious",
+      "tab": "editor::ContextMenuNext",
+      "ctrl-j": "editor::ContextMenuNext"
+    }
+  },
+
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w l": "workspace::ActivatePaneRight",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w j": "workspace::ActivatePaneDown"
+    }
+  }
+]
