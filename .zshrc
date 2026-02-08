@@ -21,17 +21,22 @@ setopt share_history
 eval "$(starship init zsh)"
 
 plugins=(
+  # aws
   yarn
+  golang
+  gh
   gitfast
   fzf
   tig
   docker
+  docker-compose
   kubectl
   make
+  mise
 )
 
 # Ctrl+Space
-bindkey '^ ' autosuggest-accept
+bindkey '^I' autosuggest-accept
 
 # Load plugins
 eval "$(sheldon source)"
@@ -57,6 +62,6 @@ function wallpaper {
 function cleandocker {
   docker stop $(docker ps -a -q)
   docker rm $(docker ps -a -q)
-  docker system prune
-  docker volume prune
+  docker system prune -f
+  docker volume prune -f
 }
