@@ -1,0 +1,19 @@
+# Automatic dark/light switching
+# theme = dark:Rose Pine,light:Rose Pine Dawn
+theme = Rose Pine
+
+# Or set individual themes
+# theme = Rose Pine
+# theme = Rose Pine Moon
+# theme = Rose Pine Dawn
+
+window-decoration = false
+window-padding-x = 15
+window-padding-y = 15,5
+window-save-state = always
+
+font-family = "FiraCode Nerd Font"
+font-size = 12
+# font-style-bold = false
+font-style-italic = false
+font-style-bold-italic = false
