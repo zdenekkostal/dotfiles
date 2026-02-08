@@ -7,8 +7,10 @@ export PATH="$HOME/.local/share/mise/shims:$PATH"
 # Add support for current project Node binaries
 export PATH="node_modules/.bin:$PATH"
 
+# Some tools like Zed are installed here
+export PATH="$PATH:$HOME/.local/bin"
+
 # Prefer Rust installed with the recommended way 
-export PATH="$HOME/.cargo/bin:$PATH"
 
 ####################################################
 ### And go to other stuff!
@@ -37,8 +39,11 @@ export MISE_ENV_FILE=.env
 export FZF_DEFAULT_COMMAND='rg --files --follow 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+export DFT_DISPLAY=side-by-side-show-both
+
 export ZK_NOTEBOOK_DIR="$HOME/notes/"
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+. "$HOME/.cargo/env"
