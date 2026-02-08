@@ -4,6 +4,9 @@ return {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     event = 'InsertEnter',
+    dependencies = {
+      {'L3MON4D3/LuaSnip'},
+    },
     opts = {
         -- I don't find the panel useful.
         panel = { enabled = false },

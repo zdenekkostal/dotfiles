@@ -5,10 +5,11 @@ return {
     require('lint').linters_by_ft = {
       javascript = {'eslint_d'},
       typescript = {'eslint_d'},
+      typescriptreact = {'eslint_d'},
       python = {'ruff'},
       rust = {'ruff'},
       go = {'golangcilint'},
-      yaml = {'yamllint'},
+      -- yaml = {'yamllint'},
       shell = { "shellcheck" },
     }
 
@@ -18,10 +19,19 @@ return {
       end,
     })
 
-    local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-    for type, icon in pairs(signs) do
-      local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-    end
+    vim.diagnostic.config({
+      virtual_text = true,  -- Enable virtual text
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = "󰅚 ",
+          [vim.diagnostic.severity.WARN] = "󰀪 ",
+          [vim.diagnostic.severity.INFO] = " ",
+          [vim.diagnostic.severity.HINT] = "󰌶 ",
+        }
+      },
+      update_in_insert = false,  -- Don't update diagnostics while typing
+      underline = true,  -- Underline problematic code
+      severity_sort = true,  -- Sort by severity
+    })
   end,
 }

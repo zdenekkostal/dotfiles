@@ -56,11 +56,24 @@ return {
           go_test_args = { "-v", "-count=1" }
         }),
         require('neotest-jest')({
-          jestCommand = "yarn test",
-          -- jestConfigFile = "custom.jest.config.ts",
-          -- env = { CI = true },
-          cwd = function(path)
+          -- jestCommand = "yarn test",
+          cwd = function(file)
+            -- return vim.fn.getcwd()
+            -- For monorepos
+            --
+            if string.find(file, "/packages/") or string.find(file, "/apps/") then
+              -- print(string.match(file, "(.-/[^/]+/)src"))
+              return string.match(file, "(.-/[^/]+/)src")
+            end
+
             return vim.fn.getcwd()
+          end,
+          jestConfigFile = function(file)
+            if string.find(file, "/packages/") or string.find(file, "/apps/") then
+              return string.match(file, "(.-/[^/]+/)src") .. "jest.config.ts"
+            end
+
+            return vim.fn.getcwd() .. "/jest.config.ts"
           end,
         }),
       }

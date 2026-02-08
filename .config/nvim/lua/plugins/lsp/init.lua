@@ -26,8 +26,6 @@ return {
   },
 
   config = function(_, opts)
-    local lspconfig = require('lspconfig')
-
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
@@ -50,18 +48,24 @@ return {
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 
         vim.keymap.set('n', '<leader>e', function() 
-          vim.diagnostic.goto_next({ severity = {
-            vim.diagnostic.severity.ERROR,
-            vim.diagnostic.severity.WARN,
-            vim.diagnostic.severity.INFO,
-          }})
+          vim.diagnostic.jump({
+            count = 1,
+            severity = {
+              vim.diagnostic.severity.ERROR,
+              vim.diagnostic.severity.WARN,
+              vim.diagnostic.severity.INFO,
+            }
+          })
         end , opts)
         vim.keymap.set('n', '<leader>E', function() 
-          vim.diagnostic.goto_prev({ severity = {
-            vim.diagnostic.severity.ERROR,
-            vim.diagnostic.severity.WARN,
-            vim.diagnostic.severity.INFO,
-          }})
+          vim.diagnostic.jump({
+            count = -1,
+            severity = {
+              vim.diagnostic.severity.ERROR,
+              vim.diagnostic.severity.WARN,
+              vim.diagnostic.severity.INFO,
+            }
+          })
         end , opts)
       end,
     })
@@ -76,7 +80,8 @@ return {
       -- print(server, config)
       config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
 
-      lspconfig[server].setup(config)
+      vim.lsp.config(server, config)
+      vim.lsp.enable(server)
     end
   end
 }
