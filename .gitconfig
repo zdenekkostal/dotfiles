@@ -15,7 +15,6 @@
     co = checkout
     br = branch
 
-    l = log --pretty=format:'%Cred%h%Creset %Cgreen%s%Creset [%ar by %an]'
     lg = log --graph --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)(%cr) %C(blue)<%an>%C(reset)' --abbrev-commit --date=relative
 
     fixup = !sh -c 'git commit --no-verify --fixup=$1' -
@@ -27,10 +26,21 @@
     amend = !sh -c 'git commit --amend --no-edit' -
     changedate = !sh -c 'git commit --amend --no-verify --no-edit --date \"`date -R`\"'
 
+
+    l = log --pretty=format:'%Cred%h%Creset %Cgreen%s%Creset [%ar by %an]'
+    dl = -c diff.external=difft log -p --ext-diff
+
     d = diff --color
+    dd = -c diff.external=difft diff
+
     dc = diff --cached --color
+    ddc = -c diff.external=difft diff --cached --color
+
     wdiff = diff --color-words
+
     s = show --color
+    ds = -c diff.external=difft show --ext-diff
+
     pr = pull --rebase
     patch = !git --no-pager diff --no-color
     pushf = push --force-with-lease
@@ -115,5 +125,6 @@
 
 [diff "exif"]
     textconv = exiftool
+
 [init]
-	defaultBranch = main
+    defaultBranch = main
