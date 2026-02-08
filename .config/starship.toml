@@ -41,6 +41,10 @@ style = "bold yellow"
 threshold = 50
 style = "bold blue"
 
+[[battery.display]]
+threshold = 100
+style = "bold green"
+
 [line_break]
 disabled = false
 
