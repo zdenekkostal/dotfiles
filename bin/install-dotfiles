@@ -11,10 +11,10 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 
 echo "Installing homebrew packages"
-brew install mise tig tmux neovim zk fzf ripgrep gnupg svgo tldr starship git-delta markdownlint-cli shellcheck bat jq sheldon mas rust-analyzer miniserve tree fd TankerHQ/homebrew-repo/ruplacer awscli mkcert nss glow kubectl podman podman-compose postgresql hashicorp/tap/terraform-ls remotemobprogramming/brew/mob derailed/k9s/k9s
+brew install mise tig tmux neovim zk fzf ripgrep gnupg svgo tlrc television starship git-delta markdownlint-cli shellcheck bat jq sheldon mas rust-analyzer miniserve tree fd TankerHQ/homebrew-repo/ruplacer awscli mkcert nss glow kubectl podman podman-compose postgresql helm terraform coreutils difftastic ast-grep hashicorp/tap/terraform-ls remotemobprogramming/brew/mob derailed/k9s/k9s ksdme/tap/ut jnsahaj/lumen/lumen
 
 echo "Installing homebrew applications"
-brew install --cask alacritty karabiner-elements cleanshot spotify notion choosy keka muzzle pixelsnap beardie iina handbrake topnotch zoom steam dictionaries raycast podman-desktop homebrew/cask-versions/firefox-developer-edition homebrew/cask-fonts/font-fira-code-nerd-font homebrew/cask-fonts/font-hack-nerd-font 1password/tap/1password-cli
+brew install --cask alacritty ghostty karabiner-elements cleanshot spotify notion choosy keka muzzle pixelsnap iina handbrake topnotch zoom steam dictionaries raycast podman-desktop bettertouchtool homebrew/cask-versions/firefox-developer-edition homebrew/cask-fonts/font-fira-code-nerd-font homebrew/cask-fonts/font-hack-nerd-font 1password/tap/1password-cli nikitabobko/tap/aerospace
 
 echo "Installing latest versions of languages"
 mise use --global nodejs@lts yarn@latest golang@latest python@latest
@@ -91,7 +91,7 @@ echo "Sourcing dotfiles"
 [ -f ~/.zshrc ] && source ~/.zshrc
 
 echo "Installing Neovim packages and LSP dependencies"
-yarn global add @fsouza/prettierd eslint_d typescript-language-server typescript vscode-langservers-extracted
+yarn global add @fsouza/prettierd eslint_d typescript-language-server typescript vscode-langservers-extracted @zed-industries/claude-code-acp
 
 go install golang.org/x/tools/gopls@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
