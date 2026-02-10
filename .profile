@@ -1,5 +1,13 @@
-# Homebrew installation path on Apple silicon
-export PATH="/opt/homebrew/bin:$PATH"
+# Platform detection
+case "$OSTYPE" in
+  darwin*)  IS_MACOS=true ;;
+  linux*)   IS_LINUX=true ;;
+esac
+
+# Homebrew PATH (macOS only)
+if [[ -d "/opt/homebrew/bin" ]]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+fi
 
 # Add mise to path so some tools can find the executables (like VSCode go plugin)
 export PATH="$HOME/.local/share/mise/shims:$PATH"
@@ -45,5 +53,8 @@ export ZK_NOTEBOOK_DIR="$HOME/notes/"
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+# 1Password SSH agent (macOS only)
+if [[ "$IS_MACOS" == true && -S ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ]]; then
+  export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+fi
 . "$HOME/.cargo/env"

@@ -1,35 +1,244 @@
 #!/usr/bin/env zsh
 
+set -e
+
 cd ~
 
-PATH="/opt/homebrew/bin:$PATH"
+#######################################
+# 1. OS Detection & Variables
+#######################################
 
-# Instal brew if not installed yet
-if ! command -v brew >/dev/null 2>&1; then
-  echo "Installing homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+IS_MACOS=false
+IS_LINUX=false
+
+case "$OSTYPE" in
+  darwin*)  IS_MACOS=true ;;
+  linux*)   IS_LINUX=true ;;
+esac
+
+BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d)"
+DOTFILES_DIR="$HOME/.dotfiles"
+
+# Set Homebrew path (macOS only)
+if [[ -d "/opt/homebrew/bin" ]]; then
+  export PATH="/opt/homebrew/bin:$PATH"
 fi
 
-echo "Installing homebrew packages"
-brew install mise tig tmux neovim zk fzf ripgrep gnupg svgo tlrc television starship git-delta markdownlint-cli shellcheck bat jq sheldon mas rust-analyzer miniserve tree fd TankerHQ/homebrew-repo/ruplacer awscli mkcert nss glow kubectl postgresql helm terraform coreutils difftastic ast-grep hashicorp/tap/terraform-ls remotemobprogramming/brew/mob derailed/k9s/k9s ksdme/tap/ut jnsahaj/lumen/lumen
+#######################################
+# 2. Helper Functions
+#######################################
 
-echo "Installing homebrew applications"
-brew install --cask alacritty ghostty karabiner-elements cleanshot spotify notion choosy keka muzzle pixelsnap iina handbrake topnotch zoom steam dictionaries raycast orbstack bettertouchtool firefox@developer-edition font-fira-code-nerd-font font-hack-nerd-font 1password-cli nikitabobko/tap/aerospace
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
 
-echo "Installing latest versions of languages"
-mise use --global nodejs@lts yarn@latest golang@latest python@latest
+install_package() {
+  local pkg="$1"
+  if $IS_MACOS; then
+    brew install "$pkg"
+  elif $IS_LINUX; then
+    sudo apt-get install -y "$pkg"
+  fi
+}
 
-echo "Installing Rust"
-curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
-xcode-select --install
-rustup component add clippy
-rustup component add rustfmt
-rustup component add rust-src
+# Interactive prompt for file conflicts
+# Returns: 0=yes, 1=no, 2=all, 3=quit
+OVERWRITE_ALL=false
+prompt_overwrite() {
+  local file="$1"
 
-if command -v defaults >/dev/null 2>&1; then
-  echo "Configuring MacOS defaults"
+  if $OVERWRITE_ALL; then
+    return 0
+  fi
+
+  echo ""
+  echo "File already exists: $file"
+  echo -n "Overwrite? [y]es / [n]o / [a]ll / [q]uit: "
+  read -r response
+
+  case "$response" in
+    y|Y) return 0 ;;
+    n|N) return 1 ;;
+    a|A) OVERWRITE_ALL=true; return 0 ;;
+    q|Q) echo "Aborting."; exit 1 ;;
+    *) return 1 ;;
+  esac
+}
+
+backup_file() {
+  local file="$1"
+  if [[ -e "$file" ]]; then
+    mkdir -p "$BACKUP_DIR"
+    cp -r "$file" "$BACKUP_DIR/"
+    echo "Backed up: $file -> $BACKUP_DIR/"
+  fi
+}
+
+#######################################
+# 3. Homebrew Installation (macOS only)
+#######################################
+
+if $IS_MACOS && ! command_exists brew; then
+  echo "Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # Re-add to PATH after installation
+  if [[ -d "/opt/homebrew/bin" ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+  fi
+fi
+
+#######################################
+# 4. Dotfiles Checkout with Conflict Handling
+#######################################
+
+dotfiles() {
+  git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" "$@"
+}
+
+# Clone if not exists
+if [[ ! -d "$DOTFILES_DIR" ]]; then
+  echo "Cloning dotfiles..."
+  git clone --bare https://github.com/zdenekkostal/dotfiles.git "$DOTFILES_DIR"
+fi
+
+dotfiles config status.showUntrackedFiles no
+
+# Always attempt checkout with conflict handling
+echo "Checking for conflicts..."
+conflicts=$(dotfiles checkout 2>&1 | grep "^\s" | awk '{print $1}' || true)
+
+if [[ -n "$conflicts" ]]; then
+  echo "The following files would be overwritten:"
+  echo "$conflicts"
+  echo ""
+
+  for file in ${(f)conflicts}; do
+    if prompt_overwrite "$file"; then
+      backup_file "$HOME/$file"
+      rm -rf "$HOME/$file"
+    fi
+  done
+
+  echo "Restoring dotfiles..."
+  dotfiles checkout || {
+    echo "Checkout completed with some skipped files."
+  }
+fi
+
+git config --global core.excludesFile ~/.gitignore_global
+
+#######################################
+# 5. Native Package Manager Dependencies
+#######################################
+
+echo "Installing native packages..."
+
+if $IS_MACOS; then
+  brew install git tmux gnupg coreutils sheldon mas svgo tlrc television zk markdownlint-cli shellcheck rust-analyzer miniserve tree TankerHQ/homebrew-repo/ruplacer mkcert nss ast-grep remotemobprogramming/brew/mob ksdme/tap/ut jnsahaj/lumen/lumen tig
+elif $IS_LINUX; then
+  sudo apt-get update
+  sudo apt-get install -y \
+    git \
+    tmux \
+    gnupg \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    curl \
+    wget \
+    unzip \
+    zsh \
+    tig
+fi
+
+#######################################
+# 6. Mise Installation & CLI Tools
+#######################################
+
+if ! command_exists mise; then
+  echo "Installing mise..."
+  curl https://mise.run | sh
+fi
+
+# Activate mise for current shell and add shims to PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+eval "$(mise activate zsh)"
+
+echo "Installing CLI tools via mise..."
+mise use --global \
+  neovim@latest \
+  fzf@latest \
+  ripgrep@latest \
+  fd@latest \
+  bat@latest \
+  jq@latest \
+  delta@latest \
+  starship@latest \
+  glow@latest \
+  difftastic@latest
+
+#######################################
+# 7. Languages via Mise
+#######################################
+
+echo "Installing languages via mise..."
+mise use --global \
+  nodejs@lts \
+  yarn@latest \
+  golang@latest \
+  python@latest \
+  rust@latest
+
+# Rust components
+if command_exists rustup; then
+  rustup component add clippy rustfmt rust-src
+fi
+
+#######################################
+# 8. Sheldon (Linux via Cargo)
+#######################################
+
+if $IS_LINUX && ! command_exists sheldon; then
+  echo "Installing sheldon via cargo..."
+  cargo install sheldon
+fi
+
+#######################################
+# 9. macOS-specific Setup
+#######################################
+
+if $IS_MACOS; then
+  echo "Installing macOS GUI applications..."
+  brew install --cask \
+    alacritty \
+    ghostty \
+    karabiner-elements \
+    cleanshot \
+    spotify \
+    notion \
+    choosy \
+    keka \
+    muzzle \
+    pixelsnap \
+    iina \
+    handbrake \
+    topnotch \
+    zoom \
+    steam \
+    dictionaries \
+    raycast \
+    orbstack \
+    bettertouchtool \
+    firefox@developer-edition \
+    font-fira-code-nerd-font \
+    font-hack-nerd-font \
+    1password-cli \
+    nikitabobko/tap/aerospace
 
   # Thanks https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+  echo "Configuring macOS defaults..."
   osascript -e 'tell application "System Preferences" to quit'
 
   defaults write -g InitialKeyRepeat -int 15
@@ -41,7 +250,7 @@ if command -v defaults >/dev/null 2>&1; then
   # Disable accented characters popup
   defaults write -g ApplePressAndHoldEnabled -bool false
 
-  # Disable the “Are you sure you want to open this application?” dialog
+  # Disable the "Are you sure you want to open this application?" dialog
   defaults write com.apple.LaunchServices LSQuarantine -bool false
 
   # Disable applications being added to dock automatically
@@ -50,49 +259,61 @@ if command -v defaults >/dev/null 2>&1; then
   # Turn on tap to click
   defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 
-  # Enable thin strokes in Allacritty
+  # Enable thin strokes in Alacritty
   defaults write -g AppleFontSmoothing -int 0
-fi
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+  # Install keyboard layout
+  if [[ ! -f "/Library/Keyboard Layouts/Czech_Programmers_0.2.keylayout" ]]; then
+    echo "Installing keyboard layout..."
+    sudo cp ./keyboard_layouts/Czech_Programmers_0.2.keylayout /Library/Keyboard\ Layouts/
+  fi
 
-# Expand aliases when using xargs
-alias xargs='xargs '
+  # Install App Store applications if signed in
+  if defaults read MobileMeAccounts Accounts 2>/dev/null | grep -q 'AccountID'; then
+    echo "Installing App Store applications..."
+    brew bundle install --file=brewfile_apps
+  fi
 
-if [ ! -d "$HOME/.dotfiles" ]; then
-  echo "Cloning the dotfiles"
-  git clone --bare https://github.com/zdenekkostal/dotfiles.git "$HOME/.dotfiles"
-  dotfiles config status.showUntrackedFiles no
+  # Xcode command line tools
+  xcode-select --install 2>/dev/null || true
 
-  echo "Restoring dotfiles"
-  dotfiles restore --staged .
-  dotfiles diff --diff-filter=D --name-only | xargs dotfiles restore $1
-
-  if ! dotfiles diff-index --quiet HEAD --; then
-    echo "Some files were not restored due to current changes"
-    dotfiles diff --stat
+  # Wallpaper
+  if command_exists wallpaper; then
+    echo "Setting up wallpaper..."
+    wallpaper ~/wallpapers/gradiant.heic
   fi
 fi
 
-# Respect the global gitignore
-git config --global core.excludesFile ~/.gitignore_global 
+#######################################
+# 10. Shell Plugins & Post-install
+#######################################
 
-echo "Installing shell plugins"
-sheldon source
+echo "Installing shell plugins..."
+mkdir -p ~/.config/sheldon
+sheldon lock --update
 
-if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-  echo "Installing Tmux plugin manager"
+if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
+  echo "Installing Tmux plugin manager..."
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   TMUX_PLUGIN_MANAGER_PATH="~/.tmux/plugins/" ~/.tmux/plugins/tpm/bin/install_plugins
 fi
 
-echo "Sourcing dotfiles"
-[ -f ~/.profile ] && source ~/.profile
-[ -f ~/.zshrc ] && source ~/.zshrc
+#######################################
+# 11. Neovim Dependencies
+#######################################
 
-echo "Installing Neovim packages and LSP dependencies"
-yarn global add @fsouza/prettierd eslint_d typescript-language-server typescript vscode-langservers-extracted @zed-industries/claude-code-acp
+echo "Installing Neovim packages and LSP dependencies..."
 
+# Node-based tools
+npm install -g \
+  @fsouza/prettierd \
+  eslint_d \
+  typescript-language-server \
+  typescript \
+  vscode-langservers-extracted \
+  @zed-industries/claude-code-acp
+
+# Go tools
 go install golang.org/x/tools/gopls@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
 go install github.com/golang/mock/mockgen@latest
@@ -100,17 +321,16 @@ go install github.com/google/yamlfmt/cmd/yamlfmt@latest
 go install gotest.tools/gotestsum@latest
 go install github.com/daixiang0/gci@latest
 
+# Python tools
 pip install --user yamllint
 
-if [ ! -f "/Library/Keyboard Layouts/Czech_Programmers_0.2.keylayout" ]; then
-  echo "Installing keyboard layout"
-  sudo cp ./keyboard_layouts/Czech_Programmers_0.2.keylayout /Library/Keyboard\ Layouts/
-fi
+#######################################
+# 12. Source Configuration
+#######################################
 
-if defaults read MobileMeAccounts Accounts 2>/dev/null | grep -q 'AccountID'; then
-  echo "Installing App store applications"
-  brew bundle install --file=brewfile_apps
-fi
+echo "Sourcing dotfiles..."
+[[ -f ~/.profile ]] && source ~/.profile
+[[ -f ~/.zshrc ]] && source ~/.zshrc
 
-echo "Setting up wallpaper"
-wallpaper ~/wallpapers/gradiant.heic
+echo ""
+echo "Installation complete!"

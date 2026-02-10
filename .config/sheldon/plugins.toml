@@ -21,24 +21,24 @@ zsh-defer source "{{ file }}"
 
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
-proto = "ssh"
+proto = "https"
 
 [plugins.oh-my-zsh]
 github = "ohmyzsh/ohmyzsh"
 apply = ["defer"]
-proto = "ssh"
+proto = "https"
 
 [plugins.fzf-tab]
 github = "Aloxaf/fzf-tab"
 apply = ["defer"]
-proto = "ssh"
+proto = "https"
 
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 apply = ["defer"]
-proto = "ssh"
+proto = "https"
 
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
 apply = ["defer"]
-proto = "ssh"
+proto = "https"
