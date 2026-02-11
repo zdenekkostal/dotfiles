@@ -6,7 +6,6 @@ return {
   require('plugins/treesitter/rainbow-brackets'),
   require('plugins/treesitter/textobjects'),
   require('plugins/treesitter/textsubjects'),
-  require('plugins/treesitter/refactor'),
 
   -- Git
   require('plugins/git/conflict'),
