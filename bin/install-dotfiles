@@ -104,9 +104,13 @@ fi
 
 dotfiles config status.showUntrackedFiles no
 
-# Always attempt checkout with conflict handling
+# Fetch latest
+echo "Fetching latest dotfiles..."
+dotfiles fetch origin
+
+# Attempt checkout with conflict handling
 echo "Checking for conflicts..."
-conflicts=$(dotfiles checkout 2>&1 | grep "^\s" | awk '{print $1}' || true)
+conflicts=$(dotfiles checkout FETCH_HEAD 2>&1 | grep "^\s" | awk '{print $1}' || true)
 
 if [[ -n "$conflicts" ]]; then
   echo "The following files would be overwritten:"
@@ -121,7 +125,7 @@ if [[ -n "$conflicts" ]]; then
   done
 
   echo "Restoring dotfiles..."
-  dotfiles checkout || {
+  dotfiles checkout FETCH_HEAD || {
     echo "Checkout completed with some skipped files."
   }
 fi
