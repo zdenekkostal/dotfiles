@@ -17,9 +17,6 @@ let g:mapleader = "\<Space>"
 " Don't show last command
 set noshowcmd
 
-" Yank and paste with the system clipboard
-set clipboard=unnamed
-
 set hidden
 
 " === TAB/Space settings === "

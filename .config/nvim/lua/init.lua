@@ -23,4 +23,17 @@ vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
+-- OSC 52 clipboard support for SSH sessions
+vim.g.clipboard = {
+  name = 'osc52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
+
 require("lazy").setup(require('plugins'), opts)
