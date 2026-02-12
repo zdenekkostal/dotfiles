@@ -68,3 +68,11 @@ function cleandocker {
   docker system prune -f
   docker volume prune -f
 }
+
+function mosh {
+  if [ $# -eq 2 ]; then
+    command mosh "$1" -- /bin/sh -c "tmux new-session -A -s $2"
+  else
+    command mosh "$@"
+  fi
+}
