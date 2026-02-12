@@ -36,4 +36,6 @@ vim.g.clipboard = {
   },
 }
 
+vim.opt.clipboard = 'unnamedplus'
+
 require("lazy").setup(require('plugins'), opts)

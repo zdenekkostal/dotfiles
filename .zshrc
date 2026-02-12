@@ -17,7 +17,10 @@ setopt share_history
 # Private stuff
 [ -f ~/.private/env ] && source ~/.private/env
 
-# Enable starship - excellent shell prompt
+# Enable starship - hostname-specific config if available
+if [[ -f "$HOME/.config/starship-$(hostname -s).toml" ]]; then
+  export STARSHIP_CONFIG="$HOME/.config/starship-$(hostname -s).toml"
+fi
 eval "$(starship init zsh)"
 
 plugins=(
