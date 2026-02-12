@@ -5,7 +5,6 @@ return {
   require('plugins/treesitter/commentstring'),
   require('plugins/treesitter/rainbow-brackets'),
   require('plugins/treesitter/textobjects'),
-  require('plugins/treesitter/textsubjects'),
 
   -- Git
   require('plugins/git/conflict'),
