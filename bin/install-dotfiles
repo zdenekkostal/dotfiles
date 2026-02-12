@@ -103,6 +103,7 @@ if [[ ! -d "$DOTFILES_DIR" ]]; then
 fi
 
 dotfiles config status.showUntrackedFiles no
+dotfiles config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 
 # Fetch latest
 echo "Fetching latest dotfiles..."
