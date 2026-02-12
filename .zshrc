@@ -1,3 +1,6 @@
+typeset -U path
+[ -f ~/.profile ] && source ~/.profile
+
 export ZSH="$HOME/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
 
 # Thanks to https://gist.github.com/mattmc3/c490d01751d6eb80aa541711ab1d54b1
