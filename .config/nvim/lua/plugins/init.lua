@@ -15,8 +15,7 @@ return {
 
   -- -- Editing
   -- require('plugins/editing/trailing-whitespace'),
-  require('plugins/editing/brackets'),
-  require('plugins/editing/auto-pairs'),
+  require('plugins/editing/mini'),
   require('plugins/editing/comments'),
   require('plugins/editing/search_and_replace'),
   require('plugins/editing/linting'),
@@ -26,7 +25,7 @@ return {
 
   -- UI
   require('plugins/ui/lualine'),
-  require('plugins/ui/filetree'),
+  require('plugins/ui/oil'),
   require('plugins/ui/marks'),
   require('plugins/ui/snacks'),
   require('plugins/ui/dark-notify'),
@@ -58,7 +57,6 @@ return {
 
   -- LSP
   require('plugins/lsp'),
-  require('plugins/lsp/lsp-signature'),
   require('plugins/lsp/mason'),
   -- require('plugins/lsp/copilot'),
 

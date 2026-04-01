@@ -40,4 +40,28 @@ end
 
 vim.opt.clipboard = 'unnamedplus'
 
+-- File watcher for external agent modifications (Claude Code, etc.)
+-- Automatically reloads buffers when files are changed externally
+local function setup_file_watcher()
+  local group = vim.api.nvim_create_augroup('ExternalFileSync', { clear = true })
+
+  vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'TermLeave' }, {
+    group = group,
+    callback = function()
+      if vim.o.buftype ~= 'nofile' then
+        vim.cmd('checktime')
+      end
+    end,
+  })
+
+  vim.api.nvim_create_autocmd('FileChangedShellPost', {
+    group = group,
+    callback = function()
+      vim.notify('File changed on disk. Buffer reloaded.', vim.log.levels.INFO)
+    end,
+  })
+end
+
+setup_file_watcher()
+
 require("lazy").setup(require('plugins'), opts)
