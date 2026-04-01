@@ -168,8 +168,8 @@ nnoremap <Tab> za
 " ============================================================================ "
 "
 if has("nvim")
-  " Set better diffing algorithm
-  set diffopt=filler,internal,algorithm:histogram,indent-heuristic
+  " Set better diffing algorithm (indent-heuristic is now default in 0.12)
+  set diffopt+=filler,internal,algorithm:histogram
 endif
 
 " === Search === "

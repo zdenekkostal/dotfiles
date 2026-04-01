@@ -14,10 +14,8 @@ return {
   require('plugins/git/diffview'),
 
   -- -- Editing
-  require('plugins/editing/editorconfig'),
   -- require('plugins/editing/trailing-whitespace'),
   require('plugins/editing/brackets'),
-  require('plugins/editing/visual-expand-region'),
   require('plugins/editing/auto-pairs'),
   require('plugins/editing/comments'),
   require('plugins/editing/search_and_replace'),
@@ -30,7 +28,6 @@ return {
   require('plugins/ui/lualine'),
   require('plugins/ui/filetree'),
   require('plugins/ui/marks'),
-  require('plugins/ui/undotree'),
   require('plugins/ui/snacks'),
   require('plugins/ui/dark-notify'),
   -- -- require('plugins/ui/indent-lines'),
