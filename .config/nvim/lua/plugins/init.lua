@@ -13,10 +13,8 @@ return {
   require('plugins/git/neogit'),
   require('plugins/git/diffview'),
 
-  -- -- Editing
-  -- require('plugins/editing/trailing-whitespace'),
+  -- Editing
   require('plugins/editing/mini'),
-  require('plugins/editing/comments'),
   require('plugins/editing/search_and_replace'),
   require('plugins/editing/linting'),
   require('plugins/editing/formatting'),
