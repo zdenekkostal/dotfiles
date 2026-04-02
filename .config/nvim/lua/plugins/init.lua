@@ -12,6 +12,7 @@ return {
   -- require('plugins/git/fugitive'),
   require('plugins/git/neogit'),
   require('plugins/git/diffview'),
+  require('plugins/git/gitgraph'),
 
   -- Editing
   require('plugins/editing/mini'),

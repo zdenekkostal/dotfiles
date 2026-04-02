@@ -15,7 +15,7 @@ return {
       },
     },
     input = { enabled = true },
-    picker = { enabled = true },
+    -- picker disabled: using fzf-lua for better performance
     notifier = { enabled = true },
     scratch = { enabled = true },
     -- quickfile = { enabled = true },
@@ -27,11 +27,5 @@ return {
   },
   keys = {
     { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-    -- { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
-    --
-    { "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
-    { "<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
-    { "<leader>gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
-    { "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
   }
 }

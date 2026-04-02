@@ -7,10 +7,9 @@ return {
   },
   cmd = 'Neogit',
   keys = {
-    { '<leader>gs', '<cmd>Neogit kind=split<cr>', desc = 'Neogit (split)' },
-    { '<leader>gc', '<cmd>Neogit commit<cr>', desc = 'Neogit commit' },
-    { '<leader>gp', '<cmd>Neogit push<cr>', desc = 'Neogit push' },
-    { '<leader>gl', '<cmd>Neogit log<cr>', desc = 'Neogit log' },
+    { '<leader>gg', '<cmd>Neogit kind=split<cr>', desc = '[g]it neo[g]it' },
+    { '<leader>gc', '<cmd>Neogit commit<cr>', desc = '[g]it [c]ommit' },
+    { '<leader>gP', '<cmd>Neogit push<cr>', desc = '[g]it [P]ush' },
   },
   opts = {
     -- Neogit settings
