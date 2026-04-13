@@ -18,6 +18,9 @@ export PATH="node_modules/.bin:$PATH"
 # Some tools like Zed are installed here
 export PATH="$PATH:$HOME/.local/bin"
 
+# Custom scripts
+export PATH="$HOME/bin:$PATH"
+
 # Prefer Rust installed with the recommended way 
 
 ####################################################
@@ -51,7 +54,7 @@ export DFT_DISPLAY=side-by-side-show-both
 
 export ZK_NOTEBOOK_DIR="$HOME/notes/"
 
-export DOCKER_DEFAULT_PLATFORM=linux/amd64
+# export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # 1Password SSH agent (macOS only)
 if [[ "$IS_MACOS" == true && -S ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ]]; then
