@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -eu
+
+input=$(cat)
+encoded=$(printf '%s' "$input" | base64 | tr -d '\n')
+payload=$(printf '\033]52;c;%s\a' "$encoded")
+
+if tmux display-message -p '#{client_tty}' >/dev/null 2>&1; then
+  client_tty=$(tmux display-message -p '#{client_tty}' 2>/dev/null || true)
+  if [ -z "$client_tty" ]; then
+    client_tty=$(tmux list-clients -F '#{client_activity} #{client_tty}' 2>/dev/null | sort -nr | head -n1 | cut -d' ' -f2- || true)
+  fi
+
+  if [ -n "$client_tty" ] && [ -w "$client_tty" ]; then
+    printf '%s' "$payload" > "$client_tty"
+    exit 0
+  fi
+fi
+
+printf '%s' "$payload"
