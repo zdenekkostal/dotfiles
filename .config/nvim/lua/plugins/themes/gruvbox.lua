@@ -4,7 +4,7 @@ return {
   priority = 1000,
   config = function()
     require('gruvbox').setup({
-      contrast = 'hard',
+      contrast = 'medium',
       transparent_mode = false,
     })
   end,

@@ -1,4 +1,4 @@
-ghostty = Gruvbox Light Hard
+ghostty = Gruvbox Light
 nvim_colorscheme = gruvbox
 nvim_background = light
 tmux = gruvbox-light

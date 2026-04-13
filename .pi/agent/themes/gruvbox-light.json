@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/modes/interactive/theme/theme-schema.json",
   "name": "gruvbox-light",
   "vars": {
-    "bg0": "#f9f5d7",
+    "bg0": "#fbf1c7",
     "bg1": "#ebdbb2",
     "bg2": "#d5c4a1",
     "bg3": "#bdae93",
@@ -78,7 +78,7 @@
     "bashMode": "orange"
   },
   "export": {
-    "pageBg": "#f9f5d7",
+    "pageBg": "#fbf1c7",
     "cardBg": "#fbf1c7",
     "infoBg": "#f2e5bc"
   }
