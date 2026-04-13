@@ -1,6 +1,5 @@
 # Automatic dark/light switching
-# theme = dark:Rose Pine,light:Rose Pine Dawn
-theme = Rose Pine
+theme = dark:Rose Pine,light:Rose Pine Dawn
 
 # Or set individual themes
 # theme = Rose Pine
@@ -8,6 +7,7 @@ theme = Rose Pine
 # theme = Rose Pine Dawn
 
 window-decoration = false
+macos-window-shadow = false
 window-padding-x = 15
 window-padding-y = 15,5
 window-save-state = always
