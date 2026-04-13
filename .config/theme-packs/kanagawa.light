@@ -1,0 +1,8 @@
+ghostty = Kanagawa Lotus
+nvim_colorscheme = kanagawa-lotus
+nvim_background = light
+tmux = kanagawa-lotus
+bat = GitHub
+delta = GitHub
+lualine = kanagawa
+pi = kanagawa-light

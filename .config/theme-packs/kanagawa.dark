@@ -1,0 +1,8 @@
+ghostty = Kanagawa Dragon
+nvim_colorscheme = kanagawa-dragon
+nvim_background = dark
+tmux = kanagawa-dragon
+bat = Nord
+delta = Nord
+lualine = kanagawa
+pi = kanagawa-dark

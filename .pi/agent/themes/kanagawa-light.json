@@ -1,0 +1,83 @@
+{
+  "$schema": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/modes/interactive/theme/theme-schema.json",
+  "name": "kanagawa-light",
+  "vars": {
+    "bg": "#f2ecbc",
+    "bg1": "#e5ddb0",
+    "bg2": "#d9d0a7",
+    "fg": "#545464",
+    "muted": "#8a8980",
+    "subtle": "#716e61",
+    "red": "#c84053",
+    "green": "#6f894e",
+    "yellow": "#77713f",
+    "blue": "#4d699b",
+    "purple": "#b35b79",
+    "aqua": "#597b75",
+    "orange": "#cc6d00"
+  },
+  "colors": {
+    "accent": "blue",
+    "border": "aqua",
+    "borderAccent": "blue",
+    "borderMuted": "bg2",
+    "success": "green",
+    "error": "red",
+    "warning": "orange",
+    "muted": "muted",
+    "dim": "subtle",
+    "text": "",
+    "thinkingText": "muted",
+
+    "selectedBg": "bg1",
+    "userMessageBg": "bg1",
+    "userMessageText": "",
+    "customMessageBg": "#e8dfc8",
+    "customMessageText": "",
+    "customMessageLabel": "purple",
+    "toolPendingBg": "#e8e2b8",
+    "toolSuccessBg": "#dfe8c0",
+    "toolErrorBg": "#eedcc0",
+    "toolTitle": "",
+    "toolOutput": "subtle",
+
+    "mdHeading": "yellow",
+    "mdLink": "blue",
+    "mdLinkUrl": "muted",
+    "mdCode": "aqua",
+    "mdCodeBlock": "",
+    "mdCodeBlockBorder": "muted",
+    "mdQuote": "subtle",
+    "mdQuoteBorder": "muted",
+    "mdHr": "bg2",
+    "mdListBullet": "aqua",
+
+    "toolDiffAdded": "green",
+    "toolDiffRemoved": "red",
+    "toolDiffContext": "muted",
+
+    "syntaxComment": "muted",
+    "syntaxKeyword": "red",
+    "syntaxFunction": "yellow",
+    "syntaxVariable": "blue",
+    "syntaxString": "green",
+    "syntaxNumber": "purple",
+    "syntaxType": "aqua",
+    "syntaxOperator": "orange",
+    "syntaxPunctuation": "subtle",
+
+    "thinkingOff": "bg2",
+    "thinkingMinimal": "bg2",
+    "thinkingLow": "aqua",
+    "thinkingMedium": "blue",
+    "thinkingHigh": "purple",
+    "thinkingXhigh": "red",
+
+    "bashMode": "orange"
+  },
+  "export": {
+    "pageBg": "#f2ecbc",
+    "cardBg": "#f6f0c4",
+    "infoBg": "#ebe4b2"
+  }
+}

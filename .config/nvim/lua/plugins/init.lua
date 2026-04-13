@@ -52,7 +52,7 @@ return {
   require('plugins/themes/gruvbox'),
   -- require('plugins/themes/lighthaus'),
   -- require('plugins/themes/material'),
-  -- require('plugins/themes/kanagawa'),
+  require('plugins/themes/kanagawa'),
 
   -- LSP
   require('plugins/lsp'),
