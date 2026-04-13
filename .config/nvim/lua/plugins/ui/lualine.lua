@@ -6,7 +6,7 @@ return {
   config = function()
     require('lualine').setup{
       options = {
-        theme = 'rose-pine'
+        theme = 'auto'
       },
       sections = {
         lualine_a = {'mode'},
@@ -29,11 +29,6 @@ return {
           }
         }
       },
-      tabline = {
-        lualine_a = {
-          {'tabs', mode = 1}
-        },
-      }
     }
   end
 }

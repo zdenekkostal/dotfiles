@@ -1,5 +1,5 @@
 # Automatic dark/light switching
-theme = dark:Rose Pine,light:Rose Pine Dawn
+theme = dark:Rose Pine,light:Gruvbox Light Hard
 
 # Or set individual themes
 # theme = Rose Pine

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Dynamic delta pager that reads theme from ~/.config/theme.conf
+# macOS: detects dark/light mode. Linux: defaults to dark.
+
+THEME_CONF="${XDG_CONFIG_HOME:-$HOME/.config}/theme.conf"
+
+get_conf() {
+  local section="$1" key="$2"
+  awk -v section="$section" -v key="$key" '
+    /^\[/ { current = $0; gsub(/[\[\]]/, "", current) }
+    current == section && $1 == key && $2 == "=" { $1=""; $2=""; sub(/^ +/, ""); print; exit }
+  ' "$THEME_CONF"
+}
+
+# Detect mode
+if [[ "$(uname)" == "Darwin" ]]; then
+  if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
+    mode="dark"
+  else
+    mode="light"
+  fi
+else
+  mode="dark"
+fi
+
+theme=$(get_conf "$mode" "delta")
+
+# Fallback
+if [[ -z "$theme" ]]; then
+  theme="ansi"
+fi
+
+exec delta --syntax-theme="$theme" "$@"

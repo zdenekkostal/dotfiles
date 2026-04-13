@@ -1,0 +1,7 @@
+ghostty = Gruvbox Dark Hard
+nvim_colorscheme = gruvbox
+nvim_background = dark
+tmux = gruvbox-dark
+bat = gruvbox-dark
+delta = gruvbox-dark
+lualine = gruvbox

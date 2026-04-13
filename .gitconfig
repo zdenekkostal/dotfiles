@@ -56,7 +56,7 @@
 
 [core]
     editor = nvim
-    pager = delta
+    pager = ~/bin/delta-pager
 	excludesFile = /Users/zdenek.kostal/.gitignore_global
     hooksPath = /dev/null
 
@@ -110,7 +110,7 @@
 
 [delta]
     features = side-by-side line-numbers decorations
-    syntax-theme = "rose-pine"
+    # syntax-theme set dynamically by delta-pager wrapper
 
 [delta "decorations"]
     commit-decoration-style = yellow ul
@@ -118,7 +118,7 @@
     file-decoration-style = none
 
 [interactive]
-    diffFilter = delta --color-only
+    diffFilter = ~/bin/delta-pager --color-only
 
 [branch]
     autosetuprebase = always

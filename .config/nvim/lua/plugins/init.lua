@@ -49,7 +49,7 @@ return {
 
   -- Theming
   require('plugins/themes/rose-pine'),
-  -- require('plugins/themes/gruvbox'),
+  require('plugins/themes/gruvbox'),
   -- require('plugins/themes/lighthaus'),
   -- require('plugins/themes/material'),
   -- require('plugins/themes/kanagawa'),
@@ -57,7 +57,6 @@ return {
   -- LSP
   require('plugins/lsp'),
   require('plugins/lsp/mason'),
-  -- require('plugins/lsp/copilot'),
 
   -- require('plugins/autocomplete'),
   require('plugins/autocomplete/blink'),
@@ -67,7 +66,7 @@ return {
   require('plugins/dap/ui'),
 
   -- AI
-  require('plugins/ai/code-companion')
-  -- require('plugins/ai/avante'),
-  -- require('plugins/ai/claude-code'),
+  require('plugins/ai/claude-code'),
+  require('plugins/ai/code-companion'),
+  -- require('plugins/ai/pi'), -- disabled: bug with newlines in nvim_buf_set_lines
 }

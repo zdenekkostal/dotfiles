@@ -1,0 +1,7 @@
+ghostty = Catppuccin Mocha
+nvim_colorscheme = catppuccin-mocha
+nvim_background = dark
+tmux = catppuccin-dark
+bat = Catppuccin Mocha
+delta = Catppuccin Mocha
+lualine = catppuccin

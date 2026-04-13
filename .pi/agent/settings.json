@@ -1,0 +1,13 @@
+{
+  "lastChangelogVersion": "0.66.1",
+  "defaultProvider": "amazon-bedrock",
+  "defaultModel": "global.anthropic.claude-opus-4-6-v1",
+  "defaultThinkingLevel": "medium",
+  "theme": "gruvbox-light",
+  "packages": [
+    "https://github.com/davebcn87/pi-autoresearch",
+    "npm:@plannotator/pi-extension",
+    "git:https://github.com/badlogic/pi-diff-review",
+    "npm:@tanvesh01/pierre-diffs@0.2.1"
+  ]
+}

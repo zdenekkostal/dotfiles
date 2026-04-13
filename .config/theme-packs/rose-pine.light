@@ -1,0 +1,7 @@
+ghostty = Rose Pine Dawn
+nvim_colorscheme = rose-pine-dawn
+nvim_background = light
+tmux = rose-pine-light
+bat = rose-pine-dawn
+delta = rose-pine-dawn
+lualine = rose-pine

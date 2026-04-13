@@ -1,0 +1,82 @@
+{
+  "$schema": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/modes/interactive/theme/theme-schema.json",
+  "name": "rose-pine-dark",
+  "vars": {
+    "base": "#191724",
+    "surface": "#1f1d2e",
+    "overlay": "#26233a",
+    "muted": "#6e6a86",
+    "subtle": "#908caa",
+    "text": "#e0def4",
+    "love": "#eb6f92",
+    "gold": "#f6c177",
+    "rose": "#ebbcba",
+    "pine": "#31748f",
+    "foam": "#9ccfd8",
+    "iris": "#c4a7e7"
+  },
+  "colors": {
+    "accent": "rose",
+    "border": "pine",
+    "borderAccent": "foam",
+    "borderMuted": "overlay",
+    "success": "foam",
+    "error": "love",
+    "warning": "gold",
+    "muted": "muted",
+    "dim": "subtle",
+    "text": "",
+    "thinkingText": "subtle",
+
+    "selectedBg": "overlay",
+    "userMessageBg": "surface",
+    "userMessageText": "",
+    "customMessageBg": "#2a2540",
+    "customMessageText": "",
+    "customMessageLabel": "iris",
+    "toolPendingBg": "surface",
+    "toolSuccessBg": "#1f2e2e",
+    "toolErrorBg": "#2e1f24",
+    "toolTitle": "",
+    "toolOutput": "subtle",
+
+    "mdHeading": "gold",
+    "mdLink": "foam",
+    "mdLinkUrl": "muted",
+    "mdCode": "rose",
+    "mdCodeBlock": "",
+    "mdCodeBlockBorder": "muted",
+    "mdQuote": "subtle",
+    "mdQuoteBorder": "muted",
+    "mdHr": "muted",
+    "mdListBullet": "rose",
+
+    "toolDiffAdded": "foam",
+    "toolDiffRemoved": "love",
+    "toolDiffContext": "muted",
+
+    "syntaxComment": "muted",
+    "syntaxKeyword": "pine",
+    "syntaxFunction": "rose",
+    "syntaxVariable": "text",
+    "syntaxString": "gold",
+    "syntaxNumber": "love",
+    "syntaxType": "foam",
+    "syntaxOperator": "subtle",
+    "syntaxPunctuation": "subtle",
+
+    "thinkingOff": "overlay",
+    "thinkingMinimal": "muted",
+    "thinkingLow": "pine",
+    "thinkingMedium": "foam",
+    "thinkingHigh": "iris",
+    "thinkingXhigh": "love",
+
+    "bashMode": "gold"
+  },
+  "export": {
+    "pageBg": "#191724",
+    "cardBg": "#1f1d2e",
+    "infoBg": "#2a2636"
+  }
+}
