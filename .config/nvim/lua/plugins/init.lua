@@ -28,7 +28,6 @@ return {
   require('plugins/ui/marks'),
   require('plugins/ui/snacks'),
   require('plugins/ui/dark-notify'),
-  -- -- require('plugins/ui/indent-lines'),
 
   -- Misc
   require('plugins/misc/aerial'),
@@ -58,7 +57,6 @@ return {
   require('plugins/lsp'),
   require('plugins/lsp/mason'),
 
-  -- require('plugins/autocomplete'),
   require('plugins/autocomplete/blink'),
 
   -- DAP
