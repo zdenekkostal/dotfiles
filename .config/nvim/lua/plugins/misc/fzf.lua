@@ -6,6 +6,19 @@ return {
 
     fzf.setup({
       'max-perf',
+      fzf_colors = true, -- inherit colors from FzfLua* highlight groups
+      winopts = {
+        height = 0.80,
+        width = 0.80,
+        border = 'rounded',
+        backdrop = 100,
+        preview = {
+          border = 'border',
+          layout = 'vertical',
+          vertical = 'down:45%',
+          winopts = { number = false },
+        },
+      },
       git = {
         status = {
           actions = {
