@@ -24,6 +24,7 @@ return {
   -- UI
   require('plugins/ui/lualine'),
   require('plugins/ui/oil'),
+  require('plugins/ui/nvim-tree'),
   require('plugins/ui/marks'),
   require('plugins/ui/snacks'),
   require('plugins/ui/dark-notify'),

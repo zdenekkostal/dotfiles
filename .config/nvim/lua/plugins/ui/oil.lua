@@ -3,7 +3,7 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
     require('oil').setup({
-      default_file_explorer = true,
+      default_file_explorer = false,
       columns = {
         'icon',
       },
@@ -31,8 +31,6 @@ return {
     })
   end,
   keys = {
-    { '-', '<cmd>Oil<cr>', desc = 'Open parent directory' },
-    { '<leader>nt', '<cmd>Oil<cr>', desc = 'Open Oil file explorer' },
-    { '<leader>nf', function() require('oil').open(vim.fn.expand('%:p:h')) end, desc = 'Open Oil at current file' },
+    { '-', '<cmd>Oil<cr>', desc = 'Open parent directory (Oil)' },
   },
 }
