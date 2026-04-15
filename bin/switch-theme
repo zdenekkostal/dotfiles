@@ -128,11 +128,11 @@ EOF
 
   # Send commands to all running nvim instances
   local applied=0
-  for sock in /tmp/nvim.*/0 /run/user/*/nvim.*/0 ${XDG_RUNTIME_DIR:-/tmp}/nvim.*/0; do
+  while IFS= read -r sock; do
     [[ -S "$sock" ]] || continue
     nvim --server "$sock" --remote-send \
       "<Cmd>set background=${background}<CR><Cmd>colorscheme ${colorscheme}<CR>" 2>/dev/null && ((applied++)) || true
-  done
+  done < <(find /tmp /var/folders ${XDG_RUNTIME_DIR:-/dev/null} /run/user 2>/dev/null -type s -name "nvim.*" -o -type s -name "0" 2>/dev/null | grep -i nvim)
 
   echo "  nvim: colorscheme=${colorscheme}, bg=${background}, lualine=${lualine_theme} (${applied} instances updated)"
 }
