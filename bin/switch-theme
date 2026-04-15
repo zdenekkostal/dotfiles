@@ -100,8 +100,8 @@ apply_tmux() {
     local dark_path light_path
     dark_path=$(get_conf "dark" "tmux")
     light_path=$(get_conf "light" "tmux")
-    sed -i.bak "s|@dark-notify-theme-path-dark.*|@dark-notify-theme-path-dark \"$HOME/.tmux/${dark_path}.conf\"|" "$tmux_conf"
-    sed -i.bak "s|@dark-notify-theme-path-light.*|@dark-notify-theme-path-light \"$HOME/.tmux/${light_path}.conf\"|" "$tmux_conf"
+    sed -i.bak "s|@dark-notify-theme-path-dark.*|@dark-notify-theme-path-dark \"\$HOME/.tmux/${dark_path}.conf\"|" "$tmux_conf"
+    sed -i.bak "s|@dark-notify-theme-path-light.*|@dark-notify-theme-path-light \"\$HOME/.tmux/${light_path}.conf\"|" "$tmux_conf"
     rm -f "${tmux_conf}.bak"
   fi
 
