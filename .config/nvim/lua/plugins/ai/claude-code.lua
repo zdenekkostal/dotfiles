@@ -13,10 +13,10 @@ return {
     })
   end,
   keys = {
-    { '<leader>ac', '<cmd>ClaudeCodeToggle<cr>', desc = 'Toggle Claude Code terminal' },
-    { '<leader>af', '<cmd>ClaudeCodeFocus<cr>', desc = 'Focus Claude Code terminal' },
-    { '<leader>as', '<cmd>ClaudeCodeSend<cr>', mode = 'v', desc = 'Send selection to Claude' },
-    { '<leader>aa', '<cmd>ClaudeCodeAdd %<cr>', desc = 'Add current file to Claude context' },
-    { '<leader>ao', '<cmd>ClaudeCodeOpen<cr>', desc = 'Open Claude Code' },
+    { '<leader>cc', '<cmd>ClaudeCode<cr>', desc = '[c]laude [c]ode toggle' },
+    { '<leader>cf', '<cmd>ClaudeCodeFocus<cr>', desc = '[c]laude code [f]ocus' },
+    { '<leader>cs', '<cmd>ClaudeCodeSend<cr>', mode = 'v', desc = '[c]laude code [s]end selection' },
+    { '<leader>ca', '<cmd>ClaudeCodeAdd %<cr>', desc = '[c]laude code [a]dd file' },
+    { '<leader>co', '<cmd>ClaudeCodeOpen<cr>', desc = '[c]laude code [o]pen' },
   },
 }
