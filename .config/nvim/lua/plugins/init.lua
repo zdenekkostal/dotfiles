@@ -2,7 +2,6 @@ return {
   -- Treesitter support and related plugins
   require('plugins/treesitter'),
   require('plugins/treesitter/context'),
-  require('plugins/treesitter/commentstring'),
   require('plugins/treesitter/rainbow-brackets'),
   require('plugins/treesitter/textobjects'),
 
@@ -34,7 +33,7 @@ return {
   require('plugins/misc/aerial'),
   require('plugins/misc/sessions'),
   require('plugins/misc/fzf'),
-  -- require('plugins/misc/telescope'),
+
   -- require('plugins/misc/zk-nvim'),
   require('plugins/misc/glow'),
   require('plugins/misc/zen-mode'),
