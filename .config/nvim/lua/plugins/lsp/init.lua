@@ -65,16 +65,11 @@ return {
       end,
     })
 
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-      vim.lsp.handlers.hover, {
-        border = "single"
-      }
-    )
+    vim.lsp.config('*', {
+      capabilities = require('blink.cmp').get_lsp_capabilities(),
+    })
 
     for server, config in pairs(opts.servers) do
-      -- print(server, config)
-      config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-
       vim.lsp.config(server, config)
       vim.lsp.enable(server)
     end
