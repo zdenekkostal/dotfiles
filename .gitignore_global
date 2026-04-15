@@ -2,3 +2,4 @@
 .envrc
 Session.vim
 .mise.toml
+.claude/settings.local.json
