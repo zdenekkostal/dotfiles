@@ -344,7 +344,7 @@ mise exec nodejs -- npm install -g \
 # Go tools
 mise exec golang -- go install golang.org/x/tools/gopls@latest
 mise exec golang -- go install github.com/go-delve/delve/cmd/dlv@latest
-mise exec golang -- go install github.com/uber-go/mock/mockgen@latest
+mise exec golang -- go install go.uber.org/mock/mockgen@latest
 mise exec golang -- go install github.com/daixiang0/gci@latest
 
 
