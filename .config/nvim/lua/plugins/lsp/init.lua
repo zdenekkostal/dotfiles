@@ -30,10 +30,11 @@ return {
       callback = function(ev)
         local o = { buffer = ev.buf }
 
-        -- Neovim 0.11+ provides these built-in:
-        -- gd (definition), gD (declaration), K (hover), grn (rename),
-        -- gra (code action), grr (references), gri (implementation), grt (type definition)
+        -- Neovim 0.12 built-in: grn (rename), gra (code action), grr (references),
+        -- gri (implementation), grt (type definition), gO (document symbols), K (hover)
 
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = ev.buf, desc = 'vim.lsp.buf.definition()' })
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = ev.buf, desc = 'vim.lsp.buf.declaration()' })
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, o)
         vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, o)
         vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, o)
