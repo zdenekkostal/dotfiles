@@ -5,3 +5,4 @@ tmux = gruvbox-dark
 bat = gruvbox-dark
 delta = gruvbox-dark
 lualine = gruvbox
+pi = dark

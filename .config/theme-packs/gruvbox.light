@@ -5,3 +5,4 @@ tmux = gruvbox-light
 bat = gruvbox-light
 delta = gruvbox-light
 lualine = gruvbox
+pi = gruvbox-light

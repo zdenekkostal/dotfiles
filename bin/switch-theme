@@ -2,13 +2,14 @@
 # switch-theme: Centralized theme switcher for all tools
 #
 # Usage:
-#   switch-theme dark <pack>    # Set dark theme to a pack (rose-pine, gruvbox, catppuccin)
-#   switch-theme light <pack>   # Set light theme to a pack
-#   switch-theme both <pack>    # Set both dark and light to the same pack
-#   switch-theme apply          # Re-apply current theme based on OS appearance
-#   switch-theme apply dark     # Force apply dark theme
-#   switch-theme apply light    # Force apply light theme
-#   switch-theme status         # Show current config
+#   switch-theme dark <pack>           # Set dark slot (e.g. rose-pine, gruvbox)
+#   switch-theme light <pack>          # Set light slot
+#   switch-theme light <pack>.dark     # Put a dark pack into the light slot
+#   switch-theme dark  <pack>.light    # Put a light pack into the dark slot
+#   switch-theme both <pack>           # Set both dark and light to same pack
+#   switch-theme apply                 # Re-apply current theme (auto OS detect)
+#   switch-theme apply dark|light      # Force-apply a specific mode
+#   switch-theme status                # Show current config
 #
 # On macOS, "apply" detects dark/light mode automatically.
 # On Linux, "apply" defaults to dark unless specified.
@@ -153,13 +154,27 @@ apply_delta() {
   echo "  delta: ${delta_theme} (read dynamically)"
 }
 
+apply_pi() {
+  local pi_theme="$1"
+  [[ -n "$pi_theme" ]] || return 0
+  local settings_file="$HOME/.pi/agent/settings.json"
+  [[ -f "$settings_file" ]] || return 0
+
+  # Update the "theme" field in settings.json
+  local tmpfile
+  tmpfile=$(mktemp)
+  sed "s|\"theme\": \"[^\"]*\"|\"theme\": \"${pi_theme}\"|" "$settings_file" > "$tmpfile"
+  mv "$tmpfile" "$settings_file"
+  echo "  pi: ${pi_theme}"
+}
+
 # ─── Main apply ──────────────────────────────────────────
 
 do_apply() {
   local mode="${1:-$(detect_mode)}"
   echo "Applying ${mode} theme..."
 
-  local ghostty_theme nvim_cs nvim_bg tmux_theme bat_theme delta_theme lualine_theme
+  local ghostty_theme nvim_cs nvim_bg tmux_theme bat_theme delta_theme lualine_theme pi_theme
   ghostty_theme=$(get_conf "$mode" "ghostty")
   nvim_cs=$(get_conf "$mode" "nvim_colorscheme")
   nvim_bg=$(get_conf "$mode" "nvim_background")
@@ -167,12 +182,14 @@ do_apply() {
   bat_theme=$(get_conf "$mode" "bat")
   delta_theme=$(get_conf "$mode" "delta")
   lualine_theme=$(get_conf "$mode" "lualine")
+  pi_theme=$(get_conf "$mode" "pi")
 
   apply_ghostty "$(get_conf dark ghostty)" "$(get_conf light ghostty)"
   apply_nvim "$nvim_cs" "$nvim_bg" "$lualine_theme"
   apply_tmux "$mode" "$tmux_theme"
   apply_bat "$bat_theme"
   apply_delta "$delta_theme"
+  apply_pi "$pi_theme"
 
   echo "Done."
 }
@@ -188,12 +205,24 @@ cmd_set() {
     return
   fi
 
-  local packfile="${THEME_PACKS_DIR}/${pack}.${variant}"
-  [[ -f "$packfile" ]] || die "Theme pack not found: ${pack}.${variant}
+  # Allow "<pack>.dark" or "<pack>.light" to pick the source file explicitly,
+  # so you can put dark-flavored values into the light slot (or vice versa).
+  local source_variant="$variant" pack_name="$pack"
+  if [[ "$pack" == *.dark || "$pack" == *.light ]]; then
+    source_variant="${pack##*.}"
+    pack_name="${pack%.*}"
+  fi
+
+  local packfile="${THEME_PACKS_DIR}/${pack_name}.${source_variant}"
+  [[ -f "$packfile" ]] || die "Theme pack not found: ${pack_name}.${source_variant}
 Available packs: $(ls "$THEME_PACKS_DIR" | sed 's/\.\(dark\|light\)$//' | sort -u | tr '\n' ' ')"
 
   apply_pack "$variant" "$packfile"
-  echo "Set ${variant} theme to ${pack}"
+  if [[ "$source_variant" != "$variant" ]]; then
+    echo "Set ${variant} slot to ${pack_name} (${source_variant} variant)"
+  else
+    echo "Set ${variant} theme to ${pack_name}"
+  fi
 }
 
 cmd_status() {
@@ -206,6 +235,7 @@ cmd_status() {
   echo "  bat:      $(get_conf dark bat)"
   echo "  delta:    $(get_conf dark delta)"
   echo "  lualine:  $(get_conf dark lualine)"
+  echo "  pi:       $(get_conf dark pi)"
   echo ""
   echo "Light mode:"
   echo "  ghostty:  $(get_conf light ghostty)"
@@ -214,6 +244,7 @@ cmd_status() {
   echo "  bat:      $(get_conf light bat)"
   echo "  delta:    $(get_conf light delta)"
   echo "  lualine:  $(get_conf light lualine)"
+  echo "  pi:       $(get_conf light pi)"
   echo ""
   echo "OS appearance: $(detect_mode)"
   echo ""
@@ -235,12 +266,19 @@ Usage:
   switch-theme status           Show current configuration
   switch-theme help             Show this help
 
+Pack syntax:
+  <pack>          uses the matching variant for the slot (e.g. rose-pine.light
+                  for the light slot)
+  <pack>.dark     force the dark variant of <pack> into the chosen slot
+  <pack>.light    force the light variant of <pack> into the chosen slot
+
 Examples:
   switch-theme light gruvbox    # Use gruvbox for light mode
   switch-theme dark rose-pine   # Use rose-pine for dark mode
   switch-theme both catppuccin  # Use catppuccin for everything
   switch-theme apply            # Apply based on current OS appearance
-  switch-theme apply dark       # Force dark theme
+  switch-theme apply dark       # Force dark theme (one-shot, not persistent)
+  switch-theme light rose-pine.dark  # Use rose-pine DARK colors when in light mode
 EOF
 }
 
