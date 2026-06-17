@@ -150,7 +150,7 @@ git config --global core.excludesFile ~/.gitignore_global
 echo "Installing native packages..."
 
 if $IS_MACOS; then
-  brew install git tmux gnupg coreutils sheldon mas zk miniserve tree nss awscli cormacrelf/tap/dark-notify TankerHQ/homebrew-repo/ruplacer remotemobprogramming/brew/mob ksdme/tap/ut jnsahaj/lumen/lumen tig mosh dlvhdr/formulae/diffnav
+  brew install git tmux gnupg coreutils sheldon mas zk miniserve tree nss awscli derailed/k9s/k9s cormacrelf/tap/dark-notify TankerHQ/homebrew-repo/ruplacer remotemobprogramming/brew/mob ksdme/tap/ut jnsahaj/lumen/lumen tig mosh dlvhdr/formulae/diffnav
 elif $IS_LINUX; then
   sudo apt-get update
   sudo apt-get install -y \
