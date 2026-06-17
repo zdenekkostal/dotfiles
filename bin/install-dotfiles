@@ -235,7 +235,7 @@ if $IS_MACOS; then
     steam \
     dictionaries \
     raycast \
-    orbstack \
+    rancher \
     bettertouchtool \
     firefox@developer-edition \
     font-fira-code-nerd-font \
