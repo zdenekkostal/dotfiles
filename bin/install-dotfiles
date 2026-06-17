@@ -271,7 +271,8 @@ if $IS_MACOS; then
 
   # Thanks https://github.com/mathiasbynens/dotfiles/blob/main/.macos
   echo "Configuring macOS defaults..."
-  osascript -e 'tell application "System Preferences" to quit'
+  osascript -e 'tell application "System Preferences" to quit' 2>/dev/null || \
+  osascript -e 'tell application "System Settings" to quit' 2>/dev/null || true
 
   defaults write -g InitialKeyRepeat -int 15
   defaults write -g KeyRepeat -int 2
