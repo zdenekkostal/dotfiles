@@ -241,6 +241,12 @@ if $IS_MACOS; then
     font-fira-code-nerd-font \
     font-hack-nerd-font \
     1password-cli \
+    zed \
+    claude \
+    obsidian \
+    figma \
+    linear-linear \
+    whatsapp \
     nikitabobko/tap/aerospace
 
   # Thanks https://github.com/mathiasbynens/dotfiles/blob/main/.macos
