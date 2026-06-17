@@ -307,9 +307,6 @@ if $IS_MACOS; then
     brew bundle install --file=brewfile_apps
   fi
 
-  # Xcode command line tools
-  xcode-select --install 2>/dev/null || true
-
 fi
 
 #######################################
