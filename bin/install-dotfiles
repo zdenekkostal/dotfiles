@@ -256,7 +256,6 @@ if $IS_MACOS; then
     iina \
     handbrake \
     topnotch \
-    zoom \
     steam \
     dictionaries \
     raycast \
