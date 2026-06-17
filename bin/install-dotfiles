@@ -219,12 +219,13 @@ if command_exists rustup; then
   rustup component add clippy rustfmt rust-src
 fi
 
-# npm/pipx-backed tools — must come after Node and Python are installed
-mise use --global pipx@latest
+# npm-backed tools — must come after Node is installed
 mise use --global \
   npm:svgo@latest \
-  npm:markdownlint-cli@latest \
-  pipx:yamllint@latest
+  npm:markdownlint-cli@latest
+
+# yamllint — install via pip since Python is already available
+mise exec python -- pip install --user yamllint
 
 #######################################
 # 9. Sheldon (Linux via Cargo)
