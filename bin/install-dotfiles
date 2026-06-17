@@ -123,8 +123,8 @@ dotfiles fetch origin
 
 # Try checkout; on conflict, back up conflicting files and retry
 echo "Checking out dotfiles..."
-if ! dotfiles checkout FETCH_HEAD 2>/dev/null; then
-  conflicts=$(dotfiles checkout FETCH_HEAD 2>&1 | grep "^\s" | awk '{print $1}')
+checkout_output=$(dotfiles checkout FETCH_HEAD 2>&1) || {
+  conflicts=$(echo "$checkout_output" | grep "^\s" | awk '{print $1}')
   echo "The following files would be overwritten:"
   echo "$conflicts"
   echo ""
@@ -139,7 +139,7 @@ if ! dotfiles checkout FETCH_HEAD 2>/dev/null; then
   dotfiles checkout FETCH_HEAD || {
     echo "Checkout completed with some skipped files."
   }
-fi
+}
 
 git config --global core.excludesFile ~/.gitignore_global
 
