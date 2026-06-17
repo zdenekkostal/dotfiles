@@ -61,3 +61,7 @@ if [[ "$IS_MACOS" == true && -S ~/Library/Group\ Containers/2BUA8C4S2C.com.1pass
   export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 fi
 . "$HOME/.cargo/env"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="$HOME/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
