@@ -260,7 +260,6 @@ if $IS_MACOS; then
     dictionaries \
     raycast \
     rancher \
-    bettertouchtool \
     firefox@developer-edition \
     font-fira-code-nerd-font \
     font-hack-nerd-font \
