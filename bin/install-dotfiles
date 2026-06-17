@@ -301,9 +301,6 @@ if $IS_MACOS; then
     sudo cp "$HOME/keyboard_layouts/Czech_Programmers_0.2.keylayout" "/Library/Keyboard Layouts/"
   fi
 
-  # Set wallpaper
-  wallpaper "$HOME/wallpapers/gradiant.heic"
-
   # Install App Store applications if signed in
   if defaults read MobileMeAccounts Accounts 2>/dev/null | grep -q 'AccountID'; then
     echo "Installing App Store applications..."
@@ -357,6 +354,11 @@ mise exec python -- python -m pip install --user yamllint
 echo "Sourcing dotfiles..."
 [[ -f ~/.profile ]] && source ~/.profile
 [[ -f ~/.zshrc ]] && source ~/.zshrc
+
+# Set wallpaper (requires .zshrc sourced above for the wallpaper function)
+if [[ "$IS_MACOS" == true ]]; then
+  wallpaper "$HOME/wallpapers/gradiant.heic"
+fi
 
 echo ""
 echo "Installation complete!"
