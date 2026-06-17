@@ -75,7 +75,20 @@ backup_file() {
 }
 
 #######################################
-# 3. Homebrew Installation (macOS only)
+# 3. Xcode Command Line Tools (macOS only)
+#######################################
+
+# Must happen before any git use — bare macOS ships a git stub that
+# prompts for CLT installation and blocks non-interactively.
+if $IS_MACOS && ! xcode-select -p &>/dev/null; then
+  echo "Installing Xcode Command Line Tools..."
+  xcode-select --install
+  echo "Waiting for Xcode CLT installation to complete..."
+  until xcode-select -p &>/dev/null; do sleep 5; done
+fi
+
+#######################################
+# 4. Homebrew Installation (macOS only)
 #######################################
 
 if $IS_MACOS && ! command_exists brew; then
@@ -89,7 +102,7 @@ if $IS_MACOS && ! command_exists brew; then
 fi
 
 #######################################
-# 4. Dotfiles Checkout with Conflict Handling
+# 5. Dotfiles Checkout with Conflict Handling
 #######################################
 
 dotfiles() {
@@ -105,15 +118,13 @@ fi
 dotfiles config status.showUntrackedFiles no
 dotfiles config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 
-# Fetch latest
 echo "Fetching latest dotfiles..."
 dotfiles fetch origin
 
-# Attempt checkout with conflict handling
-echo "Checking for conflicts..."
-conflicts=$(dotfiles checkout FETCH_HEAD 2>&1 | grep "^\s" | awk '{print $1}' || true)
-
-if [[ -n "$conflicts" ]]; then
+# Try checkout; on conflict, back up conflicting files and retry
+echo "Checking out dotfiles..."
+if ! dotfiles checkout FETCH_HEAD 2>/dev/null; then
+  conflicts=$(dotfiles checkout FETCH_HEAD 2>&1 | grep "^\s" | awk '{print $1}')
   echo "The following files would be overwritten:"
   echo "$conflicts"
   echo ""
@@ -125,7 +136,6 @@ if [[ -n "$conflicts" ]]; then
     fi
   done
 
-  echo "Restoring dotfiles..."
   dotfiles checkout FETCH_HEAD || {
     echo "Checkout completed with some skipped files."
   }
@@ -134,7 +144,7 @@ fi
 git config --global core.excludesFile ~/.gitignore_global
 
 #######################################
-# 5. Native Package Manager Dependencies
+# 6. Native Package Manager Dependencies
 #######################################
 
 echo "Installing native packages..."
@@ -159,7 +169,7 @@ elif $IS_LINUX; then
 fi
 
 #######################################
-# 6. Mise Installation & CLI Tools
+# 7. Mise Installation & CLI Tools
 #######################################
 
 if ! command_exists mise; then
@@ -186,7 +196,7 @@ mise use --global \
   difftastic@latest
 
 #######################################
-# 7. Languages via Mise
+# 8. Languages via Mise
 #######################################
 
 echo "Installing languages via mise..."
@@ -203,7 +213,7 @@ if command_exists rustup; then
 fi
 
 #######################################
-# 8. Sheldon (Linux via Cargo)
+# 9. Sheldon (Linux via Cargo)
 #######################################
 
 if $IS_LINUX && ! command_exists sheldon; then
@@ -212,7 +222,7 @@ if $IS_LINUX && ! command_exists sheldon; then
 fi
 
 #######################################
-# 9. macOS-specific Setup
+# 10. macOS-specific Setup
 #######################################
 
 if $IS_MACOS; then
@@ -297,7 +307,7 @@ if $IS_MACOS; then
 fi
 
 #######################################
-# 10. Shell Plugins & Post-install
+# 11. Shell Plugins & Post-install
 #######################################
 
 echo "Installing shell plugins..."
@@ -311,7 +321,7 @@ if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
 fi
 
 #######################################
-# 11. Neovim Dependencies
+# 12. Neovim Dependencies
 #######################################
 
 echo "Installing Neovim packages and LSP dependencies..."
@@ -337,7 +347,7 @@ go install github.com/daixiang0/gci@latest
 pip install --user yamllint
 
 #######################################
-# 12. Source Configuration
+# 13. Source Configuration
 #######################################
 
 echo "Sourcing dotfiles..."
