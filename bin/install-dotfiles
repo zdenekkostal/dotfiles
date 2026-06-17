@@ -339,7 +339,8 @@ mise exec nodejs -- npm install -g \
   typescript-language-server \
   typescript \
   vscode-langservers-extracted \
-  @zed-industries/claude-code-acp
+  @zed-industries/claude-code-acp \
+  @anthropic-ai/claude-code
 
 # Go tools
 mise exec golang -- go install golang.org/x/tools/gopls@latest
