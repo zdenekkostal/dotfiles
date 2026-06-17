@@ -220,6 +220,7 @@ if command_exists rustup; then
 fi
 
 # npm/pipx-backed tools — must come after Node and Python are installed
+mise use --global pipx@latest
 mise use --global \
   npm:svgo@latest \
   npm:markdownlint-cli@latest \
