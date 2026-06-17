@@ -177,10 +177,9 @@ if ! command_exists mise; then
   curl https://mise.run | sh
 fi
 
-# Activate mise for current shell and add shims to PATH
+# Add mise shims to PATH for this script session
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/share/mise/shims:$PATH"
-eval "$(mise activate zsh)"
 
 echo "Installing CLI tools via mise..."
 mise use --global \
