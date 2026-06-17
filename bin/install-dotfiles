@@ -150,7 +150,7 @@ git config --global core.excludesFile ~/.gitignore_global
 echo "Installing native packages..."
 
 if $IS_MACOS; then
-  brew install git tmux gnupg coreutils sheldon mas svgo tlrc television zk markdownlint-cli shellcheck rust-analyzer miniserve tree TankerHQ/homebrew-repo/ruplacer mkcert nss ast-grep remotemobprogramming/brew/mob ksdme/tap/ut jnsahaj/lumen/lumen tig mosh dlvhdr/formulae/diffnav
+  brew install git tmux gnupg coreutils sheldon mas zk miniserve tree nss TankerHQ/homebrew-repo/ruplacer remotemobprogramming/brew/mob ksdme/tap/ut jnsahaj/lumen/lumen tig mosh dlvhdr/formulae/diffnav
 elif $IS_LINUX; then
   sudo apt-get update
   sudo apt-get install -y \
@@ -193,7 +193,18 @@ mise use --global \
   delta@latest \
   starship@latest \
   glow@latest \
-  difftastic@latest
+  difftastic@latest \
+  awscli@latest \
+  ast-grep@latest \
+  television@latest \
+  tlrc@latest \
+  shellcheck@latest \
+  mkcert@latest \
+  gotestsum@latest \
+  yamlfmt@latest \
+  npm:svgo@latest \
+  npm:markdownlint-cli@latest \
+  pipx:yamllint@latest
 
 #######################################
 # 8. Languages via Mise
