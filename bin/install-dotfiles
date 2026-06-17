@@ -344,8 +344,6 @@ mise exec golang -- go install github.com/go-delve/delve/cmd/dlv@latest
 mise exec golang -- go install github.com/uber-go/mock/mockgen@latest
 mise exec golang -- go install github.com/daixiang0/gci@latest
 
-# Python tools
-mise exec python -- python -m pip install --user yamllint
 
 #######################################
 # 13. Source Configuration
