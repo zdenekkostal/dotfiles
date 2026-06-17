@@ -174,7 +174,7 @@ fi
 
 if ! command_exists mise; then
   echo "Installing mise..."
-  curl https://mise.run | sh
+  curl -fsSL https://mise.run | sh
 fi
 
 # Add mise shims to PATH for this script session
@@ -354,7 +354,7 @@ echo "Sourcing dotfiles..."
 [[ -f ~/.zshrc ]] && source ~/.zshrc
 
 # Set wallpaper (requires .zshrc sourced above for the wallpaper function)
-if [[ "$IS_MACOS" == true ]]; then
+if $IS_MACOS; then
   wallpaper "$HOME/wallpapers/gradiant.heic"
 fi
 
