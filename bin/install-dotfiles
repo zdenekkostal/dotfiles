@@ -298,7 +298,7 @@ if $IS_MACOS; then
   # Install keyboard layout
   if [[ ! -f "/Library/Keyboard Layouts/Czech_Programmers_0.2.keylayout" ]]; then
     echo "Installing keyboard layout..."
-    sudo cp ./keyboard_layouts/Czech_Programmers_0.2.keylayout /Library/Keyboard\ Layouts/
+    sudo cp "$HOME/keyboard_layouts/Czech_Programmers_0.2.keylayout" "/Library/Keyboard Layouts/"
   fi
 
   # Install App Store applications if signed in
@@ -310,11 +310,6 @@ if $IS_MACOS; then
   # Xcode command line tools
   xcode-select --install 2>/dev/null || true
 
-  # Wallpaper
-  if command_exists wallpaper; then
-    echo "Setting up wallpaper..."
-    wallpaper ~/wallpapers/gradiant.heic
-  fi
 fi
 
 #######################################
