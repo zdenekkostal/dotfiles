@@ -269,6 +269,8 @@ if $IS_MACOS; then
     figma \
     linear-linear \
     whatsapp \
+    tailscale \
+    synology-drive \
     nikitabobko/tap/aerospace
 
   # Thanks https://github.com/mathiasbynens/dotfiles/blob/main/.macos
