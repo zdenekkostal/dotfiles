@@ -199,7 +199,8 @@ mise use --global \
   shellcheck@latest \
   mkcert@latest \
   gotestsum@latest \
-  yamlfmt@latest
+  yamlfmt@latest \
+  tree-sitter@latest
 
 #######################################
 # 8. Languages via Mise
