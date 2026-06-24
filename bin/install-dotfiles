@@ -200,7 +200,8 @@ mise use --global \
   mkcert@latest \
   gotestsum@latest \
   yamlfmt@latest \
-  tree-sitter@latest
+  tree-sitter@latest \
+  stern@latest
 
 #######################################
 # 8. Languages via Mise
