@@ -201,7 +201,8 @@ mise use --global \
   gotestsum@latest \
   yamlfmt@latest \
   tree-sitter@latest \
-  stern@latest
+  stern@latest \
+  gh@latest
 
 #######################################
 # 8. Languages via Mise
