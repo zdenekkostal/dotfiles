@@ -1,0 +1,154 @@
+# ~/.config/aerospace/aerospace.toml
+# Laptop-only setup: browser / Notion / Ghostty / Slack.
+# Reload after editing:  aerospace reload-config   (or alt-shift-; then r)
+
+config-version = 2
+
+start-at-login = true
+
+# Auto-reload on save. Reload once manually after enabling this.
+auto-reload-config = true
+
+# Physical key positions are read as QWERTY regardless of input source, so
+# bindings stay put when you switch to a Czech layout.
+key-mapping.preset = 'qwerty'
+
+# Under config-version 2 these must be listed explicitly, otherwise empty
+# workspaces vanish from the menu bar until they have a window in them.
+persistent-workspaces = ['B', 'N', 'T', 'S', 'C', 'F']
+
+# ---------------------------------------------------------------------------
+# Layout defaults
+# ---------------------------------------------------------------------------
+
+# Keep the tree shallow. Without these you get nested containers you didn't
+# ask for and windows that resize in surprising ways.
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = false
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'horizontal'
+
+# How much of a background window peeks out in accordion mode.
+accordion-padding = 24
+
+# Pointer moves to whatever gains focus, so hover and scroll target the window
+# you're actually looking at.
+on-focus-changed = ['move-mouse window-lazy-center', 'exec-and-forget ~/.config/aerospace/notes-sync.sh']
+
+# Small gaps. Zero these out if you want every pixel.
+[gaps]
+inner.horizontal = 15
+inner.vertical = 15
+
+outer.top = 15
+outer.bottom = 15
+outer.left = 15
+outer.right = 15
+
+# ---------------------------------------------------------------------------
+# App rules
+# Verify every bundle id with:  aerospace list-apps
+# Order matters: first matching callback wins.
+# ---------------------------------------------------------------------------
+
+# B — browser. Add or swap ids to match what you actually use.
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.apple.Safari || test %{app-bundle-id} = com.google.Chrome || test %{app-bundle-id} = company.thebrowser.Browser'
+run = 'move-node-to-workspace B'
+
+# N — Notion
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = notion.id'
+run = 'move-node-to-workspace N'
+
+# T — terminal / editor
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.mitchellh.ghostty || test %{app-bundle-id} = dev.zed.Zed'
+run = 'move-node-to-workspace T'
+
+# S — comms, quarantined so they can't interrupt you
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.tinyspeck.slackmacgap || test %{app-bundle-id} = com.apple.mail || test %{app-bundle-id} = com.apple.MobileSMS'
+run = 'move-node-to-workspace S'
+
+# C — Claude
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.anthropic.claudefordesktop'
+run = 'move-node-to-workspace C'
+
+# Never tile these
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.apple.systempreferences || test %{app-bundle-id} = com.apple.finder || test %{app-bundle-id} = com.apple.ActivityMonitor || test %{app-bundle-id} = com.1password.1password || test %{app-bundle-id} = com.amazonaws.acvc.osx'
+run = 'layout floating'
+
+# ---------------------------------------------------------------------------
+# Keys
+#
+# If any alt-<letter> combo collides with a symbol you type on the Czech
+# layout, find-and-replace "alt-" -> "ctrl-alt-" across this whole block.
+# ---------------------------------------------------------------------------
+
+[mode.main.binding]
+
+# --- the bindings that carry 90% of the workflow ---
+alt-o = 'exec-and-forget ~/.config/aerospace/notes-toggle.sh'
+
+alt-tab = 'workspace-back-and-forth'
+alt-b = 'workspace B'
+alt-n = 'workspace N'
+alt-t = 'workspace T'
+alt-s = 'workspace S'
+alt-c = 'workspace C'
+alt-f = 'workspace F'          # scratch: Preview, Figma, one-offs
+
+
+# --- send the focused window elsewhere, and follow it ---
+alt-shift-b = 'move-node-to-workspace B; workspace B; flatten-workspace-tree; layout tiles horizontal'
+alt-shift-n = 'move-node-to-workspace N; workspace N; flatten-workspace-tree; layout tiles horizontal'
+alt-shift-t = 'move-node-to-workspace T; workspace T; flatten-workspace-tree; layout tiles horizontal'
+alt-shift-s = 'move-node-to-workspace S; workspace S; flatten-workspace-tree; layout tiles horizontal'
+alt-shift-c = 'move-node-to-workspace C; workspace C; flatten-workspace-tree; layout tiles horizontal'
+alt-shift-f = 'move-node-to-workspace F; workspace F; flatten-workspace-tree; layout tiles horizontal'
+
+# --- focus within a workspace (vim directions) ---
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# --- move the window within the workspace ---
+alt-ctrl-h = 'move left'
+alt-ctrl-j = 'move down'
+alt-ctrl-k = 'move up'
+alt-ctrl-l = 'move right'
+
+# --- layout ---
+alt-slash = 'layout tiles horizontal vertical'      # even split, toggles direction
+alt-comma = 'layout accordion horizontal vertical'  # stack, focused one expanded
+alt-shift-space = 'layout floating tiling'          # yank one window out of the tree
+alt-m = 'fullscreen'                                # AeroSpace fullscreen, NOT the green button
+
+# --- size ---
+alt-minus = 'resize smart -50'
+alt-equal = 'resize smart +50'
+alt-shift-0 = 'balance-sizes'
+
+# --- when the layout gets weird ---
+alt-shift-r = ['flatten-workspace-tree', 'layout tiles horizontal']
+
+# --- service mode: alt-shift-semicolon, then one key ---
+alt-shift-semicolon = 'mode service'
+
+[mode.service.binding]
+r = ['reload-config', 'mode main']
+f = ['layout floating tiling', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']
+
+# join the focused window into its neighbour's container
+h = ['join-with left', 'mode main']
+j = ['join-with down', 'mode main']
+k = ['join-with up', 'mode main']
+l = ['join-with right', 'mode main']
+
+esc = 'mode main'
