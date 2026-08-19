@@ -52,8 +52,7 @@ outer.right = 15
 # ---------------------------------------------------------------------------
 
 [workspace-to-monitor-force-assignment]
-F = 'built-in'              # laptop screen — scratch / Preview / Figma
-Z = ['Sidecar', 'built-in'] # Zoom: iPad when connected, otherwise laptop
+F = 'built-in'   # laptop screen — scratch / Preview / Figma
 
 # ---------------------------------------------------------------------------
 # App rules

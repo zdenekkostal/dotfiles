@@ -2,14 +2,14 @@
 # Called on startup and whenever displays change.
 # Waits for AeroSpace to be ready, then places workspaces on the right monitors.
 
+export PATH="/opt/homebrew/bin:$PATH"
+
+# Wait for AeroSpace to be responsive
 for i in $(seq 1 15); do
-    aerospace list-monitors &>/dev/null && break
+    MONITORS=$(aerospace list-monitors 2>/dev/null) && break
     sleep 1
 done
-
-MONITORS=$(aerospace list-monitors 2>/dev/null) || exit 0
-
-# Small extra delay so AeroSpace has settled after the display change
+[ -z "$MONITORS" ] && exit 0
 sleep 0.5
 
 if echo "$MONITORS" | grep -q "DELL"; then
