@@ -92,7 +92,7 @@ run = 'move-node-to-workspace Z'
 
 # Never tile these
 [[on-window-detected]]
-if = 'test %{app-bundle-id} = com.apple.systempreferences || test %{app-bundle-id} = com.apple.finder || test %{app-bundle-id} = com.apple.ActivityMonitor || test %{app-bundle-id} = com.1password.1password || test %{app-bundle-id} = com.amazonaws.acvc.osx'
+if = 'test %{app-bundle-id} = com.apple.systempreferences || test %{app-bundle-id} = com.apple.finder || test %{app-bundle-id} = com.apple.ActivityMonitor || test %{app-bundle-id} = com.1password.1password || test %{app-bundle-id} = com.amazonaws.acvc.osx || test %{app-bundle-id} = com.sindresorhus.Dato'
 run = 'layout floating'
 
 # ---------------------------------------------------------------------------
