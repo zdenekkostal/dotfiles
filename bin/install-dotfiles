@@ -272,7 +272,8 @@ if $IS_MACOS; then
     whatsapp \
     tailscale \
     synology-drive \
-    nikitabobko/tap/aerospace
+    nikitabobko/tap/aerospace \
+    FelixKratz/formulae/borders
 
   # Thanks https://github.com/mathiasbynens/dotfiles/blob/main/.macos
   echo "Configuring macOS defaults..."
@@ -352,7 +353,20 @@ mise exec golang -- go install github.com/daixiang0/gci@latest
 
 
 #######################################
-# 13. Source Configuration
+# 13. macOS AeroSpace Post-install
+#######################################
+
+if $IS_MACOS; then
+  echo "Compiling AeroSpace monitor watcher..."
+  swiftc "$HOME/.config/aerospace/monitors-watcher.swift" \
+    -o "$HOME/.config/aerospace/monitors-watcher"
+
+  echo "Loading AeroSpace monitor watcher launchd agent..."
+  launchctl load "$HOME/Library/LaunchAgents/com.aerospace.monitor-watcher.plist" 2>/dev/null || true
+fi
+
+#######################################
+# 14. Source Configuration
 #######################################
 
 echo "Sourcing dotfiles..."
