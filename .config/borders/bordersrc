@@ -1,9 +1,9 @@
 #!/bin/bash
 options=(
   style=round
-  width=5.0
+  width=8.0
   hidpi=on
-  active_color=0xffe1e3e4
-  inactive_color=0xff494d64
+  active_color="glow(0xffc4a7e7)"  # rose pine iris with glow
+  inactive_color=0xff524f67        # rose pine highlight high
 )
 borders "${options[@]}"
