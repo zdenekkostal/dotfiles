@@ -6,6 +6,8 @@ config-version = 2
 
 start-at-login = true
 
+after-startup-command = ['exec-and-forget ~/.config/borders/bordersrc']
+
 # Auto-reload on save. Reload once manually after enabling this.
 auto-reload-config = true
 
@@ -77,7 +79,7 @@ run = 'move-node-to-workspace T'
 
 # S — comms, quarantined so they can't interrupt you
 [[on-window-detected]]
-if = 'test %{app-bundle-id} = com.tinyspeck.slackmacgap || test %{app-bundle-id} = com.apple.mail || test %{app-bundle-id} = com.apple.MobileSMS'
+if = 'test %{app-bundle-id} = com.tinyspeck.slackmacgap || test %{app-bundle-id} = com.apple.mail || test %{app-bundle-id} = com.apple.MobileSMS || test %{app-bundle-id} = net.whatsapp.WhatsApp'
 run = 'move-node-to-workspace S'
 
 # C — Claude
