@@ -102,6 +102,32 @@ if $IS_MACOS && ! command_exists brew; then
 fi
 
 #######################################
+# 4b. Trust Third-Party Homebrew Taps
+#######################################
+
+# Homebrew refuses to load formulae/casks from taps it hasn't been told to
+# trust ("Refusing to load formula ... from untrusted tap ..."). Trust them
+# up front so the `brew install` calls below don't fail on a fresh machine.
+# `brew trust` is a newer Homebrew subcommand; older versions don't have the
+# concept at all, so a failure here is harmless and ignored.
+if $IS_MACOS; then
+  THIRD_PARTY_TAPS=(
+    derailed/k9s # k9s
+    cormacrelf/tap # dark-notify
+    tankerhq/repo # ruplacer
+    remotemobprogramming/brew # mob
+    ksdme/tap # ut
+    jnsahaj/lumen # lumen
+    dlvhdr/formulae # diffnav
+    nikitabobko/tap # aerospace (cask)
+  )
+  for tap in "${THIRD_PARTY_TAPS[@]}"; do
+    brew tap "$tap"
+    brew trust "$tap" 2>/dev/null || true
+  done
+fi
+
+#######################################
 # 5. Dotfiles Checkout with Conflict Handling
 #######################################
 
@@ -119,11 +145,11 @@ dotfiles config status.showUntrackedFiles no
 dotfiles config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 
 echo "Fetching latest dotfiles..."
-dotfiles fetch origin
+dotfiles fetch origin master
 
 # Try checkout; on conflict, back up conflicting files and retry
 echo "Checking out dotfiles..."
-checkout_output=$(dotfiles checkout FETCH_HEAD 2>&1) || {
+checkout_output=$(dotfiles checkout master 2>&1) || {
   conflicts=$(echo "$checkout_output" | grep "^\s" | awk '{print $1}')
   echo "The following files would be overwritten:"
   echo "$conflicts"
@@ -136,10 +162,15 @@ checkout_output=$(dotfiles checkout FETCH_HEAD 2>&1) || {
     fi
   done
 
-  dotfiles checkout FETCH_HEAD || {
+  dotfiles checkout master || {
     echo "Checkout completed with some skipped files."
   }
 }
+
+# On a fresh bare clone, local master already matches origin/master, so this
+# is a no-op. On a rerun, `fetch` above only updated the origin/master
+# tracking ref — this brings local master's working tree up to date too.
+dotfiles merge --ff-only origin/master
 
 git config --global core.excludesFile ~/.gitignore_global
 
