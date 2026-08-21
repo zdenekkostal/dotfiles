@@ -120,6 +120,7 @@ if $IS_MACOS; then
     jnsahaj/lumen # lumen
     dlvhdr/formulae # diffnav
     nikitabobko/tap # aerospace (cask)
+    felixkratz/formulae # borders
   )
   for tap in "${THIRD_PARTY_TAPS[@]}"; do
     brew tap "$tap"
@@ -181,7 +182,24 @@ git config --global core.excludesFile ~/.gitignore_global
 echo "Installing native packages..."
 
 if $IS_MACOS; then
-  brew install git tmux gnupg coreutils sheldon mas zk miniserve tree nss awscli derailed/k9s/k9s cormacrelf/tap/dark-notify TankerHQ/homebrew-repo/ruplacer remotemobprogramming/brew/mob ksdme/tap/ut jnsahaj/lumen/lumen tig mosh dlvhdr/formulae/diffnav kubernetes-cli kind helm
+  # Installed one at a time (not one big `brew install a b c ...` call) so a
+  # single broken upstream formula (bad tap checksum, etc.) can't abort the
+  # whole run out from under `set -e` and skip everything after it.
+  BREW_FORMULAE=(
+    git tmux gnupg coreutils sheldon mas zk miniserve tree nss awscli tig mosh
+    kubernetes-cli kind helm
+    derailed/k9s/k9s
+    cormacrelf/tap/dark-notify
+    TankerHQ/homebrew-repo/ruplacer
+    remotemobprogramming/brew/mob
+    ksdme/tap/ut
+    jnsahaj/lumen/lumen
+    dlvhdr/formulae/diffnav
+    FelixKratz/formulae/borders
+  )
+  for formula in "${BREW_FORMULAE[@]}"; do
+    brew install "$formula" || echo "Warning: failed to install $formula, continuing..."
+  done
 elif $IS_LINUX; then
   sudo apt-get update
   sudo apt-get install -y \
@@ -273,40 +291,18 @@ fi
 
 if $IS_MACOS; then
   echo "Installing macOS GUI applications..."
-  brew install --cask \
-    alacritty \
-    ghostty \
-    karabiner-elements \
-    cleanshot \
-    spotify \
-    notion \
-    choosy \
-    keka \
-    muzzle \
-    pixelsnap \
-    iina \
-    handbrake \
-    topnotch \
-    steam \
-    dictionaries \
-    raycast \
-    rancher \
-    orbstack \
-    firefox@developer-edition \
-    font-fira-code-nerd-font \
-    font-hack-nerd-font \
-    1password-cli \
-    codex \
-    zed \
-    claude \
-    obsidian \
-    figma \
-    linear-linear \
-    whatsapp \
-    tailscale \
-    synology-drive \
-    nikitabobko/tap/aerospace \
-    FelixKratz/formulae/borders
+  # One at a time, same reasoning as the formula loop above: one broken cask
+  # shouldn't take the rest of the run down with it under `set -e`.
+  BREW_CASKS=(
+    alacritty ghostty karabiner-elements cleanshot spotify notion choosy keka
+    muzzle pixelsnap iina handbrake topnotch steam dictionaries raycast
+    rancher orbstack firefox@developer-edition font-fira-code-nerd-font
+    font-hack-nerd-font 1password-cli codex zed claude obsidian figma
+    linear-linear whatsapp tailscale synology-drive nikitabobko/tap/aerospace
+  )
+  for cask in "${BREW_CASKS[@]}"; do
+    brew install --cask "$cask" || echo "Warning: failed to install $cask, continuing..."
+  done
 
   # Thanks https://github.com/mathiasbynens/dotfiles/blob/main/.macos
   echo "Configuring macOS defaults..."
