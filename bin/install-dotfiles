@@ -296,6 +296,7 @@ if $IS_MACOS; then
     font-fira-code-nerd-font \
     font-hack-nerd-font \
     1password-cli \
+    codex \
     zed \
     claude \
     obsidian \
