@@ -298,7 +298,7 @@ if $IS_MACOS; then
     muzzle pixelsnap iina handbrake topnotch steam dictionaries raycast
     rancher orbstack firefox@developer-edition font-fira-code-nerd-font
     font-hack-nerd-font 1password-cli codex zed claude obsidian figma
-    linear-linear whatsapp tailscale synology-drive nikitabobko/tap/aerospace
+    linear-linear whatsapp synology-drive nikitabobko/tap/aerospace
   )
   for cask in "${BREW_CASKS[@]}"; do
     brew install --cask "$cask" || echo "Warning: failed to install $cask, continuing..."
