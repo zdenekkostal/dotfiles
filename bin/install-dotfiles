@@ -181,7 +181,7 @@ git config --global core.excludesFile ~/.gitignore_global
 echo "Installing native packages..."
 
 if $IS_MACOS; then
-  brew install git tmux gnupg coreutils sheldon mas zk miniserve tree nss awscli derailed/k9s/k9s cormacrelf/tap/dark-notify TankerHQ/homebrew-repo/ruplacer remotemobprogramming/brew/mob ksdme/tap/ut jnsahaj/lumen/lumen tig mosh dlvhdr/formulae/diffnav
+  brew install git tmux gnupg coreutils sheldon mas zk miniserve tree nss awscli derailed/k9s/k9s cormacrelf/tap/dark-notify TankerHQ/homebrew-repo/ruplacer remotemobprogramming/brew/mob ksdme/tap/ut jnsahaj/lumen/lumen tig mosh dlvhdr/formulae/diffnav kubernetes-cli kind helm
 elif $IS_LINUX; then
   sudo apt-get update
   sudo apt-get install -y \
@@ -291,6 +291,7 @@ if $IS_MACOS; then
     dictionaries \
     raycast \
     rancher \
+    orbstack \
     firefox@developer-edition \
     font-fira-code-nerd-font \
     font-hack-nerd-font \
