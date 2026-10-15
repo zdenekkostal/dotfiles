@@ -187,7 +187,9 @@ if $IS_MACOS; then
   # whole run out from under `set -e` and skip everything after it.
   BREW_FORMULAE=(
     git tmux gnupg coreutils sheldon mas zk miniserve tree nss awscli tig mosh
-    kubernetes-cli kind helm
+    kubernetes-cli kind helm tuicr
+    nklmilojevic/sofka/sofka
+    devdotfast/tap/diffr
     derailed/k9s/k9s
     cormacrelf/tap/dark-notify
     TankerHQ/homebrew-repo/ruplacer
