@@ -275,7 +275,8 @@ if $IS_MACOS; then
     tailscale \
     synology-drive \
     nikitabobko/tap/aerospace \
-    FelixKratz/formulae/borders
+    FelixKratz/formulae/borders \
+    devdotfast/tap/whiteboard
 
   # Thanks https://github.com/mathiasbynens/dotfiles/blob/main/.macos
   echo "Configuring macOS defaults..."
