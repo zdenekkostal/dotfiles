@@ -54,6 +54,13 @@ outer.right = 15
 # ---------------------------------------------------------------------------
 
 [workspace-to-monitor-force-assignment]
+# Priority lists: first connected monitor wins, AeroSpace re-applies on change.
+B = ['Studio', 'built-in']
+N = ['Studio', 'built-in']
+T = ['Studio', 'built-in']
+S = ['Studio', 'built-in']
+A = ['Studio', 'built-in']
+Z = ['Sidecar', 'built-in']
 F = 'built-in'   # laptop screen — scratch / Preview / Figma
 E = 'built-in'   # laptop screen — Spotify
 P = 'main'       # whichever screen is main — presenting
