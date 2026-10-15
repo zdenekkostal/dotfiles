@@ -12,9 +12,9 @@ done
 [ -z "$MONITORS" ] && exit 0
 sleep 0.5
 
-if echo "$MONITORS" | grep -q "DELL"; then
-    for ws in B N T S C; do
-        aerospace move-workspace-to-monitor --workspace "$ws" DELL 2>/dev/null || true
+if echo "$MONITORS" | grep -q "Studio Display"; then
+    for ws in B N T S A; do
+        aerospace move-workspace-to-monitor --workspace "$ws" Studio 2>/dev/null || true
     done
 fi
 
