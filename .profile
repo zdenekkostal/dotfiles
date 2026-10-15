@@ -9,6 +9,9 @@ if [[ -d "/opt/homebrew/bin" ]]; then
   export PATH="/opt/homebrew/bin:$PATH"
 fi
 
+# Rancher Desktop Docker socket
+[[ -S "$HOME/.rd/docker.sock" ]] && export DOCKER_HOST="unix://$HOME/.rd/docker.sock"
+
 # Add mise to path so some tools can find the executables (like VSCode go plugin)
 export PATH="$HOME/.local/share/mise/shims:$PATH"
 
