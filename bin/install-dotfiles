@@ -387,19 +387,6 @@ mise exec golang -- go install github.com/daixiang0/gci@latest
 
 
 #######################################
-# 13. macOS AeroSpace Post-install
-#######################################
-
-if $IS_MACOS; then
-  echo "Compiling AeroSpace monitor watcher..."
-  swiftc "$HOME/.config/aerospace/monitors-watcher.swift" \
-    -o "$HOME/.config/aerospace/monitors-watcher"
-
-  echo "Loading AeroSpace monitor watcher launchd agent..."
-  launchctl load "$HOME/Library/LaunchAgents/com.aerospace.monitor-watcher.plist" 2>/dev/null || true
-fi
-
-#######################################
 # 14. Source Configuration
 #######################################
 
