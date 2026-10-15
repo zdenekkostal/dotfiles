@@ -7,8 +7,14 @@ return {
   'sindrets/diffview.nvim',
   cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewFileHistory' },
   keys = {
-    -- Shallow diffing (working directory changes)
-    { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = '[g]it [d]iff repo' },
+    -- Diff against origin/main (merge base — all changes since branching)
+    {
+      '<leader>gd',
+      function()
+        vim.cmd('DiffviewOpen origin/' .. get_default_branch_name() .. '...HEAD')
+      end,
+      desc = '[g]it [d]iff vs main',
+    },
     { '<leader>gD', '<cmd>DiffviewClose<cr>', desc = '[g]it [D]iff close' },
 
     -- Deep diffing (history)
