@@ -1,6 +1,6 @@
 # ~/.config/aerospace/aerospace.toml
 # Laptop-only setup: browser / Notion / Ghostty / Slack.
-# Reload after editing:  aerospace reload-config   (or alt-shift-; then r)
+# Reload after editing:  aerospace reload-config   (or hyper-; then r)
 
 config-version = 2
 
@@ -55,6 +55,8 @@ outer.right = 15
 
 [workspace-to-monitor-force-assignment]
 F = 'built-in'   # laptop screen — scratch / Preview / Figma
+E = 'built-in'   # laptop screen — Spotify
+P = 'main'       # whichever screen is main — presenting
 
 # ---------------------------------------------------------------------------
 # App rules
@@ -64,12 +66,12 @@ F = 'built-in'   # laptop screen — scratch / Preview / Figma
 
 # B — browser. Add or swap ids to match what you actually use.
 [[on-window-detected]]
-if = 'test %{app-bundle-id} = com.apple.Safari || test %{app-bundle-id} = com.google.Chrome || test %{app-bundle-id} = company.thebrowser.Browser'
+if = 'test %{app-bundle-id} = com.apple.Safari || test %{app-bundle-id} = com.google.Chrome || test %{app-bundle-id} = company.thebrowser.Browser || test %{app-bundle-id} = org.mozilla.firefoxdeveloperedition'
 run = 'move-node-to-workspace B'
 
 # N — Notion
 [[on-window-detected]]
-if = 'test %{app-bundle-id} = notion.id'
+if = 'test %{app-bundle-id} = notion.id || test %{app-bundle-id} = md.obsidian'
 run = 'move-node-to-workspace N'
 
 # T — terminal / editor
@@ -77,15 +79,35 @@ run = 'move-node-to-workspace N'
 if = 'test %{app-bundle-id} = com.mitchellh.ghostty || test %{app-bundle-id} = dev.zed.Zed'
 run = 'move-node-to-workspace T'
 
-# S — comms, quarantined so they can't interrupt you
+# S — work comms, quarantined so they can't interrupt you
 [[on-window-detected]]
-if = 'test %{app-bundle-id} = com.tinyspeck.slackmacgap || test %{app-bundle-id} = com.apple.mail || test %{app-bundle-id} = com.apple.MobileSMS || test %{app-bundle-id} = net.whatsapp.WhatsApp'
+if = 'test %{app-bundle-id} = com.tinyspeck.slackmacgap || test %{app-bundle-id} = com.apple.mail'
 run = 'move-node-to-workspace S'
 
-# C — Claude
+# W — personal chat (Messages, WhatsApp, Telegram), vertical accordion
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.apple.MobileSMS || test %{app-bundle-id} = net.whatsapp.WhatsApp || test %{app-bundle-id} = ru.keepcoder.Telegram || test %{app-bundle-id} = org.telegram.desktop'
+run = ['move-node-to-workspace W', 'layout tiles horizontal']
+
+# A — AI (Claude)
 [[on-window-detected]]
 if = 'test %{app-bundle-id} = com.anthropic.claudefordesktop'
-run = 'move-node-to-workspace C'
+run = 'move-node-to-workspace A'
+
+# E — entertainment (Spotify)
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.spotify.client'
+run = 'move-node-to-workspace E'
+
+# D — calendars
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.cron.electron || test %{app-bundle-id} = com.apple.iCal'
+run = 'move-node-to-workspace D'
+
+# F — scratch
+[[on-window-detected]]
+if = 'test %{app-bundle-id} = com.figma.Desktop || test %{app-bundle-id} = com.apple.Preview'
+run = 'move-node-to-workspace F'
 
 # Z — Zoom
 [[on-window-detected]]
@@ -94,86 +116,96 @@ run = 'move-node-to-workspace Z'
 
 # Never tile these
 [[on-window-detected]]
-if = 'test %{app-bundle-id} = com.apple.systempreferences || test %{app-bundle-id} = com.apple.finder || test %{app-bundle-id} = com.apple.ActivityMonitor || test %{app-bundle-id} = com.1password.1password || test %{app-bundle-id} = com.sindresorhus.Dato'
+if = 'test %{app-bundle-id} = com.apple.systempreferences || test %{app-bundle-id} = com.apple.finder || test %{app-bundle-id} = com.apple.ActivityMonitor || test %{app-bundle-id} = com.1password.1password || test %{app-bundle-id} = com.sindresorhus.Dato || test %{app-bundle-id} = com.firecore.infuse || test %{app-bundle-id} = pl.maketheweb.cleanshotx || test %{app-bundle-id} = pl.maketheweb.pixelsnap2 || test %{app-bundle-id} = pl.maketheweb.TopNotch || test %{app-bundle-id} = com.choosyosx.Choosy || test %{app-bundle-id} = com.aone.keka || test %{app-bundle-id} = dev.wouter.davit || test %{app-bundle-id} = org.pqrs.Karabiner-Elements.Settings || test %{app-bundle-id} = org.pqrs.Karabiner-EventViewer || test %{app-bundle-id} = com.wireguard.macos || test %{app-bundle-id} = com.synology.CloudStationUI || test %{app-bundle-id} = com.valvesoftware.steam || test %{app-bundle-id} = com.colliderli.iina || test %{app-bundle-id} = fr.handbrake.HandBrake || test %{app-bundle-id} = io.rancherdesktop.app || test %{app-bundle-id} = com.raycast.macos || test %{app-bundle-id} = com.apple.weather || test %{app-bundle-id} = com.apple.findmy || test %{app-bundle-id} = com.pixelmatorteam.pixelmator.x'
 run = 'layout floating'
 
 # ---------------------------------------------------------------------------
 # Keys
 #
-# If any alt-<letter> combo collides with a symbol you type on the Czech
-# layout, find-and-replace "alt-" -> "ctrl-alt-" across this whole block.
+# "hyper" = ctrl-alt-cmd, produced by holding Right Cmd (Karabiner).
+# Caps Lock is plain Ctrl, so every letter is free to bind.
+#
+# Layout of the keys:
+#   right hand  h j k l ; o , . /  -> navigation, layout, modes
+#   left hand   b n t s c f z       -> workspaces (letters match the names)
+#   shift       = "move" version of the same key
 # ---------------------------------------------------------------------------
 
 [mode.main.binding]
 
-# --- the bindings that carry 90% of the workflow ---
-alt-o = 'exec-and-forget ~/.config/aerospace/notes-toggle.sh'
+# --- workspaces: jump ---
+ctrl-alt-cmd-space = 'workspace-back-and-forth'    # thumb; replaces alt-tab
+ctrl-alt-cmd-b = 'workspace B'
+ctrl-alt-cmd-d = 'workspace D'
+ctrl-alt-cmd-n = 'workspace N'
+ctrl-alt-cmd-t = 'workspace T'
+ctrl-alt-cmd-s = 'workspace S'
+ctrl-alt-cmd-a = 'workspace A'
+ctrl-alt-cmd-f = 'workspace F'          # scratch: Preview, Figma, one-offs
+ctrl-alt-cmd-e = 'workspace E'
+ctrl-alt-cmd-p = 'workspace P'
+ctrl-alt-cmd-w = 'workspace W'
+ctrl-alt-cmd-z = 'workspace Z'
 
-alt-tab = 'workspace-back-and-forth'
-alt-b = 'workspace B'
-alt-n = 'workspace N'
-alt-t = 'workspace T'
-alt-s = 'workspace S'
-alt-c = 'workspace C'
-alt-f = 'workspace F'          # scratch: Preview, Figma, one-offs
-alt-z = 'workspace Z'
-
-
-# --- send the focused window elsewhere, and follow it ---
-alt-shift-b = 'move-node-to-workspace B; workspace B; flatten-workspace-tree; layout tiles horizontal'
-alt-shift-n = 'move-node-to-workspace N; workspace N; flatten-workspace-tree; layout tiles horizontal'
-alt-shift-t = 'move-node-to-workspace T; workspace T; flatten-workspace-tree; layout tiles horizontal'
-alt-shift-s = 'move-node-to-workspace S; workspace S; flatten-workspace-tree; layout tiles horizontal'
-alt-shift-c = 'move-node-to-workspace C; workspace C; flatten-workspace-tree; layout tiles horizontal'
-alt-shift-f = 'move-node-to-workspace F; workspace F; flatten-workspace-tree; layout tiles horizontal'
-alt-shift-z = 'move-node-to-workspace Z; workspace Z; flatten-workspace-tree; layout tiles horizontal'
-
-# --- move current workspace to a monitor ---
-alt-ctrl-left  = 'move-workspace-to-monitor --wrap-around prev'
-alt-ctrl-right = 'move-workspace-to-monitor --wrap-around next'
-alt-ctrl-m     = 'move-workspace-to-monitor DELL'
-alt-ctrl-b     = 'move-workspace-to-monitor built-in'
-alt-ctrl-i     = 'move-workspace-to-monitor Sidecar'
+# --- workspaces: send the focused window there, and follow it ---
+ctrl-alt-cmd-shift-b = 'exec-and-forget ~/.config/aerospace/send.sh B'
+ctrl-alt-cmd-shift-d = 'exec-and-forget ~/.config/aerospace/send.sh D'
+ctrl-alt-cmd-shift-n = 'exec-and-forget ~/.config/aerospace/send.sh N'
+ctrl-alt-cmd-shift-t = 'exec-and-forget ~/.config/aerospace/send.sh T'
+ctrl-alt-cmd-shift-s = 'exec-and-forget ~/.config/aerospace/send.sh S'
+ctrl-alt-cmd-shift-a = 'exec-and-forget ~/.config/aerospace/send.sh A'
+ctrl-alt-cmd-shift-f = 'exec-and-forget ~/.config/aerospace/send.sh F'
+ctrl-alt-cmd-shift-p = 'exec-and-forget ~/.config/aerospace/present.sh'   # float + center + cap size
+ctrl-alt-cmd-shift-e = 'exec-and-forget ~/.config/aerospace/send.sh E'
+ctrl-alt-cmd-shift-w = 'exec-and-forget ~/.config/aerospace/send.sh W'
+ctrl-alt-cmd-shift-z = 'exec-and-forget ~/.config/aerospace/send.sh Z'
 
 # --- focus within a workspace (vim directions) ---
-alt-h = 'focus left'
-alt-j = 'focus down'
-alt-k = 'focus up'
-alt-l = 'focus right'
+ctrl-alt-cmd-h = 'focus left'
+ctrl-alt-cmd-j = 'focus down'
+ctrl-alt-cmd-k = 'focus up'
+ctrl-alt-cmd-l = 'focus right'
 
 # --- move the window within the workspace ---
-alt-ctrl-h = 'move left'
-alt-ctrl-j = 'move down'
-alt-ctrl-k = 'move up'
-alt-ctrl-l = 'move right'
+ctrl-alt-cmd-shift-h = 'move left'
+ctrl-alt-cmd-shift-j = 'move down'
+ctrl-alt-cmd-shift-k = 'move up'
+ctrl-alt-cmd-shift-l = 'move right'
 
 # --- layout ---
-alt-slash = 'layout tiles horizontal vertical'      # even split, toggles direction
-alt-comma = 'layout accordion horizontal vertical'  # stack, focused one expanded
-alt-shift-space = 'layout floating tiling'          # yank one window out of the tree
-alt-m = 'fullscreen'                                # AeroSpace fullscreen, NOT the green button
+ctrl-alt-cmd-slash = 'layout tiles horizontal vertical'      # even split, toggles direction
+ctrl-alt-cmd-comma = 'layout accordion horizontal vertical'  # stack, focused one expanded
+ctrl-alt-cmd-m = 'fullscreen'                                # maximize; AeroSpace fullscreen, NOT the green button
+ctrl-alt-cmd-shift-space = 'layout floating tiling'          # yank one window out of the tree
 
 # --- size ---
-alt-minus = 'resize smart -50'
-alt-equal = 'resize smart +50'
-alt-shift-0 = 'balance-sizes'
+ctrl-alt-cmd-minus = 'resize smart -50'
+ctrl-alt-cmd-equal = 'resize smart +50'
+ctrl-alt-cmd-0 = 'balance-sizes'
 
-# --- when the layout gets weird ---
-alt-shift-r = ['flatten-workspace-tree', 'layout tiles horizontal']
+# --- misc ---
+ctrl-alt-cmd-o = 'exec-and-forget ~/.config/aerospace/notes-toggle.sh'
+ctrl-alt-cmd-shift-r = ['flatten-workspace-tree', 'layout tiles horizontal']   # when the layout gets weird
 
-# --- service mode: alt-shift-semicolon, then one key ---
-alt-shift-semicolon = 'mode service'
+# --- service mode: hyper-semicolon, then one key (esc cancels) ---
+ctrl-alt-cmd-semicolon = 'mode service'
 
 [mode.service.binding]
 r = ['reload-config', 'mode main']
 f = ['layout floating tiling', 'mode main']
 backspace = ['close-all-windows-but-current', 'mode main']
 
+# move the current workspace to a monitor (rare, so it lives here)
+left  = ['move-workspace-to-monitor --wrap-around prev', 'mode main']
+right = ['move-workspace-to-monitor --wrap-around next', 'mode main']
+m = ['move-workspace-to-monitor Studio', 'mode main']
+b = ['move-workspace-to-monitor built-in', 'mode main']
+i = ['move-workspace-to-monitor Sidecar', 'mode main']
+
 # join the focused window into its neighbour's container
 h = ['join-with left', 'mode main']
 j = ['join-with down', 'mode main']
 k = ['join-with up', 'mode main']
 l = ['join-with right', 'mode main']
-
 
 esc = 'mode main'
