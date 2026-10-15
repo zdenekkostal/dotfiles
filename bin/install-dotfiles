@@ -303,6 +303,7 @@ if $IS_MACOS; then
     rancher orbstack firefox@developer-edition font-fira-code-nerd-font
     font-hack-nerd-font 1password-cli codex zed claude obsidian figma
     linear-linear whatsapp synology-drive nikitabobko/tap/aerospace
+    devdotfast/tap/whiteboard
   )
   for cask in "${BREW_CASKS[@]}"; do
     brew install --cask "$cask" || echo "Warning: failed to install $cask, continuing..."
