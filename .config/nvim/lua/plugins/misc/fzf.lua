@@ -43,10 +43,14 @@ return {
     { "<leader>flr", function() require('fzf-lua').lsp_references() end, desc = "[f]ind [l]sp [r]eferences" },
     { "<leader>fli", function() require('fzf-lua').lsp_implementations() end, desc = "[f]ind [l]sp [i]mplementations" },
     { "<leader>fld", function() require('fzf-lua').lsp_definitions() end, desc = "[f]ind [l]sp [d]efinitions" },
+    -- Replace built-in LSP quickfix mappings with fzf pickers
+    { "gri", function() require('fzf-lua').lsp_implementations() end, desc = "LSP implementations" },
+    { "grr", function() require('fzf-lua').lsp_references() end, desc = "LSP references" },
+    { "grd", function() require('fzf-lua').lsp_definitions() end, desc = "LSP definitions" },
     -- Git pickers
-    { "<leader>fgs", function() require('fzf-lua').git_status() end, desc = "[f]ind [g]it [s]tatus" },
-    { "<leader>fgc", function() require('fzf-lua').git_commits() end, desc = "[f]ind [g]it [c]ommits" },
-    { "<leader>fgb", function() require('fzf-lua').git_branches() end, desc = "[f]ind [g]it [b]ranches" },
+    { "<leader>fvs", function() require('fzf-lua').git_status() end, desc = "[f]ind [g]it [s]tatus" },
+    { "<leader>fvc", function() require('fzf-lua').git_commits() end, desc = "[f]ind [g]it [c]ommits" },
+    { "<leader>fvb", function() require('fzf-lua').git_branches() end, desc = "[f]ind [g]it [b]ranches" },
     -- GitHub
     { "<leader>ghi", function() require('fzf-lua').gh_issues() end, desc = "[g]it[h]ub [i]ssues" },
     { "<leader>ghp", function() require('fzf-lua').gh_prs() end, desc = "[g]it[h]ub [p]ull requests" },
