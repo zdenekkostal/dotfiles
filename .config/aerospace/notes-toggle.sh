@@ -3,8 +3,16 @@ CONFIG="$HOME/.config/aerospace/aerospace.toml"
 NOTES_GAP=420
 NOTES_URL='raycast://extensions/raycast/raycast-notes/raycast-notes'
 
-is_notes_visible() {
-    swift -e '
+# `swift -e` takes ~0.2s to start; a compiled copy answers in ~0.04s. Built on
+# first use, so there is nothing to install.
+CHECKER="$HOME/.cache/aerospace/notes-visible"
+
+build_checker() {
+    mkdir -p "$(dirname "$CHECKER")"
+    local dir src
+    dir=$(mktemp -d "${TMPDIR:-/tmp}/notes-visible.XXXXXX")
+    src="$dir/notes-visible.swift"
+    cat > "$src" <<'SWIFT'
 import CoreGraphics
 let windows = CGWindowListCopyWindowInfo(.optionOnScreenOnly, kCGNullWindowID) as! [[String: Any]]
 let raycast = windows.filter {
@@ -12,7 +20,14 @@ let raycast = windows.filter {
     (($0["kCGWindowAlpha"] as? Double) ?? 0) > 0
 }
 print(raycast.isEmpty ? "no" : "yes")
-' 2>/dev/null
+SWIFT
+    swiftc -O "$src" -o "$CHECKER" 2>/dev/null
+    rm -rf "$dir"
+}
+
+is_notes_visible() {
+    [ -x "$CHECKER" ] || build_checker
+    "$CHECKER" 2>/dev/null
 }
 
 set_gap() {
