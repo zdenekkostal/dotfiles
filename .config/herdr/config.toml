@@ -33,6 +33,10 @@ open_notification_target = ""
 zoom = "prefix+z"
 close_pane = "prefix+x"
 
+# Worktrees: G new (herdr default), O open, R remove (asks to confirm)
+open_worktree = "prefix+shift+o"
+remove_worktree = "prefix+shift+r"
+
 # Session-ish
 detach = "prefix+d"
 workspace_picker = "prefix+s"
