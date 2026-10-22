@@ -1,3 +1,4 @@
+onboarding = false
 # Keybindings mirror ~/.tmux.conf (prefix C-a, vim pane nav, | and - splits).
 # herdr "workspace" ~ tmux session, herdr "tab" ~ tmux window.
 
@@ -35,8 +36,12 @@ close_pane = "prefix+x"
 # Session-ish
 detach = "prefix+d"
 workspace_picker = "prefix+s"
-settings = ""
+settings = "prefix+shift+s"
 reload_config = "prefix+r"
 
 # Ctrl+p clears the pane (tmux: bind -n C-p)
 clear_pane = "ctrl+p"
+
+[theme]
+name = "rose-pine"
+auto_switch = false
