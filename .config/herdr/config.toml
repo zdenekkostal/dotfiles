@@ -27,9 +27,9 @@ detach = ["prefix+q", "prefix+d"]
 workspace_picker = ["prefix+w", "prefix+s"]
 settings = "prefix+shift+s"   # default prefix+s is now the picker
 
-# Worktrees: shift+g new (default), shift+o open, ctrl+x remove (asks to confirm)
+# Worktrees, all shift: g new (default), o open, u remove (asks to confirm)
 open_worktree = "prefix+shift+o"
-remove_worktree = "prefix+ctrl+x"
+remove_worktree = "prefix+shift+u"
 
 # Ctrl+p clears the pane (tmux: bind -n C-p)
 clear_pane = "ctrl+p"
