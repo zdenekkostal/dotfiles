@@ -45,3 +45,27 @@ clear_pane = "ctrl+p"
 [theme]
 name = "rose-pine"
 auto_switch = false
+
+[ui.toast]
+delivery = "off"
+
+# Seamless ctrl+h/j/k/l between nvim splits and herdr panes (aimdevlee/herdr-nvim-nav)
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "herdr-nvim-nav.left"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "herdr-nvim-nav.down"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "herdr-nvim-nav.up"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "herdr-nvim-nav.right"
