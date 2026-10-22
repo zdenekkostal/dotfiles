@@ -73,3 +73,10 @@ command = "herdr-nvim-nav.up"
 key = "ctrl+l"
 type = "plugin_action"
 command = "herdr-nvim-nav.right"
+
+# Command bar / session switcher (jeffarese/herdr-bar). prefix+k is pane-up here.
+[[keys.command]]
+key = "prefix+space"
+type = "plugin_action"
+command = "herdr-bar.open"
+description = "command bar"

@@ -337,6 +337,9 @@ if command_exists herdr && ! herdr plugin list 2>/dev/null | grep -q herdr-nvim-
   echo "Installing herdr plugins..."
   herdr plugin install aimdevlee/herdr-nvim-nav --yes
 fi
+if command_exists herdr && ! herdr plugin list 2>/dev/null | grep -q herdr-bar; then
+  herdr plugin install jeffarese/herdr-bar --yes
+fi
 
 # AI coding agents (Claude Code natively, the rest via mise npm backend)
 if ! command_exists claude; then
