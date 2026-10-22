@@ -15,8 +15,8 @@ close_tab = ["prefix+shift+x", "prefix+ampersand"]
 move_tab_previous = "prefix+<"
 move_tab_next = "prefix+>"
 
-# Panes: h/j/l as default; k is the herdr-bar command bar, so up is arrow or ctrl+k
-focus_pane_up = "prefix+up"
+# Panes: h/j/k/l as default, plus arrow up
+focus_pane_up = ["prefix+k", "prefix+up"]
 resize_pane_left = "prefix+shift+h"
 resize_pane_down = "prefix+shift+j"
 resize_pane_up = "prefix+shift+k"
@@ -55,9 +55,10 @@ key = "ctrl+l"
 type = "plugin_action"
 command = "herdr-nvim-nav.right"
 
-# Command bar / session switcher (jeffarese/herdr-bar). Takes prefix+k from pane-up (ctrl+k and prefix+up still move up).
+# Command bar / session switcher (jeffarese/herdr-bar). ctrl+alt+k is what Cmd+K sends
+# when the terminal maps it (Ghostty: keybind = cmd+k=text:\x1b[107;7u).
 [[keys.command]]
-key = "prefix+k"
+key = ["prefix+space", "ctrl+alt+k"]
 type = "plugin_action"
 command = "herdr-bar.open"
 description = "command bar"
