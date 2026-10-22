@@ -369,14 +369,14 @@ if command_exists herdr && ! herdr plugin list 2>/dev/null | grep -q herdr-nvim-
   herdr plugin install aimdevlee/herdr-nvim-nav --yes
 fi
 
-# AI coding agents (Claude Code natively, the rest via npm on the mise Node)
+# AI coding agents (Claude Code natively, the rest via mise npm backend)
 if ! command_exists claude; then
   echo "Installing Claude Code..."
   curl -fsSL https://claude.ai/install.sh | bash
 fi
 if ! command_exists codex || ! command_exists pi; then
   echo "Installing Codex and pi..."
-  mise exec nodejs -- npm install -g @openai/codex @mariozechner/pi-coding-agent
+  mise use --global npm:@openai/codex@latest npm:@mariozechner/pi-coding-agent@latest
 fi
 
 # herdr agent-state integrations (sidebar status for each agent)
