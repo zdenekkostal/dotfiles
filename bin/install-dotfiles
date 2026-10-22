@@ -332,6 +332,12 @@ if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
   TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins/" ~/.tmux/plugins/tpm/bin/install_plugins
 fi
 
+# herdr plugin behind the ctrl+h/j/k/l bindings in ~/.config/herdr/config.toml
+if command_exists herdr && ! herdr plugin list 2>/dev/null | grep -q herdr-nvim-nav; then
+  echo "Installing herdr plugins..."
+  herdr plugin install aimdevlee/herdr-nvim-nav --yes
+fi
+
 #######################################
 # 12. Neovim Dependencies
 #######################################
