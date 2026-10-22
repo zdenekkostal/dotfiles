@@ -17,3 +17,6 @@ font-size = 12
 # font-style-bold = false
 font-style-italic = false
 font-style-bold-italic = false
+
+# Cmd+K opens the herdr-bar command bar (herdr binds ctrl+alt+k); replaces the default clear-screen
+keybind = cmd+k=text:\x1b[107;7u
