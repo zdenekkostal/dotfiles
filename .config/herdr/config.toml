@@ -21,7 +21,7 @@ move_tab_next = "prefix+>"
 # Panes: vim-style focus (h/j/k/l), resize with H/J/K/L
 focus_pane_left = "prefix+h"
 focus_pane_down = "prefix+j"
-focus_pane_up = "prefix+k"
+focus_pane_up = ""   # prefix+k is the herdr-bar command bar; use ctrl+k (herdr-nvim-nav)
 focus_pane_right = "prefix+l"
 resize_pane_left = "prefix+shift+h"
 resize_pane_down = "prefix+shift+j"
@@ -74,9 +74,9 @@ key = "ctrl+l"
 type = "plugin_action"
 command = "herdr-nvim-nav.right"
 
-# Command bar / session switcher (jeffarese/herdr-bar). prefix+k is pane-up here.
+# Command bar / session switcher (jeffarese/herdr-bar). Takes prefix+k from pane-up (ctrl+k still moves up).
 [[keys.command]]
-key = "prefix+space"
+key = "prefix+k"
 type = "plugin_action"
 command = "herdr-bar.open"
 description = "command bar"
