@@ -148,6 +148,15 @@ dotfiles config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 echo "Fetching latest dotfiles..."
 dotfiles fetch origin master
 
+if [[ -d "$DOTFILES_DIR/rebase-merge" || -d "$DOTFILES_DIR/rebase-apply" ]]; then
+  echo "An unfinished dotfiles rebase exists. Resolve it before running this installer."
+  exit 1
+fi
+
+if ! dotfiles show-ref --verify --quiet refs/heads/master; then
+  dotfiles branch master origin/master
+fi
+
 # Try checkout; on conflict, back up conflicting files and retry
 echo "Checking out dotfiles..."
 checkout_output=$(dotfiles checkout master 2>&1) || {
@@ -164,13 +173,11 @@ checkout_output=$(dotfiles checkout master 2>&1) || {
   done
 
   dotfiles checkout master || {
-    echo "Checkout completed with some skipped files."
+    echo "Could not check out master; stopping without installing packages."
+    exit 1
   }
 }
 
-# On a fresh bare clone, local master already matches origin/master, so this
-# is a no-op. On a rerun, `fetch` above only updated the origin/master
-# tracking ref — this brings local master's working tree up to date too.
 dotfiles merge --ff-only origin/master
 
 git config --global core.excludesFile ~/.gitignore_global
