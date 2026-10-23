@@ -184,9 +184,17 @@ fi
 # 7. Mise Installation & CLI Tools
 #######################################
 
+export PATH="$HOME/.local/bin:$PATH"
+
 if ! command_exists mise; then
   echo "Installing mise..."
   curl -fsSL https://mise.run | sh
+elif $IS_MACOS && command_exists brew && [[ "$(command -v mise)" == "$(brew --prefix)/bin/mise" ]]; then
+  echo "Updating mise via Homebrew..."
+  brew upgrade mise
+else
+  echo "Updating mise..."
+  mise self-update --yes
 fi
 
 # Add mise shims to PATH for this script session
