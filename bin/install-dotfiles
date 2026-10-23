@@ -251,6 +251,7 @@ if $IS_MACOS; then
     cleanshot \
     spotify \
     notion \
+    notion-calendar \
     choosy \
     keka \
     muzzle \
