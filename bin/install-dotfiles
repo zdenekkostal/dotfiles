@@ -121,9 +121,18 @@ dotfiles config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 echo "Fetching latest dotfiles..."
 dotfiles fetch origin
 
+if [[ -d "$DOTFILES_DIR/rebase-merge" || -d "$DOTFILES_DIR/rebase-apply" ]]; then
+  echo "An unfinished dotfiles rebase exists. Resolve it before running this installer."
+  exit 1
+fi
+
+if ! dotfiles show-ref --verify --quiet refs/heads/main; then
+  dotfiles branch main origin/main
+fi
+
 # Try checkout; on conflict, back up conflicting files and retry
 echo "Checking out dotfiles..."
-checkout_output=$(dotfiles checkout FETCH_HEAD 2>&1) || {
+checkout_output=$(dotfiles checkout main 2>&1) || {
   conflicts=$(echo "$checkout_output" | grep "^\s" | awk '{print $1}')
   echo "The following files would be overwritten:"
   echo "$conflicts"
@@ -136,10 +145,13 @@ checkout_output=$(dotfiles checkout FETCH_HEAD 2>&1) || {
     fi
   done
 
-  dotfiles checkout FETCH_HEAD || {
-    echo "Checkout completed with some skipped files."
+  dotfiles checkout main || {
+    echo "Could not check out main; stopping without installing packages."
+    exit 1
   }
 }
+
+dotfiles merge --ff-only origin/main
 
 git config --global core.excludesFile ~/.gitignore_global
 
