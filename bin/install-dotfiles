@@ -298,7 +298,7 @@ if $IS_MACOS; then
   # One at a time, same reasoning as the formula loop above: one broken cask
   # shouldn't take the rest of the run down with it under `set -e`.
   BREW_CASKS=(
-    alacritty ghostty karabiner-elements cleanshot spotify notion choosy keka
+    alacritty ghostty karabiner-elements cleanshot spotify notion notion-calendar choosy keka
     muzzle pixelsnap iina handbrake topnotch steam dictionaries raycast
     rancher orbstack firefox@developer-edition font-fira-code-nerd-font
     font-hack-nerd-font 1password-cli codex zed claude obsidian figma handy
