@@ -264,6 +264,7 @@ fi
 
 if $IS_MACOS; then
   echo "Installing macOS GUI applications..."
+  brew install --formula FelixKratz/formulae/borders
   brew install --cask \
     alacritty \
     ghostty \
@@ -297,7 +298,6 @@ if $IS_MACOS; then
     tailscale \
     synology-drive \
     nikitabobko/tap/aerospace \
-    FelixKratz/formulae/borders \
     devdotfast/tap/whiteboard
 
   # Thanks https://github.com/mathiasbynens/dotfiles/blob/main/.macos
