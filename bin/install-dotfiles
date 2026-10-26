@@ -187,7 +187,7 @@ if $IS_MACOS; then
   # whole run out from under `set -e` and skip everything after it.
   BREW_FORMULAE=(
     git tmux gnupg coreutils sheldon mas zk miniserve tree nss awscli tig mosh
-    kubernetes-cli kind helm tuicr herdr
+    kubernetes-cli kind helm tuicr herdr tilt
     nklmilojevic/sofka/sofka
     devdotfast/tap/diffr
     derailed/k9s/k9s
@@ -301,7 +301,7 @@ if $IS_MACOS; then
     alacritty ghostty karabiner-elements cleanshot spotify notion choosy keka
     muzzle pixelsnap iina handbrake topnotch steam dictionaries raycast
     rancher orbstack firefox@developer-edition font-fira-code-nerd-font
-    font-hack-nerd-font 1password-cli codex zed claude obsidian figma
+    font-hack-nerd-font 1password-cli codex zed claude obsidian figma handy
     linear-linear whatsapp synology-drive nikitabobko/tap/aerospace
     devdotfast/tap/whiteboard
   )
