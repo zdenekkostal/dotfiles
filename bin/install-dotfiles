@@ -295,7 +295,6 @@ if $IS_MACOS; then
     figma \
     linear-linear \
     whatsapp \
-    tailscale \
     synology-drive \
     nikitabobko/tap/aerospace \
     devdotfast/tap/whiteboard
