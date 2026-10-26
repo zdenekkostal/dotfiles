@@ -6,7 +6,7 @@ return {
 
   opts = {
     servers = {
-      ts_ls = {},
+      tsc = {},
       jsonls = {},
       terraformls = {},
       ruff = {},
