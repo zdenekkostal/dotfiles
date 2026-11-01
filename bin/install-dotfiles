@@ -121,6 +121,7 @@ if $IS_MACOS; then
     dlvhdr/formulae # diffnav
     nikitabobko/tap # aerospace (cask)
     felixkratz/formulae # borders
+    steipete/tap # codexbar
   )
   for tap in "${THIRD_PARTY_TAPS[@]}"; do
     brew tap "$tap"
@@ -205,6 +206,7 @@ if $IS_MACOS; then
     jnsahaj/lumen/lumen
     dlvhdr/formulae/diffnav
     FelixKratz/formulae/borders
+    steipete/tap/codexbar
   )
   for formula in "${BREW_FORMULAE[@]}"; do
     brew install "$formula" || echo "Warning: failed to install $formula, continuing..."
@@ -319,6 +321,7 @@ if $IS_MACOS; then
     font-hack-nerd-font 1password-cli codex zed claude obsidian figma handy
     linear-linear whatsapp synology-drive nikitabobko/tap/aerospace
     devdotfast/tap/whiteboard
+    codexbar
   )
   for cask in "${BREW_CASKS[@]}"; do
     brew install --cask "$cask" || echo "Warning: failed to install $cask, continuing..."
