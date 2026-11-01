@@ -400,6 +400,11 @@ if ! command_exists codex || ! command_exists pi; then
   mise use --global npm:@openai/codex@latest npm:@mariozechner/pi-coding-agent@latest
 fi
 
+# Herdr skill for Codex and Claude Code
+echo "Installing Herdr skill for Codex and Claude Code..."
+mise exec nodejs -- npx --yes skills add herdrdev/herdr --skill herdr --agent codex claude-code --global --yes || \
+  echo "Warning: failed to install Herdr skill, continuing..."
+
 # herdr agent-state integrations (sidebar status for each agent)
 if command_exists herdr; then
   for agent in claude codex pi; do
