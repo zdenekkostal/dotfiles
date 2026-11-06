@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Driverless key remaps (replaces the Karabiner simple_modifications).
+	     Usage IDs: 0x700000039 Caps Lock -> 0x7000000E0 Left Control
+	                0x700000058 Keypad Enter -> 0x700000028 Return
+	                0x700000064 Non-US Backslash -> 0x700000035 Grave/Tilde -->
+	<key>Label</key>
+	<string>com.zdenekkostal.hidutil-remap</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/hidutil</string>
+		<string>property</string>
+		<string>--set</string>
+		<string>{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0},{"HIDKeyboardModifierMappingSrc":0x700000058,"HIDKeyboardModifierMappingDst":0x700000028},{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+</dict>
+</plist>

@@ -350,6 +350,12 @@ if $IS_MACOS; then
   # Turn on tap to click
   defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 
+  # App shortcuts (System Settings > Keyboard > App Shortcuts)
+  # Modifiers: ^ Ctrl, @ Cmd, ~ Option, $ Shift. Restart the app to apply.
+  # Messages' container is privacy-protected: needs Full Disk Access for the terminal.
+  defaults write com.apple.MobileSMS NSUserKeyEquivalents -dict-add "Go to Next Conversation" '^j' || echo "Skipped Messages shortcuts (grant terminal Full Disk Access)"
+  defaults write com.apple.MobileSMS NSUserKeyEquivalents -dict-add "Go to Previous Conversation" '^k' || true
+
   # Enable thin strokes in Alacritty
   defaults write -g AppleFontSmoothing -int 0
 
@@ -357,6 +363,16 @@ if $IS_MACOS; then
   if [[ ! -f "/Library/Keyboard Layouts/Czech_Programmers_0.2.keylayout" ]]; then
     echo "Installing keyboard layout..."
     sudo cp "$HOME/keyboard_layouts/Czech_Programmers_0.2.keylayout" "/Library/Keyboard Layouts/"
+  fi
+
+  # Driverless key remaps via hidutil (Caps Lock -> Control, Keypad Enter -> Return,
+  # Non-US Backslash -> Grave). Used instead of Karabiner's driver, which fails to
+  # activate on macOS 27. The plist is tracked in dotfiles; (re)load it here.
+  HIDUTIL_PLIST="$HOME/Library/LaunchAgents/com.zdenekkostal.hidutil-remap.plist"
+  if [[ -f "$HIDUTIL_PLIST" ]]; then
+    echo "Loading hidutil key remap..."
+    launchctl bootout "gui/$(id -u)" "$HIDUTIL_PLIST" 2>/dev/null || true
+    launchctl bootstrap "gui/$(id -u)" "$HIDUTIL_PLIST" || echo "Warning: failed to load hidutil remap, continuing..."
   fi
 
   # Install App Store applications if signed in
