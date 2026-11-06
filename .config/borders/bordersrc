@@ -3,7 +3,7 @@ options=(
   style=round
   width=8.0
   hidpi=on
-  active_color="glow(0xffc4a7e7)"  # rose pine iris with glow
+  active_color="glow(0xfff6c177)"  # rose pine gold with glow (was iris 0xffc4a7e7)
   inactive_color=0xff524f67        # rose pine highlight high
 )
 borders "${options[@]}"
