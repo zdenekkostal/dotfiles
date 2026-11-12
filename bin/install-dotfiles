@@ -195,7 +195,7 @@ if $IS_MACOS; then
   # whole run out from under `set -e` and skip everything after it.
   BREW_FORMULAE=(
     git tmux gnupg coreutils sheldon mas zk miniserve tree nss awscli tig mosh
-    kubernetes-cli kind helm tuicr herdr tilt
+    kubernetes-cli kind helm tuicr herdr tilt tlrc
     nklmilojevic/sofka/sofka
     devdotfast/tap/diffr
     derailed/k9s/k9s
@@ -263,7 +263,6 @@ mise use --global \
   difftastic@latest \
   ast-grep@latest \
   television@latest \
-  tlrc@latest \
   shellcheck@latest \
   mkcert@latest \
   gotestsum@latest \
@@ -315,7 +314,7 @@ if $IS_MACOS; then
   # One at a time, same reasoning as the formula loop above: one broken cask
   # shouldn't take the rest of the run down with it under `set -e`.
   BREW_CASKS=(
-    alacritty ghostty karabiner-elements cleanshot spotify notion notion-calendar choosy keka
+    alacritty ghostty cleanshot spotify notion notion-calendar choosy keka
     muzzle pixelsnap iina handbrake topnotch steam dictionaries raycast
     rancher orbstack firefox@developer-edition font-fira-code-nerd-font
     font-hack-nerd-font 1password-cli codex zed claude obsidian figma handy
@@ -365,9 +364,12 @@ if $IS_MACOS; then
     sudo cp "$HOME/keyboard_layouts/Czech_Programmers_0.2.keylayout" "/Library/Keyboard Layouts/"
   fi
 
-  # Driverless key remaps via hidutil (Caps Lock -> Control, Keypad Enter -> Return,
-  # Non-US Backslash -> Grave). Used instead of Karabiner's driver, which fails to
-  # activate on macOS 27. The plist is tracked in dotfiles; (re)load it here.
+  # Key remaps. Karabiner-Elements was removed: its DriverKit extension fails to
+  # activate on macOS 27 (OSSystemExtensionErrorDomain error 10). It is replaced by:
+  #   - hidutil (below): Caps Lock -> Control, Keypad Enter -> Return,
+  #     Non-US Backslash -> Grave
+  #   - Raycast's Hyper Key (Settings > Advanced > Hyper Key): the Hyper modifier
+  # The plist is tracked in dotfiles; (re)load it here.
   HIDUTIL_PLIST="$HOME/Library/LaunchAgents/com.zdenekkostal.hidutil-remap.plist"
   if [[ -f "$HIDUTIL_PLIST" ]]; then
     echo "Loading hidutil key remap..."
