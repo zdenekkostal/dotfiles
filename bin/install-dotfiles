@@ -184,6 +184,45 @@ dotfiles merge --ff-only origin/master
 git config --global core.excludesFile ~/.gitignore_global
 
 #######################################
+# 5b. Workflow repo (personal Claude Code skills/agents/CLAUDE.md)
+#######################################
+
+# Same bare-repo pattern as dotfiles, but a separate repo whose files live
+# under ~/workflow (invisible to dotfiles). link.sh symlinks them into ~/.claude.
+# Non-fatal: on a fresh machine the SSH key may not be set up yet; rerun later.
+WORKFLOW_DIR="$HOME/.workflow"
+WORKFLOW_REMOTE="git@github.com:zdenekkostal/workflow.git"
+
+workflow() {
+  git --git-dir="$WORKFLOW_DIR/" --work-tree="$HOME" "$@"
+}
+
+if [[ ! -d "$WORKFLOW_DIR" ]]; then
+  echo "Cloning workflow..."
+  git clone --bare "$WORKFLOW_REMOTE" "$WORKFLOW_DIR" || \
+    echo "Warning: could not clone workflow (SSH access to GitHub?), continuing..."
+fi
+
+if [[ -d "$WORKFLOW_DIR" ]]; then
+  workflow config status.showUntrackedFiles no
+  workflow config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+  # Commit identity is per-repo (global config uses useConfigOnly); reuse dotfiles'.
+  for key in user.name user.email; do
+    value=$(dotfiles config "$key" 2>/dev/null) && workflow config "$key" "$value"
+  done
+
+  if workflow fetch origin master 2>/dev/null; then
+    workflow show-ref --verify --quiet refs/heads/master || workflow branch master origin/master
+    workflow checkout master || echo "Warning: workflow checkout conflicts with existing files; resolve manually."
+    workflow merge --ff-only origin/master || true
+  else
+    echo "Warning: could not fetch workflow, continuing..."
+  fi
+
+  [[ -x "$HOME/workflow/link.sh" ]] && "$HOME/workflow/link.sh"
+fi
+
+#######################################
 # 6. Native Package Manager Dependencies
 #######################################
 

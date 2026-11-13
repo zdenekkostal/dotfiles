@@ -56,6 +56,7 @@ alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '(
 alias apply-patch="pbpaste | sed -e '$a' | git apply"
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias workflow='/usr/bin/git --git-dir=$HOME/.workflow/ --work-tree=$HOME'
 
 alias rg="rg --hidden --glob '!.git'"
 
