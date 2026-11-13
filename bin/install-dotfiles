@@ -321,6 +321,7 @@ if $IS_MACOS; then
     linear-linear whatsapp synology-drive nikitabobko/tap/aerospace
     devdotfast/tap/whiteboard
     codexbar
+    herdr-app
   )
   for cask in "${BREW_CASKS[@]}"; do
     brew install --cask "$cask" || echo "Warning: failed to install $cask, continuing..."
