@@ -408,11 +408,10 @@ if command_exists herdr && ! herdr plugin list 2>/dev/null | grep -q herdr-bar; 
   herdr plugin install jeffarese/herdr-bar --yes
 fi
 
-# AI coding agents (Claude Code natively, the rest via mise npm backend)
-if ! command_exists claude; then
-  echo "Installing Claude Code..."
-  curl -fsSL https://claude.ai/install.sh | bash
-fi
+# AI coding agents (Claude Code via mise, the rest via mise npm backend)
+# Manage Claude independently of Node; an existing shim may belong to another Node version.
+echo "Installing Claude Code via mise..."
+mise use --global claude@latest
 if ! command_exists codex || ! command_exists pi; then
   echo "Installing Codex and pi..."
   mise use --global npm:@openai/codex@latest npm:@mariozechner/pi-coding-agent@latest
