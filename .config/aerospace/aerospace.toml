@@ -17,7 +17,7 @@ key-mapping.preset = 'qwerty'
 
 # Under config-version 2 these must be listed explicitly, otherwise empty
 # workspaces vanish from the menu bar until they have a window in them.
-persistent-workspaces = ['B', 'N', 'T', 'S', 'C', 'F', 'Z']
+persistent-workspaces = ['B', 'N', 'T', 'S', 'C', 'F', 'Z', 'U']
 
 # ---------------------------------------------------------------------------
 # Layout defaults
@@ -159,6 +159,7 @@ ctrl-alt-cmd-p = 'workspace P'
 ctrl-alt-cmd-r = 'workspace R'          # reading: Books
 ctrl-alt-cmd-w = 'workspace W'
 ctrl-alt-cmd-z = 'workspace Z'
+ctrl-alt-cmd-u = 'workspace U'          # Learn / University
 
 # --- workspaces: send the focused window there, and follow it ---
 ctrl-alt-cmd-shift-b = 'exec-and-forget ~/.config/aerospace/send.sh B'
@@ -172,6 +173,7 @@ ctrl-alt-cmd-shift-p = 'exec-and-forget ~/.config/aerospace/present.sh'   # floa
 ctrl-alt-cmd-shift-e = 'exec-and-forget ~/.config/aerospace/send.sh E'
 ctrl-alt-cmd-shift-w = 'exec-and-forget ~/.config/aerospace/send.sh W'
 ctrl-alt-cmd-shift-z = 'exec-and-forget ~/.config/aerospace/send.sh Z'
+ctrl-alt-cmd-shift-u = 'exec-and-forget ~/.config/aerospace/send.sh U'
 
 # --- focus within a workspace (vim directions) ---
 ctrl-alt-cmd-h = 'focus left'
