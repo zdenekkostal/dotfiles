@@ -317,7 +317,7 @@ if $IS_MACOS; then
     alacritty ghostty cleanshot spotify notion notion-calendar choosy keka
     muzzle pixelsnap iina handbrake topnotch steam dictionaries raycast
     rancher orbstack firefox@developer-edition font-fira-code-nerd-font
-    font-hack-nerd-font 1password-cli codex zed claude obsidian figma handy
+    font-hack-nerd-font 1password-cli zed claude obsidian figma handy
     linear-linear whatsapp synology-drive nikitabobko/tap/aerospace
     devdotfast/tap/whiteboard
     codexbar
@@ -408,13 +408,15 @@ if command_exists herdr && ! herdr plugin list 2>/dev/null | grep -q herdr-bar; 
   herdr plugin install jeffarese/herdr-bar --yes
 fi
 
-# AI coding agents (Claude Code via mise, the rest via mise npm backend)
-# Manage Claude independently of Node; an existing shim may belong to another Node version.
-echo "Installing Claude Code via mise..."
-mise use --global claude@latest
-if ! command_exists codex || ! command_exists pi; then
-  echo "Installing Codex and pi..."
-  mise use --global npm:@openai/codex@latest npm:@mariozechner/pi-coding-agent@latest
+# Use standalone agents so project Node versions cannot affect them.
+# Explicit @latest requests install or update on every run, even with existing shims.
+echo "Installing or updating Codex and Claude Code globally via mise..."
+mise use --global codex@latest claude@latest
+# Migrate the old npm request only after the standalone installation succeeds.
+mise unuse --global --no-prune npm:@openai/codex
+if ! command_exists pi; then
+  echo "Installing pi..."
+  mise use --global npm:@mariozechner/pi-coding-agent@latest
 fi
 
 # Herdr skill for Codex and Claude Code
