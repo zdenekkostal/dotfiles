@@ -24,6 +24,10 @@ if [[ -d "/opt/homebrew/bin" ]]; then
   export PATH="/opt/homebrew/bin:$PATH"
 fi
 
+# Newer Homebrew asks "Do you want to proceed? [y/n]" before installs/upgrades;
+# auto-approve so the script runs unattended.
+export HOMEBREW_NO_ASK=1
+
 #######################################
 # 2. Helper Functions
 #######################################
@@ -179,7 +183,20 @@ checkout_output=$(dotfiles checkout master 2>&1) || {
   }
 }
 
-dotfiles merge --ff-only origin/master
+# Local master may have unpushed commits (dotfiles evolve on several machines),
+# so rebase them onto the latest origin/master instead of requiring a fast-forward.
+# --autostash keeps uncommitted tracked edits across the rebase.
+echo "Rebasing local dotfiles onto origin/master..."
+dotfiles rebase --autostash origin/master || {
+  echo ""
+  echo "Rebase stopped (conflicts?). Resolve with:"
+  echo "  git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME status"
+  echo "then 'rebase --continue' (or '--abort') and rerun install-dotfiles."
+  exit 1
+}
+if [[ "$(dotfiles rev-list --count origin/master..master)" -gt 0 ]]; then
+  echo "Note: local master has unpushed commits. Push with: dotfiles push origin master"
+fi
 
 git config --global core.excludesFile ~/.gitignore_global
 
@@ -214,7 +231,8 @@ if [[ -d "$WORKFLOW_DIR" ]]; then
   if workflow fetch origin master 2>/dev/null; then
     workflow show-ref --verify --quiet refs/heads/master || workflow branch master origin/master
     workflow checkout master || echo "Warning: workflow checkout conflicts with existing files; resolve manually."
-    workflow merge --ff-only origin/master || true
+    workflow rebase --autostash origin/master || \
+      echo "Warning: workflow rebase failed; resolve manually (rebase --abort to undo)."
   else
     echo "Warning: could not fetch workflow, continuing..."
   fi
